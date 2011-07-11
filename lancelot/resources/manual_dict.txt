@@ -1,0 +1,1270 @@
+AALOAD : Bytecode
+AASTORE : Bytecode
+abbr => abbreviation
+abbrev => abbreviation
+abbrevs (pl of 'abbrev')
+accel => accelerate (verb)
+accum => accumulate (verb)
+accurev : Vendor
+ack => acknowledgment. acknowledge (verb) : TCP package
+acks (pl of 'ack')
+acos => arccosine : Trigonometric function
+adaptee : One who adapts or is adapted
+ADD : Bytecode?
+addon
+addons (pl of 'addon')
+addr => address
+addrs (pl of 'addr')
+adhoc => ad hoc (adjective)
+adm => administrator
+admin => administrator
+admins (pl of 'admin')
+AES : Encryption algorithm?
+affordance
+AI : Artificial Intelligence
+AIFF : Audio Interchange File Format / File format?
+airtime
+AIX : Operating system
+ajc : AspectJ compiler
+alg => algorithm
+alloc => allocate
+ALOAD : Bytecode
+ALT : The Alt key?
+ambig => ambiguous
+AND => Bytecode. Logical operator
+ANEWARRAY => Bytecode
+ANSI
+antcall : Ant task
+ANTLR : Application
+AOM : Application Object Model?
+AOP : Aspect-Oriented Programming
+API : Application Programming Interface
+APL : Programming language
+app => application
+apps (pl of 'app')
+appserver => application server
+ARETURN : Bytecode
+arg => argument
+args (pl of 'arg')
+arith => arithmetic (adjective)
+arr => array
+ASAP : as soon as possible
+ASCII : Character set
+ASM : Application
+AspectJ : Application
+assoc : associate (verb). association
+AST : Abstract Syntax Tree
+ASTORE : Bytecode
+asym
+asyn => asynchronous. asynchronously (adverb)
+async => asynchronous. asynchronously (adverb)
+asynch => asynchronous. asynchronously (adverb)
+asynchronously (adverb)
+atan : Function
+ATHROW : Bytecode
+atof : C++ function
+atoi : C++ function
+atol : C++ function
+attr => attribute
+attrib => attribute
+attribs (pl of 'attrib')
+attrs (pl of 'attr')
+auth => authenticate (verb). authentication
+authentification
+auths (pl of 'auth')
+autobox (verb)
+autocommit (verb)
+autocomplete (verb)
+autoconnect (verb)
+autoflush (verb)
+autogenerate (verb)
+autoincrement (verb)
+aux => auxiliary (adjective)
+avg => average (noun, adjective, verb)
+AWT : Java GUI Toolkit
+Azureus : Application
+backend
+backoff
+backslash
+backtrace
+BALOAD : Bytecode
+basedir => base directory
+BASTORE : Bytecode
+BCC : Blind Carbon Copy
+BCEL : Byte Code Engineering Library
+BEA : Vendor
+benchmarking
+bezier (adjective) : Part of the term 'bezier curve'
+binarysearch : Binary search
+binarysort : Binary sort
+BIPUSH : Bytecode
+bitmask
+bitrate
+bitstream
+bitwise (adjective)
+blit (verb) : Graphics operation
+BLOB : DB type
+blocksize
+blogging (verb)
+BlueJ : Application
+bluetooth (noun, adjective)
+BMP : BitMap
+bool => boolean
+booleans (pl of 'boolean')
+bootstrap (verb)
+Borland : Vendor
+breakpoint
+breakpoints (pl of 'breakpoint')
+BSD : Operating system
+btree => B-tree
+buf => buffer
+bufs (pl of 'buf')
+bugzilla : Application
+buildfile => build file
+bytecode
+bytecodes (pl of 'bytecode')
+caaaar : Lisp function
+caaadr : Lisp function
+caaar : Lisp function
+caadar: Lisp function
+caaddr : Lisp function
+caadr : Lisp function
+caar : Lisp function
+CAB : Cabinet file format
+cadaar : Lisp function
+cadadr : Lisp function
+cadar : Lisp function
+caddar : Lisp function
+cadddr : Lisp function
+caddr : Lisp function
+cadr : Lisp function
+calc => calculate (verb)
+callee : Instance being called
+callees (pl of 'callee')
+callsite
+callstack
+CALOAD : Bytecode
+cannot (special)
+casesensitive => case sensitive (adjective)
+CASTORE : Bytecode
+catalina : Application
+cdaaar : Lisp function
+cdaadr : Lisp function
+cdaar : Lisp function
+cdadar : Lisp function
+cdaddr : Lisp function
+cdadr : Lisp function
+cdar : Lisp function
+CDATA : XML element
+cddaar : Lisp function
+cddadr : Lisp function
+cddar : Lisp function
+cdddar : Lisp function
+cddddr : Lisp function
+cdddr : Lisp function
+cddr : Lisp function
+cdr : Lisp function
+cellpadding : HTML element
+cellspacing : HTML element
+CGI : Common Gateway Interface
+cglib : Code generation library
+char => character : data type
+charset => character set
+charsets (pl of 'charset')
+chdir : UNIX command
+cheatsheet
+checkbox
+checkboxes (pl of 'checkbox')
+CHECKCAST : Bytecode
+checkin
+checkins (pl of 'checkin')
+chgrp : UNIX command
+chmod : UNIX command
+chown : UNIX command
+chroot : UNIX command
+classfile => class file
+classfiles (pl of 'classfile')
+classloader
+classloaders (pl of 'classloader')
+classname
+classnames (pl of 'classname')
+classpath
+classpaths (pl of 'classpath')
+clinit : Java class initializer method
+CLOB : DB type
+cloneable : Java interface
+cloudscape : Application
+CLR : Common Language Runtime
+comparator: something which compares something
+cmd => command : Windows command
+cmdline => command line
+cmds (pl of 'cmd')
+cmp => compare (verb)
+CMYK : Cyan Magenta Yellow BlacK color model
+cobertura : Application
+codebase
+codebases (pl of 'codebase')
+codec : Coder-decoder
+codecs (pl of 'codec')
+codegen => generate code. code generation
+colspan : HTML element
+COM
+commandline
+compilable (adjective)
+conc => concatinate (verb)
+concat => concatinate (verb)
+cond => condition. conditional (adjective). conditionally (adverb)
+conf => configuration. configure (verb)
+config => configuration. configure (verb)
+configs (pl of 'config')
+conn => connection
+const => constant
+conv => convert (verb)
+coord => coordinate
+coords (pl of 'coordinate')
+corba : Technology
+coroutine
+could (special)
+cpp : C++
+CPU : Central Processing Unit
+CRC : Cyclic Redundancy Check
+cron : UNIX service
+crosshair (noun, adjective)
+crypto => cryptography
+CSS : Cascading Stylesheets
+csv : Comma-Separated Values
+ctor => constructor
+ctors (pl of 'ctor')
+CTRL : The Control Key
+ctx => context
+CUI : Command line User Interface
+curr => current (adjective)
+customizable (adjective)
+customization
+customizations (pl of 'customization')
+CVS : Application
+cxn => connection
+DADD : Bytecode
+DAG : Directed Acyclic Graph
+DALOAD : Bytecode
+DAO : Data Access Object
+DASTORE : Bytecode
+datafile => data file
+dataflow => data flow
+datagram
+datagrams (pl of 'datagram')
+datalink
+dataset
+datasets (pl of 'dataset')
+datasource
+datasources (pl of 'datasource')
+datastore
+datatype
+datatypes (pl of 'datatype')
+datetime : type
+DB : database
+DDIV : Bytecode
+DDL : Data Definition Language
+dealloc => deallocate (verb)
+deallocate (verb)
+deathmarch
+deathmarches (pl of 'deathmarch')
+decl => declaration. declare (verb)
+decls (pl of 'decl')
+decompile (verb)
+decr => decrement (verb)
+def => define (verb). definition
+defrag => defragment (verb)
+defragment (verb)
+defs (pl of 'def')
+defun => define function (verb) : Lisp syntax
+del => delete (verb)
+delim => delimiter. delimitation. delimit (verb)
+delimiter : a character that marks the beginning or end of a unit of data
+delimiters (pl of 'delimiter')
+delims (pl of 'delim')
+dep => dependency
+deps (pl of 'dep')
+dequeue (verb)
+DERBY : Application
+deref => dereference (verb)
+dereference (verb)
+dereg => deregister (verb)
+deregister (verb)
+desc => description
+descs (pl of 'desc')
+deserialise (verb)
+deserialize (verb)
+destructor
+dev => device. development
+DHCP : Dynamic Host Configuration Protocol
+dict => dictionary
+dicts (pl of 'dict')
+didnt => did not
+diff => difference : UNIX tool
+diffs (pl of 'diff')
+dir => directory : Windows command
+dirname => directory name
+dirnames (pl of 'dirname')
+dirs (pl of 'dir')
+disassembler
+dist => distribution. distribute (verb). distributed (adjective)
+distrib => distribution. distributed (adjective)
+DIV : Bytecode
+DLL : Dynamically Linked Library
+DLOAD : Bytecode
+DMUL : Bytecode
+DNEG : Bytecode
+DNS : Domain Name System
+doclet
+DOCTYPE : HTML element
+dojo
+DOM : Document Object Model
+DOS : Operating system
+downlink
+downlinks (pl of 'downlink')
+DREM : Bytecode
+DRETURN : Bytecode
+dropdown (adjective)
+DSTORE : Bytecode
+DSUB : Bytecode
+DTD : XML element
+dtds (pl of 'DTD')
+DUP : Bytecode
+dupl => duplicate (noun, verb)
+DVD
+EAR
+ECC
+ECMA
+EJB
+elem => element
+elems (pl of 'elem')
+else (adverb)
+emacs : Application
+encoder
+encoders (pl of 'encoder')
+endian (adjective)
+enqueue (verb)
+enum => enumeration : Java keyword
+enums (pl of 'enum')
+env => environment
+EOF : End-of-File
+EOL : End-of-Line
+equijoin
+errno => error number
+ETA : Estimated Time-of-Arrival
+eval => evaluate (verb)
+exe => executable : Windows file format
+exp => expression
+expr => expression
+ext => external (adjective). extended file system
+FADD : Bytecode
+FALOAD : Bytecode
+FASTORE : Bytecode
+FCONST : Bytecode
+FDIV : Bytecode
+fibonacci (special)
+filepath => file path
+finalizer
+finalizers (pl of 'finalizer')
+fitnesse : Application
+fixnum
+FLAC : Application
+flipped (adjective)
+FLOAD : Bytecode
+FMUL : Bytecode
+FNEG : Bytecode
+foo
+foobar
+FOP : Formatting Objects Processor
+forwardslash
+frac => fraction
+fracs (pl of 'frac')
+frag => fragment
+frags (pl of 'frag')
+freeform
+FREM : Bytecode
+freq => frequency
+freqs (pl of 'frequency')
+FRETURN : Bytecode
+FSTORE : Bytecode
+FSUB : Bytecode
+FTP : File Transfer Protocol
+func => function
+gantt (special)
+GB => Gigabyte
+GC => garbage collection. garbage collector
+GDI : Graphics Device Interface
+geo => geological (adjective)
+GET : HTTP element
+GETSTATIC : Bytecode
+getter : get method
+GIOP : General Inter-ORB Protocol
+GIS : Geographic Information System
+global => global variable
+globals (pl of 'global')
+GMT : Greenwich Mean Time
+GNOME : Application
+GNU : GNU's Not UNIX
+gnutella : File sharing network
+goto : keyword
+gotos (pl of 'goto')
+GPL : GNU General Public License
+grep : UNIX command
+greyscale
+GTK : GIMP Toolkit
+GUI : Graphical User Interface
+GUID : Globally Unique Identifier
+guids (pl of 'GUID')
+gzip (noun, verb) : Application. file format
+hardcode (verb)
+hashcode => hash code
+hashmap
+hashtable
+hashtables (pl of 'hashtable')
+heapsort (noun, verb)
+helpfile
+HEX
+hist => history. histogram
+href : HTML
+HSQL : Database
+HTML : HyperText Markup Language
+HTTP : HyperText Transfer Protocol
+httpd : Application 
+HTTPS : Secure HTTP
+huffman (special)
+IADD : Bytecode
+IALOAD : Bytecode
+IAND : Bytecode
+IASTORE : Bytecode
+IBM : Vendor
+ICONST : Bytecode
+IDE : Integrated Development Environment
+ident => identity. identifier
+IDIV : Bytecode
+IDL : Interface Definition Language
+IE : Internet Explorer
+IEEE
+IFEQ : Bytecode
+IFGE : Bytecode
+IFGT : Bytecode
+IFLE : Bytecode
+IFLT : Bytecode
+IFNE : Bytecode
+IFNONNULL : Bytecode
+IFNULL : Bytecode
+IINC : Bytecode
+IIOP : Internet Inter-Orb Protocol
+IL : Intermediate Language
+ILAsm : Application
+ILOAD : Bytecode
+IMAP : Internet Message Access Protocol
+img => image
+impl => implementation
+impls (pl of 'impl')
+IMUL : Bytecode
+inbox
+incl => include
+incr => increment (verb)
+indestructable (adjective)
+INEG : Bytecode
+infile
+init => initialize (verb). initialization
+initializer
+initializers (pl of 'initializer')
+inits (pl of 'init')
+inline (verb)
+inlined (adjective)
+insn => instruction
+insns (pl of 'insn')
+installer
+installers (pl of 'installer')
+instanceof : keyword
+int : type
+internals
+interop
+interprocess (adjective)
+ints (pl of 'int')
+inv => inverted. inverse (adjective). invert (verb)
+INVOKEINTERFACE : Bytecode
+INVOKESPECIAL : Bytecode
+INVOKESTATIC : Bytecode
+INVOKEVIRTUAL : Bytecode
+IO : Input/Output
+IOR : Bytecode
+IP : Internet Protocol. Intellectual Property
+iplanet : Product brand
+irc : Internet Relay Char
+IREM : Bytecode
+IRETURN : Bytecode
+ISBN : International Standard Book Number
+ISHR : Bytecode
+ISO : International Organization for Standardization. ISO file
+ISTORE : Bytecode
+ISUB : Bytecode
+iter => iterator. iteration. iterate (verb)
+iterator
+iterators (pl of 'iterator')
+iters (pl of 'iter')
+IUSHR : Bytecode
+IXOR : Bytecode
+JAAS : Java Authentication and Authorization Service
+JAR : Java Archive
+jarfile
+javabean
+javac : The Java compiler
+javaclass
+javadoc : Tool for generating documentation
+javadocs (pl of 'javadoc') : Generated by running javadoc
+javah : Stub and header compiler
+javahome : Environment variable
+javascript
+javax : Namespace
+JAX : Technology
+JAXB : Technology
+jaxen : Technology
+JAXP : Technology
+JBI : Technology
+JBoss : Application
+JCE : Java Cryptography Extension
+JDBC : Technology
+JDK : Java Development Toolkit
+JDO : Java Data Objects
+JDT : Java Development Toolkit
+JEE : Java Enterprise Edition
+jgroups : Application
+JIT (noun, verb) : Just-In-Time Compilation
+JMS : Java Message Service
+JMX : Java Management Extensions
+JNDI : Java Naming and Directory Interface
+JNI : Java Native Interface
+JNLP : Java Network Launching Protocol
+JOnAS : Application
+JPA : Java Persistance API
+JPEG : Image format
+jpg => JPEG
+JRE : Java Runtime Environment
+JSE : Java Standard Edition
+JSF : Java Server Faces
+JSON : JavaScript Object Notation
+JSP : Java Server Pages
+JSR : Java Specification Request
+JTA : Java Transaction API
+JTS : Java Transaction Service
+JUnit : Application
+JVM : Java Virtual Machine
+JXTA : Peer-to-Peer protocol
+Jython : Language
+jythonc : Jython compiler
+kaffe : Java Virtual machine
+KB => Kilobytes
+kbytes => Kilobytes
+Kerberos : Security protocol
+keypress
+keyword
+keywords (pl of 'keyword')
+KVM : K Virtual Machine
+LADD : Bytecode
+LALOAD : Bytecode
+LAN : Local Area Network
+LAND : Bytecode
+lang => language
+LASTORE : Bytecode
+LCMP : Bytecode
+LCONST : Bytecode
+LDAP : Lightweight Directory Access Protocol
+LDC : Bytecode
+LDIV : Bytecode
+leecher
+leechers (pl of 'leecher')
+len => length
+lex : Tool
+lexer : Type of tool
+lexers (pl of 'lexer')
+LGPL : Lesser GPL
+lib => library
+libs (pl of 'lib)
+lifecycle
+lifecycles (pl of 'lifecycle')
+linebreaks
+linker
+listbox
+LLOAD : Bytecode
+LMUL : Bytecode
+LNEG : Bytecode
+LOC : Lines-Of-Code
+loc => location
+localaddress
+localhost
+localtime
+logfile
+logfiles (pl of 'logfile')
+login
+logins (pl of 'login')
+logon
+lookahead
+lookbehind
+LOOKUPSWITCH : Bytecode
+loopback
+LOR : Bytecode
+lparen => left parenthesis
+LREM : Bytecode
+LRETURN : Bytecode
+LSHL : Bytecode
+LSHR : Bytecode
+LSTORE : Bytecode
+lucene : Application
+LUSHR : Bytecode
+lvalue => left value
+LXOR : Bytecode
+LZW : Algorithm
+MAC
+mapped (adjective)
+mailto : HTML
+mapi : Messaging Application Programming Interface
+maxint => maximum integer value
+MB => megabytes
+mbr => member
+mbrs (pl of 'mbr')
+menubar
+mergefile
+mergefiles (pl of 'mergefile')
+mergesort : Algorithm
+meta (special)
+metainf : Directory in JAR file
+metamodel
+metaobject
+mgmt => management
+mgr => manager
+mgrs (pl of 'mgr')
+micros => microseconds
+microsec => microseconds
+MIDI : Musical Instrument Digital Interface
+MIDlet : Type of application
+MIDP : Mobile Information Device Profile
+millis => milliseconds
+MIME : Multipurpose Internet Mail Extensions
+mindmap => mind map
+minint => minimum integer value
+misc => miscellaneous
+mixin : Type of class
+mixins (pl of 'mixin')
+mk : Tool
+mkdir : Tool
+mkdirs (pl of 'mkdir') : Java method
+modulo (preposition)
+MONITORENTER : Bytecode
+MONITOREXIT : Bytecode
+monospace (noun, adjective)
+monospaced (adjective)
+Mozilla : Application suite
+MPEG : Moving Picture Experts Group
+MSI : Microsoft Installer
+MSSQL : Application
+MULTIANEWARRAY : Bytecode
+multithread (adjective)
+multithreaded (adjective)
+multiuser (adjective)
+munge (verb)
+munged (adjective)
+munger
+mungers (pl of 'munger')
+mutex => Mutual exclusion device
+namespace
+namespaces (pl of 'namespace')
+nanos => nanoseconds
+nant : Applicaton
+NAT : Network Address Translation
+natively (adjective)
+nav => navigate (verb)
+neg => negative (adjective). negate (verb)
+Netbeans : Application
+netmask
+NetMon : Windows Tool
+NEW : Bytecode
+NEWARRAY : Bytecode
+newline
+newlines (pl of 'newline')
+newsgroup
+newsgroups (pl of 'newsgroup')
+NIC : Network Interface Card
+nics (pl of 'NIC')
+NIO : New I/O
+nonterminal
+nonterminals (pl of 'nonterminal')
+nonzero
+noop
+NOP : Bytecode
+num => number
+obj => object
+objs (pl of 'obj')
+occurred (verb)
+OCI : Oracle Call Interface
+OCL : Object Constraint Language
+octal (adjective, noun)
+ODBC : Open Database Connectivity
+ODF : Open Document Format
+offline
+offscreen
+OGG : Ogg Vorbis file format
+OK (special)
+old (adjective)
+ole : Object Linking and Embedding
+omg : Object Management Group
+omittable (adjective): may be omitted
+omitting (adjective)
+op : operation
+opcode : operation code
+openable (adjective, noun)
+openables (pl of 'openable')
+optimizable (adjective, noun)
+optimizables (pl of 'optimizable')
+optimizer : something which optimizes
+optimizers (pl of 'optimizer')
+OQL : Object Query Language
+ORB : Object Request Broker
+#ord
+orderable (adjective)
+orig => original (adjective)
+ORM => Object-Relational Mapping
+orthogonally (adjective)
+OS : Operating System
+OSGI : Standards organization
+OSX : Mac OS X
+others
+outdent (verb) : The opposite of indent
+outdir : Output directory
+outliner
+overridable (adjective) : May be overridden
+packageable (adjective) : May be packaged
+pageable (adjective) : May be paged
+pageables (pl of 'pageable')
+pairwise (adjective)
+param => parameter
+parameterization
+parameterizations (pl of 'parameterization')
+parameterize (verb)
+params (pl of 'param')
+parens => parenthesis
+parseable (adjective) : may be parsed
+partitioner
+partitioners (pl of 'partitioner')
+passphrase
+passwd => password
+patcher
+patchers (pl of 'patcher')
+patchfile
+PC : Personal Computer. Parsed Character
+PCDATA : Parsed Character Data
+PDE : Plug-in Development Environment
+PDF : Portable Document Format
+PEM : Privacy Enhanced Mail
+per (special)
+perf => performance
+periode
+perl : Programming language
+persistable (adjective) : May be persisted
+persistance
+persistant (adjective)
+persister : Something which persists something
+persisters (pl of 'persister')
+PGML : Precision Graphics Markup Language
+PGP : Pretty Good Privacy
+php : PHP Hypertext Preprocessor
+PI
+pickable (adjective) : May be picked
+pico (adjective)
+PID : Process identifier
+PIN : Personal identification number
+pinned (verb)
+pipelined (verb)
+PK : Public key
+PKCS : Public-Key Cryptography Standards
+pkg => package
+PKI : Public key infrastructure
+PLAF : Pluggable Look And Feel
+pluggable (adjective)
+plugin
+plugins (pl of 'plugin')
+PNG : Portable Network Graphics
+POA : Portable Object Adapter
+pointbase : Database
+pointcut : Concept in aspect-oriented programming
+pointcuts (pl of 'pointcut')
+pojo : Plain Old Java Objects
+pojos (pl of 'pojo')
+poly (adjective)
+polyline
+POM : Project Object Model
+poolable (adjective)
+popup
+popups (pl of 'popup')
+portlet
+portlets (pl of 'portlet')
+POSIX : Portable Operating System Interface
+postamble
+postback
+postprocess (verb)
+pragma : a compiler directive
+pre (adjective)
+preallocate (verb)
+preallocation
+precache (verb)
+precalculate (verb)
+precompilation
+precompile (verb)
+pred => predicate
+predefine (verb)
+pref => preference, preferred (verb)
+prefetch (verb)
+prefs (pl of 'pref')
+preinitialize (verb)
+preload (verb)
+preparable (adjective)
+preparse (verb)
+prepend (verb)
+prepopulate (verb)
+preprocess (verb)
+preprocessor
+preprocessors (pl of 'preprocessor')
+prereqs => prerequisites (pl of 'prerequisite')
+prescan (verb)
+prettyprint (verb)
+prev => previous (adjective)
+prevalidate (verb)
+previewer
+princial
+printf : function
+println : function
+priv => private (adjective)
+prj : Project file
+PRNG : Pseudo-random number generator
+proc => procedure
+procs (pl of 'proc')
+profiler
+prog => program
+programmatic (adjective)
+programmatically (adverb)
+proj => project
+proxying (adjective)
+pullable (adjective)
+pulldown (adjective)
+pushable (adjective)
+PUTFIELD : Bytecode instruction
+PUTSTATIC : Bytecode instruction
+qname : XML qualified name
+qnames (pl of 'qname')
+qsort => quicksort (verb, noun)
+QT : GUI toolkit
+qual => qualify (verb)
+queryable (adjective)
+quicksort (verb, noun)
+RAR : File format
+RAW : File format
+RDB : Relational database
+RDBMS : Relational database management system
+RDF : Resource Description Framework
+reachability
+reapply (verb)
+reassociate (verb)
+reattach (verb)
+reauthenticate (verb)
+recalc => recalculate (verb)
+recompile (verb)
+recompute (verb)
+reconfig => reconfigure (verb)
+reconfigure (verb)
+reconnect (verb)
+rect => rectangle
+rects (pl of 'rect')
+recurse (verb)
+recursively (adverb)
+recv => receive (verb)
+redeliver (verb)
+redirection
+redispatch (verb)
+redisplay (verb)
+redraw (verb)
+reenable (verb)
+reenter (verb)
+refactor (verb)
+refactoring
+refactorings (pl of 'refactoring')
+referencee
+referencer
+referrer
+refetch (verb)
+refilter (verb)
+reformat (verb)
+refreshable (adjective)
+regen => regenerate (verb)
+regex : Regular expression
+regexp : Regular expression
+regexps (pl of 'regexp')
+reinit => reinitialize (verb)
+reinitialize (verb)
+reinitializer
+reinvoke (verb)
+relaunch (verb)
+RELAXNG : Schema language for XML
+relayout (verb)
+releasedate
+relocalize (verb)
+remixer
+remotable (adjective)
+remoting
+removeable (adjective)
+renderable (adjective)
+renderer
+reparse (verb)
+replacer
+repopulate (verb)
+repost (verb)
+req => requirement
+reqs (pl of 'req')
+requeue (verb)
+reregister (verb)
+resend (verb)
+resizable (adjective)
+resizer
+resolver
+resolvers (pl of 'resolver')
+REST : Technology
+resubscribe (verb)
+retarget (verb)
+rethrow (verb)
+retryable (adjective)
+RETURN : Bytecode Instruction
+retval : Return value
+revalidate (verb)
+reverb => reverberation
+reweave (verb)
+rewind (verb)
+rexx : Language
+RFC : Request for Comments
+RGB : Red Green Blue
+rlogin : UNIX tool
+rmdir : UNIX tool
+RMI : Remote Method Invocation
+RMIC : The Java RMI Compiler
+ROI : Return on investment
+roundtrip
+routable (adjective)
+rowfill
+rowset
+rowspan
+rparen => right parenthesis
+RPC : Remote Procedure Call
+RPM : Rounds Per Minute
+RSA : Cryptography algorithm
+rsh : Remote shell
+RSS : Really Simple Syndication
+RTF : Rich Text Format
+rubberband
+runnable (adjective, noun)
+runnables (pl of 'runnable')
+runtime
+runtimes (pl of 'runtime')
+SALOAD : Bytecode instruction
+SAML : Security Assertion Markup Language
+SAR : File format
+SASTORE : Bytecode instruction
+saveable (adjective)
+saveables (pl of 'saveable')
+savepoint
+savepoints (pl of 'savepoint')
+SAX : Simple API for XML
+schedulable (adjective)
+SCO : The SCO Group
+scriptable (adjective)
+scripter
+scriptless (adjective)
+scrollable (adjective)
+scrollbar
+scrollbars (pl of 'scrollbar')
+scrollpane
+SDK : Software Development Kit
+SDP : Session Description Protocol
+searchability
+searchable (adjective)
+securable (adjective)
+seekable (adjective)
+SEI : Software Engineering Institute
+sel => selection
+selectable (adjective)
+sendable (adjective)
+seq => sequence
+serializable (adjective)
+serializer
+serializers (pl of 'serializer')
+servlet
+servlets (pl of 'servlet')
+sessionless (adjective)
+sexp => S-expression
+sftp : Secure FTP
+SHA : Secure Hash Algorithm
+shall (verb)
+shareable (adjective)
+should (verb)
+shoutcast
+showable (adjective)
+shown (special)
+shuttlesort
+sigs => signatures (pl of 'signature')
+simplifier
+SIPUSH : Bytecode instruction
+sizeof : function
+skel => skeleton
+skippable (adjective)
+skipped (verb)
+smallint : type
+SMS : Short Message Service
+SMTP : Simple Mail Transfer Protocol
+snmp : Simple Network Management Protocol
+SOA : Service-Oriented Architecture
+SOAP
+softkey
+solaris
+sortable (adjective)
+SOS
+sourcecode
+sourcefile
+sourcefiles (pl of 'sourcefile')
+spacer
+sparc
+SPKI : Simple Public Key Infrastructure
+sprintf : function
+SQL : Standard Query Language
+sqrt => square root
+srand : C++ function
+src => source
+SRGB : Standard RGB
+SSDP : Simple Service Discovery Protocol
+SSF : Scalable Simulation Framework
+ssh : Secure Shell Protocol
+SSI : Server Side Includes
+SSL : Secure Socket Layer
+ssn : Social Security Number
+SSO : Single Sign-on
+stacktrace
+stacktraces (pl of 'stacktrace')
+standalone
+startable (adjective)
+starteam : Vendor
+stat => statistic (noun)
+stateful (adjective)
+statefully (adverb)
+statelessly (adverb)
+statemachine
+statemachines (pl of 'statemachine')
+statically (adverb)
+stats (pl of 'stat')
+statusbar
+statuscode
+stderr : Standard error stream
+stdin : Standard in stream
+stdout : Standard out stream
+stimuli (pl of 'stimulus')
+stmt => statement
+stmts (pl of 'stmt')
+stolen (verb)
+storable (adjective)
+str => string
+strcmp : function 
+strcpy : function
+streamable (adjective)
+strikethrough (adjective)
+stringified (adjective)
+stringifier : Something which stringifies
+stringify (verb)
+strlen : function
+strs (pl of 'str')
+struct
+stylesheet
+subaddress
+subfolder
+subgraph
+submitted (adjective)
+subnet
+subplot
+subseq => subsequent (adjective)
+subst => substitute (verb, adjective), substitution (noun)
+substr => substring
+subtree
+subtype
+summarizable (adjective)
+superset
+supertype
+SVG : Scalable Vector Graphics
+SVN : Subversion
+swapping (adjective)
+swimlane (adjective)
+switchable (adjective)
+SWT : Standard Widget Toolkit
+sybase : database
+symlink : Symbolic link
+syn : TCP message
+synchronizable (adjective)
+synth => synthetic (adjective)
+sys => system
+tabbed (adjective)
+TABLESWITCH : Bytecode instruction
+tahoma : Font
+tanh : Mathematical function
+tarfile
+taskbar
+tbl => table
+TCL : Tool Command Language
+TCP : Transmission Control Protocol
+TCPIP : Protocol
+teardown
+testable (adjective)
+testcase
+testsuite
+tex : Typesetting system
+textarea
+textbox
+textfield
+textfile
+threadpool
+threadsafe (adjective)
+throwable (adjective, noun)
+thru => through (preposition)
+tiebreak
+timeframe
+timeout
+timestamp
+timezone
+tmp => temporary
+TOC : Table of Content
+todo
+tokenize (verb)
+tokenized (adjective)
+tokenizer
+toolbar
+toolkit
+tooltip
+toplevel (adjective)
+traceback
+transactional (adjective)
+transcode (verb)
+transcoder
+traversability
+TTL : Time to live
+tty : UNIX command
+tuple
+tx => transaction
+txn => transaction
+txt => text
+typecheck (verb)
+typedef : keyword in C
+UDDI : Universal Description Discovery and Integration
+UDP : User Datagram Protocol
+UI : User Interface
+UID : Unique identifier
+UML : Unified Modeling Language
+unbuffered (adjective)
+uncheck (verb)
+uncomment (verb)
+undeclare (verb)
+undefine (verb)
+undelete (verb)
+undeliverable (adjective)
+underflow
+unencrypted (adjective)
+unevaluated (adjective)
+unhandled (adjective)
+unicode
+unimplemented (adjective)
+unindent (verb)
+uninitialize (verb)
+uninstall (verb)
+uninstalled (adjective)
+UNIX
+unlink (verb)
+unmanaged (adjective)
+unmangle (verb)
+unmarshal (verb)
+unmarshall (verb)
+unmount (verb)
+unnest (verb)
+unoptimized (adjective)
+unpacker
+unparseable (adjective)
+unpause (verb)
+unqualify (verb)
+unquote (verb)
+unreferenced (adjective)
+unregister (verb)
+unschedule (verb)
+unsecure (verb, adjective)
+unselect (verb)
+unserialize (verb)
+unsubscribe (verb)
+untrusted (adjective)
+untyped (adjective)
+unversioned (adjective)
+upnp : Universal Plug n Play
+upperbound
+URI : Unifrom Resource Identifier
+URL : Uniform Resource Locator
+URN : Unifrom Resource Name
+username
+UTC : Coordinated Universal Time
+UTF : Unicode Transformation Format
+util => utility
+utils (pl of 'util')
+UUID : Universally Unique Identifier
+val => value
+validator : something which validates something
+valign (verb)
+vals (pl of 'val')
+VB : Visual Basic
+vbs : VB Script
+vel => velocity
+versioned (adjective)
+versioning 
+VM : Virtual Machine
+VMS : Virtual Memory System
+VOB : File format
+vocab => vocabulary
+vorbis : File Format
+VSS : Visual Source Safe
+WAR : File Format
+waypoint
+waypoints (pl of 'waypoint')
+webdav : Web-based Distributed Authoring and Versioning
+weblogic : Product
+websphere : Product
+wellformed (adjective)
+whitelist (verb)
+whitelisted (adjective)
+whitespace
+wiki
+wildcard
+WMA : windows Media Audio 
+WMV : Windows Media Video
+workaround
+WSDD : Web Service Deployment Descriptor
+WSDL : Web Services Description Language
+WTK : Wireless Toolkit
+WWW : World Wide Web
+WYSIWYG : What You See Is What You Get
+xalan : Software
+xdoclet : Software
+xerces : Software
+XHTML : Standard
+XMI : XML Metadata Interchange
+XML
+XOR : Exclusive Or-operation
+XPATH : Technology
+XPP : XML Pull Parser
+xquery : Query Language
+XSD : XML Schema Definition
+XSL : Extensible Stylesheet Language
+XSLT : XSL Transformations
+XSS : Cross-site scripting
+YAML : YAML Aint Markup Language
+ZIP : File Format
+zlib : Software
+zoomable (adjective)
