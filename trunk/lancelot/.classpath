@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="Jarmony/source/code"/>
+	<classpathentry kind="src" path="Frontend/source/code"/>
+	<classpathentry kind="src" path="Jarmony/source/test-code"/>
+	<classpathentry kind="src" path="Jarmony/source/test-data-code"/>
+	<classpathentry kind="src" path="Jarmony/source/regression-test-code"/>
+	<classpathentry kind="src" path="Rulebook/source/code"/>
+	<classpathentry kind="src" path="Rulebook/source/test-code"/>
+	<classpathentry kind="src" path="Tagger/source/code"/>
+	<classpathentry kind="src" path="Tagger/source/test-code"/>
+	<classpathentry kind="src" path="Frontend/source/test"/>
+	<classpathentry exported="true" kind="lib" path="lib/xom-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm-analysis-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/asm-tree-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/edu.mit.jwi_2.1.4_jdk.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jsr305.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/pb-analysis.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/pb-model.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
