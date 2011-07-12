@@ -10,6 +10,7 @@
  ******************************************************************************/
 package no.nr.lancelot.eclipse.testdata.project0;
 
+@SuppressWarnings({"unused"})
 public class Car {
     private int n;
     

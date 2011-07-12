@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import no.nr.einar.pb.model.Attribute;
-
 public class SemanticsMap {
     public interface AttributeFlagFinder {
         int getAttributeCount();
@@ -113,7 +111,6 @@ public class SemanticsMap {
                 return res;
             }
 
-            @SuppressWarnings("null")
             final String[] parts = line.split("\\s+");
             
             final int mapFileProfile = Integer.parseInt(parts[0]);

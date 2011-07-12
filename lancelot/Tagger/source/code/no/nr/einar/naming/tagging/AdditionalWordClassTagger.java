@@ -79,7 +79,6 @@ public final class AdditionalWordClassTagger extends ChainTagger {
             "the", "a", "an" 
     };
     
-    @SuppressWarnings("serial")
     private static class WordClassSet extends HashSet<String> {
         public void addArray(final String[] array) {
             for (int i = 0; i < array.length; i++) {

@@ -43,7 +43,6 @@ public class MethodMapTest {
     }
     
     @Test(expected = IllegalArgumentException.class)
-    @SuppressWarnings("unused")
     public void testExceptionForNullArgumentToConstructor() throws JavaModelException {
         new MethodMap(null);
     }

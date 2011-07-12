@@ -4,9 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="Jarmony/source/code"/>
 	<classpathentry kind="src" path="Frontend/source/code"/>
-	<classpathentry kind="src" path="Jarmony/source/test-code"/>
 	<classpathentry kind="src" path="Jarmony/source/test-data-code"/>
-	<classpathentry kind="src" path="Jarmony/source/regression-test-code"/>
 	<classpathentry kind="src" path="Rulebook/source/code"/>
 	<classpathentry kind="src" path="Rulebook/source/test-code"/>
 	<classpathentry kind="src" path="Tagger/source/code"/>
