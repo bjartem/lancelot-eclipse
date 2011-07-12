@@ -15,13 +15,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import no.nr.lancelot.analysis.LancelotRegistry;
+
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
-
-import no.nr.lancelot.analysis.LancelotRegistry;
 
 public class LancelotInitializer {
     public static final String ANALYSIS_PLUGIN_ID = "no.nr.lancelot"; 

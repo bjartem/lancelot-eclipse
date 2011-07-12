@@ -11,7 +11,6 @@ package no.nr.lancelot.eclipse.view;
 import java.util.LinkedList;
 import java.util.List;
 
-import no.nr.lancelot.analysis.ClassAnalysisReport;
 import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
 
@@ -23,7 +22,7 @@ import org.eclipse.jdt.core.IJavaProject;
 public class BugMarkingView implements ILancelotView {
     @Override
     public void run(
-        final List<ClassAnalysisReport> reports, 
+        final List<IClassAnalysisReport> reports, 
         final IProgressMonitor monitor
     ) throws CoreException {
         try {
@@ -71,7 +70,7 @@ public class BugMarkingView implements ILancelotView {
         );
     }
     
-    private List<ClassAnnotator> createAnnotators(final List<ClassAnalysisReport> reports) {
+    private List<ClassAnnotator> createAnnotators(final List<IClassAnalysisReport> reports) {
         final List<ClassAnnotator> annotators = new LinkedList<ClassAnnotator>();
         
         for (final IClassAnalysisReport report : reports) 

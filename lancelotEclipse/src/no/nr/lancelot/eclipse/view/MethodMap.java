@@ -48,7 +48,6 @@ public final class MethodMap {
         return Collections.unmodifiableMap(tempRes);
     }
 
-    @SuppressWarnings("null")
     public IMethod findMethod(
         final String methodName, 
         final String[] paramTypes, 

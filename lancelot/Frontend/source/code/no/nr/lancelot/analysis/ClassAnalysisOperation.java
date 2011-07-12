@@ -63,7 +63,7 @@ public class ClassAnalysisOperation {
         return className;
     }
     
-    public ClassAnalysisReport run() throws IOException {       
+    public IClassAnalysisReport run() throws IOException {       
         final ClassStreamAnalyzer csa = new ClassStreamAnalyzer();
         final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
         

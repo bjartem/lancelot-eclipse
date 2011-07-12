@@ -14,8 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import no.nr.lancelot.eclipse.LancelotPlugin;
-import no.nr.lancelot.eclipse.analysis.AnalysisController;
-import no.nr.lancelot.eclipse.analysis.IAnalysisController;
+import no.nr.lancelot.eclipse.analysis.Analyzer;
+import no.nr.lancelot.eclipse.analysis.IAnalyzer;
 import no.nr.lancelot.eclipse.controller.LancelotController;
 import no.nr.lancelot.eclipse.gathering.AbstractGatherer;
 import no.nr.lancelot.eclipse.gathering.GatheringHelper;
@@ -89,7 +89,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
 
     private void runController(final RichRegion region) {
         final AbstractGatherer gatherer = createGatherer(region);
-        final IAnalysisController analyser = createAnalyser();
+        final IAnalyzer analyser = createAnalyser();
         final ILancelotView view = createView();
 
         runInForeground(new IRunnableWithProgress() {
@@ -110,8 +110,8 @@ public class RunLancelotAction extends AbstractLancelotAction {
         return gatherer;
     }
     
-    private IAnalysisController createAnalyser() {
-        return new AnalysisController();
+    private IAnalyzer createAnalyser() {
+        return new Analyzer();
     }
 
     private ILancelotView createView() {
