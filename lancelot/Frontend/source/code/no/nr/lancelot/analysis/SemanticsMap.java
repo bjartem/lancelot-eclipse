@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SemanticsMap {
+public final class SemanticsMap {
     public interface AttributeFlagFinder {
         int getAttributeCount();
         int translate(final String attributeName);

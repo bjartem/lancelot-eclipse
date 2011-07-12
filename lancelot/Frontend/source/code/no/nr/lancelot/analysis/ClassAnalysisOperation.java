@@ -33,7 +33,7 @@ import no.nr.einar.pb.model.JavaClass;
 import no.nr.einar.pb.model.JavaMethod;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-public class ClassAnalysisOperation {
+public final class ClassAnalysisOperation {
     private final Rulebook rulebook = LancelotRegistry.getInstance().getRulebook();
     private final PosTagger tagger = new CachingTagger();
     

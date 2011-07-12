@@ -94,8 +94,10 @@ public class LancelotPlugin extends AbstractUIPlugin {
     }
     
     public static void reportFatalError(final String details) {
-        // We must ensure that we open the error dialog in the UI thread.
-        new UIJob("Message dialog job") {
+        /* Until the day a functioning multi-threaded UI loop is designed, 
+         * we must ensure that we open the error dialog in the UI thread ;)
+         */
+        new UIJob("Fatal error reporting dialog") {
             @Override
             public IStatus runInUIThread(final IProgressMonitor monitor) {
                 final String title = "Fatal error",

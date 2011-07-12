@@ -52,7 +52,7 @@ public abstract class AbstractLancelotAction implements IObjectActionDelegate {
     }
     
     @Override
-     public void selectionChanged(final IAction action, final ISelection newSelection) {
+    public void selectionChanged(final IAction action, final ISelection newSelection) {
         this.selection = newSelection;
     }
 
