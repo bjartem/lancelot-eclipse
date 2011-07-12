@@ -18,30 +18,30 @@ import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 
 public final class WordNetDictionary {
-	
-	private static final IDictionary dict = createDict();
-	
-	private WordNetDictionary() {}
-	
-	public static IDictionary get() {
-		return dict;
-	}
-	
-	private static IDictionary createDict() {
-		final String wnhome = "/Users/einar/phd/WordNet-3.0";
-		final String path = wnhome + File.separator + "dict"; 
-		final URL url = createURL(path);
-		final IDictionary dict = new Dictionary(url); 
-		dict.open();
-		return dict; 
-	}
+    
+    private static final IDictionary dict = createDict();
+    
+    private WordNetDictionary() {}
+    
+    public static IDictionary get() {
+        return dict;
+    }
+    
+    private static IDictionary createDict() {
+        final String wnhome = "/Users/einar/phd/WordNet-3.0";
+        final String path = wnhome + File.separator + "dict"; 
+        final URL url = createURL(path);
+        final IDictionary dict = new Dictionary(url); 
+        dict.open();
+        return dict; 
+    }
 
-	private static URL createURL(final String path) {
-		try {
-			return new URL("file", null, path);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("Unable to create URL.");
-		} 
-	}
+    private static URL createURL(final String path) {
+        try {
+            return new URL("file", null, path);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Unable to create URL.");
+        } 
+    }
 
 }

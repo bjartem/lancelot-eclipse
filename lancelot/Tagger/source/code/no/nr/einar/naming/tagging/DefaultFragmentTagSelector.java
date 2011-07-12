@@ -14,15 +14,15 @@ import java.util.Set;
 
 public final class DefaultFragmentTagSelector extends OrderedFragmentTagSelector {
 
-	public DefaultFragmentTagSelector(
-			final String fragment, 
-			final Set<Tag> candidateTags) {
-		super(fragment, candidateTags);
-	}
-	
-	@Override
-	protected Tag[] getSelectionOrder() {
-		 return new Tag[] { Tag.Noun, Tag.Adjective, Tag.Adverb, Tag.Verb };
-	}
-	
+    public DefaultFragmentTagSelector(
+            final String fragment, 
+            final Set<Tag> candidateTags) {
+        super(fragment, candidateTags);
+    }
+    
+    @Override
+    protected Tag[] getSelectionOrder() {
+         return new Tag[] { Tag.Noun, Tag.Adjective, Tag.Adverb, Tag.Verb };
+    }
+    
 }

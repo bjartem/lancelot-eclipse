@@ -13,19 +13,19 @@ package no.nr.einar.naming.tagging;
 import java.util.Set;
 
 public abstract class FragmentTagSelector {
-	
-	protected final String fragment;
-	protected final Set<Tag> candidateTags;
-	
-	public FragmentTagSelector(final String fragment, final Set<Tag> candidateTags) {
-		this.fragment = fragment;
-		this.candidateTags = candidateTags;
-	}
-		
-	public abstract Tag select();
-	
-	protected boolean canBe(final Tag tag) {
-		return candidateTags.contains(tag);
-	}
+    
+    protected final String fragment;
+    protected final Set<Tag> candidateTags;
+    
+    public FragmentTagSelector(final String fragment, final Set<Tag> candidateTags) {
+        this.fragment = fragment;
+        this.candidateTags = candidateTags;
+    }
+        
+    public abstract Tag select();
+    
+    protected boolean canBe(final Tag tag) {
+        return candidateTags.contains(tag);
+    }
 
 }

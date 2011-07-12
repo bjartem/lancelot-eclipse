@@ -13,58 +13,58 @@ package no.nr.einar.naming.rulebook;
 import no.nr.einar.pb.model.Attribute;
 
 public final class Rule {
-	
-	private final Attribute attribute;
-	private final Severity severity;
-	private final boolean set;
+    
+    private final Attribute attribute;
+    private final Severity severity;
+    private final boolean set;
 
-	public Rule(final Attribute attribute, final Severity severity) {
-		this(attribute, severity, true);
-	}
-	
-	public Rule(final Attribute attribute, final Severity severity, final boolean set) {
-		this.attribute = attribute;
-		this.severity = severity;
-		this.set = set;
-	}
-	
-	public boolean ifSet() {
-		return set;
-	}
-	
-	public int hashCode() {
-		int $ = 1;
-		$ = $ * 31 + attribute.hashCode();
+    public Rule(final Attribute attribute, final Severity severity) {
+        this(attribute, severity, true);
+    }
+    
+    public Rule(final Attribute attribute, final Severity severity, final boolean set) {
+        this.attribute = attribute;
+        this.severity = severity;
+        this.set = set;
+    }
+    
+    public boolean ifSet() {
+        return set;
+    }
+    
+    public int hashCode() {
+        int $ = 1;
+        $ = $ * 31 + attribute.hashCode();
         $ = $ * 29 + severity.hashCode();
         return $;
-	}
-	
-	public boolean equals(final Object o) {
-		if (!(o instanceof Rule)) {
-			return false;
-		}
-		final Rule w = (Rule) o;
-		return getAttribute().equals(w.getAttribute()) && 
-			getSeverity().equals(w.getSeverity()) ;
-	}
-	
-	public Attribute getAttribute() {
-		return attribute;
-	}
-	
-	public Severity getSeverity() {
-		return severity;
-	}
-	
-	public String toString() {
-		return attribute.name() + " - " + (set ? "ON" : "OFF") + " - " + severity.name();
-	}
+    }
+    
+    public boolean equals(final Object o) {
+        if (!(o instanceof Rule)) {
+            return false;
+        }
+        final Rule w = (Rule) o;
+        return getAttribute().equals(w.getAttribute()) && 
+            getSeverity().equals(w.getSeverity()) ;
+    }
+    
+    public Attribute getAttribute() {
+        return attribute;
+    }
+    
+    public Severity getSeverity() {
+        return severity;
+    }
+    
+    public String toString() {
+        return attribute.name() + " - " + (set ? "ON" : "OFF") + " - " + severity.name();
+    }
 
-	public boolean covers(final int semantics) {
-		final int actualVal = semantics & attribute.getFlag();
-		final boolean actual = actualVal > 0;
-		return actual == set;
-	}
-	
-	
+    public boolean covers(final int semantics) {
+        final int actualVal = semantics & attribute.getFlag();
+        final boolean actual = actualVal > 0;
+        return actual == set;
+    }
+    
+    
 }

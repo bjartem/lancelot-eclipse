@@ -36,78 +36,78 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 public class ClassAnalysisOperation {
     private final Rulebook rulebook = LancelotRegistry.getInstance().getRulebook();
     private final PosTagger tagger = new CachingTagger();
-	
+    
     private final String className;
     private final byte[] byteCode;
-	private final Object key;
+    private final Object key;
     
     public ClassAnalysisOperation(
-    	final String className, 
-    	final byte[] byteCode, 
-    	@Nullable final Object key
+        final String className, 
+        final byte[] byteCode, 
+        @Nullable final Object key
     ) {
-    	if (className == null) {
-    		throw new IllegalArgumentException("className cannot be null");
-    	}
-    	
-    	if (byteCode == null) {
-    		throw new IllegalArgumentException("byteCode cannot be null");
-    	}
-    	
-    	this.className = className;
+        if (className == null) {
+            throw new IllegalArgumentException("className cannot be null");
+        }
+        
+        if (byteCode == null) {
+            throw new IllegalArgumentException("byteCode cannot be null");
+        }
+        
+        this.className = className;
         this.byteCode = Arrays.copyOf(byteCode, byteCode.length);
         this.key = key;
     }
     
     public String getClassName() {
-    	return className;
+        return className;
     }
     
-	public ClassAnalysisReport run() throws IOException {   	
-    	final ClassStreamAnalyzer csa = new ClassStreamAnalyzer();
-    	final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
-		
-		final List<MethodBugReport> bugReports = new LinkedList<MethodBugReport>();
-		
-		for (final JavaMethod method : javaClass) {
-			final MethodBugReport possibleBug = verify(method);	
-			if (possibleBug != null) {
-				bugReports.add(possibleBug);
-			}
-		}
-		
+    public ClassAnalysisReport run() throws IOException {       
+        final ClassStreamAnalyzer csa = new ClassStreamAnalyzer();
+        final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
+        
+        final List<MethodBugReport> bugReports = new LinkedList<MethodBugReport>();
+        
+        for (final JavaMethod method : javaClass) {
+            final MethodBugReport possibleBug = verify(method);    
+            if (possibleBug != null) {
+                bugReports.add(possibleBug);
+            }
+        }
+        
         return new ClassAnalysisReport(javaClass, bugReports, key);
     }
     
     public MethodBugReport verify(final JavaMethod javaMethod) {
-    	final MethodIdea idea = deriveIdea(javaMethod, tagger);
-		final Set<Rule> violations = rulebook.check(idea);
-		return violations.isEmpty() ? null : new MethodBugReport(javaMethod, violations);
-	}
+        final MethodIdea idea = deriveIdea(javaMethod, tagger);
+        final Set<Rule> violations = rulebook.check(idea);
+        return violations.isEmpty() ? null : new MethodBugReport(javaMethod, violations);
+    }
     
-	private static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
-		final String name = javaMethod.getMethodName();
-		final NameSplitter splitter = new NameSplitter();
-		final List<String> parts = splitter.split(name);
-		final List<Fragment> collapsedFragments = FragmentCollapser.collapse(parts, javaMethod);
-		final List<String> fragments = new ArrayList<String>();
-		for (final Fragment f: collapsedFragments) {
-			fragments.add(f.getText());
-		}
-		final List<String> tags = tagger.tag(fragments);
-		final MethodPhrase phrase = new MethodPhrase(fragments, correctTags(collapsedFragments, tags));
-		return new MethodIdea(phrase, javaMethod.getSemantics());
-	}
+    private static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
+        final String name = javaMethod.getMethodName();
+        final NameSplitter splitter = new NameSplitter();
+        final List<String> parts = splitter.split(name);
+        final List<Fragment> collapsedFragments = FragmentCollapser.collapse(parts, javaMethod);
+        final List<String> fragments = new ArrayList<String>();
+        for (final Fragment f: collapsedFragments) {
+            fragments.add(f.getText());
+        }
+        final List<String> tags = tagger.tag(fragments);
+        final MethodPhrase phrase = new MethodPhrase(fragments, correctTags(collapsedFragments, tags));
+        return new MethodIdea(phrase, javaMethod.getSemantics());
+    }
 
-	private static List<String> correctTags(final List<Fragment> fragments, final List<String> tags) {
-		final Iterator<Fragment> fItor = fragments.iterator();
-		final Iterator<String> tItor = tags.iterator();
-		final List<String> $ = new ArrayList<String>();
-		while (fItor.hasNext() && tItor.hasNext()) {
-			final Fragment f = fItor.next();
-			final String t = tItor.next();
-			$.add(f.isTypeName() ? "type" : t);
-		}
-		return $;
-	}
+    private static List<String> correctTags(final List<Fragment> fragments, final List<String> tags) {
+        final Iterator<Fragment> fItor = fragments.iterator();
+        final Iterator<String> tItor = tags.iterator();
+        final List<String> $ = new ArrayList<String>();
+        while (fItor.hasNext() && tItor.hasNext()) {
+            final Fragment f = fItor.next();
+            final String t = tItor.next();
+            $.add(f.isTypeName() ? "type" : t);
+        }
+        return $;
+    }
 }

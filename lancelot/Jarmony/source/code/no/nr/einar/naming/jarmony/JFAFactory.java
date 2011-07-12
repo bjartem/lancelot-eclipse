@@ -13,7 +13,7 @@ package no.nr.einar.naming.jarmony;
 import no.nr.einar.pb.analysis.IJarFileAnalyzer;
 
 public interface JFAFactory {
-	
-	IJarFileAnalyzer create();
+    
+    IJarFileAnalyzer create();
 
 }

@@ -57,9 +57,9 @@ import org.eclipse.jdt.core.JavaModelException;
  * @author Andrei
  */
 final class AnonymousTypeFinder {
-	private AnonymousTypeFinder() {}
-	
-	 /**
+    private AnonymousTypeFinder() {}
+    
+     /**
      * Get the anonymous inner class with given parent type and class number
      * (like Hello$5.class)
      * 

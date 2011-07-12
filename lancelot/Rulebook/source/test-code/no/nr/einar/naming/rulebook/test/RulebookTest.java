@@ -18,16 +18,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public final class RulebookTest {
-	
-	@BeforeClass
-	public static void initializeLancelot() throws Exception{
-		LancelotTestUtils.loadDefaultConfiguration();
-	}
-		
-	@Test(expected=IllegalArgumentException.class)
-	public void methodCannotBeNull() {
-		final Rulebook testObj = LancelotRegistry.getInstance().getRulebook();
-		testObj.check(null);
-	}
+    
+    @BeforeClass
+    public static void initializeLancelot() throws Exception{
+        LancelotTestUtils.loadDefaultConfiguration();
+    }
+        
+    @Test(expected=IllegalArgumentException.class)
+    public void methodCannotBeNull() {
+        final Rulebook testObj = LancelotRegistry.getInstance().getRulebook();
+        testObj.check(null);
+    }
 
 }

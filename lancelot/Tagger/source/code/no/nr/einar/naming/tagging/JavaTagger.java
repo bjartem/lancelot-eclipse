@@ -15,38 +15,38 @@ import java.util.List;
 
 public final class JavaTagger implements PosTagger {
 
-	public static void main(final String[] args) {
-		final PosTagger tagger = new JavaTagger();
-		final List<String> fragments = getFragments("get", "last", "name");
-		final List<String> result = tagger.tag(fragments);
-		System.out.println(result.size());
-		assert result.size() == fragments.size();
-		for (final String tag: result) {
-			System.out.print(tag + " ");
-		}
-		System.out.println();
-	}
-	
-	private static List<String> getFragments(final String ... parts) {
-		final List<String> $ = new ArrayList<String>();
-		for (final String p: parts) {
-			$.add(p);
-		}
-		return $;
-	}
-	
-	private final PhraseTagger tagger = new PhraseTagger();
-	private final TagSelector selector = new TagSelector();
-	
-	@Override
-	public List<String> tag(final List<String> fragments) {
-		final List<List<Tag>> possibleTags = tagger.tag(fragments);
-		final List<Tag> tags = selector.select(fragments, possibleTags);
-		final List<String> $ = new ArrayList<String>();
-		for (final Tag t: tags) {
-			$.add(t.name().toLowerCase());
-		}
-		return $;
-	}
+    public static void main(final String[] args) {
+        final PosTagger tagger = new JavaTagger();
+        final List<String> fragments = getFragments("get", "last", "name");
+        final List<String> result = tagger.tag(fragments);
+        System.out.println(result.size());
+        assert result.size() == fragments.size();
+        for (final String tag: result) {
+            System.out.print(tag + " ");
+        }
+        System.out.println();
+    }
+    
+    private static List<String> getFragments(final String ... parts) {
+        final List<String> $ = new ArrayList<String>();
+        for (final String p: parts) {
+            $.add(p);
+        }
+        return $;
+    }
+    
+    private final PhraseTagger tagger = new PhraseTagger();
+    private final TagSelector selector = new TagSelector();
+    
+    @Override
+    public List<String> tag(final List<String> fragments) {
+        final List<List<Tag>> possibleTags = tagger.tag(fragments);
+        final List<Tag> tags = selector.select(fragments, possibleTags);
+        final List<String> $ = new ArrayList<String>();
+        for (final Tag t: tags) {
+            $.add(t.name().toLowerCase());
+        }
+        return $;
+    }
 
 }

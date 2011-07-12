@@ -17,47 +17,47 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public final class XsltTest {
-	
-	@BeforeClass
-	public static void initializeLancelot() throws Exception{
-		LancelotTestUtils.loadDefaultConfiguration();
-	}
-		
-	private static final String validXML = "<?xml version='1.0' encoding='UTF-8'?><root/>";
-	private static final String invalidXML = "";
-	private static final String notFile = "";
-	private static final String xsltFile = "/xslt/jarmony.xslt";
-	private static final String nonXsltFile = TestUtils.getFilePath("ant.jar");
-	
-	@Test(expected=NullPointerException.class)
-	public void nullYieldsException() {
-		new Xslt(null);
-	}
-	
-	@Test(expected=RuntimeException.class)
-	public void mustBeFile() {
-		check(notFile, validXML);
-	}
-	
-	@Test(expected=RuntimeException.class)
-	public void mustBeXsltFile() {
-		check(nonXsltFile, validXML);
-	}
+    
+    @BeforeClass
+    public static void initializeLancelot() throws Exception{
+        LancelotTestUtils.loadDefaultConfiguration();
+    }
+        
+    private static final String validXML = "<?xml version='1.0' encoding='UTF-8'?><root/>";
+    private static final String invalidXML = "";
+    private static final String notFile = "";
+    private static final String xsltFile = "/xslt/jarmony.xslt";
+    private static final String nonXsltFile = TestUtils.getFilePath("ant.jar");
+    
+    @Test(expected=NullPointerException.class)
+    public void nullYieldsException() {
+        new Xslt(null);
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void mustBeFile() {
+        check(notFile, validXML);
+    }
+    
+    @Test(expected=RuntimeException.class)
+    public void mustBeXsltFile() {
+        check(nonXsltFile, validXML);
+    }
 
-	@Test(expected=RuntimeException.class)
-	public void invalidXML() {
-		check(xsltFile, invalidXML);
-	}
-	
-	@Test
-	public void validXML() {
-		check(xsltFile, validXML);
-	}
-	
-	private void check(final String file, final String s) {
-		final Xslt xslt = new Xslt(file);
-		xslt.transform(s);
-	}
+    @Test(expected=RuntimeException.class)
+    public void invalidXML() {
+        check(xsltFile, invalidXML);
+    }
+    
+    @Test
+    public void validXML() {
+        check(xsltFile, validXML);
+    }
+    
+    private void check(final String file, final String s) {
+        final Xslt xslt = new Xslt(file);
+        xslt.transform(s);
+    }
 
 
 }

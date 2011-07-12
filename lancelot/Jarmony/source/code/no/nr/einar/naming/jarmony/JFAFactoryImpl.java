@@ -15,9 +15,9 @@ import no.nr.einar.pb.analysis.JarFileAnalyzer;
 
 public final class JFAFactoryImpl implements JFAFactory {
 
-	@Override
-	public IJarFileAnalyzer create() {
-		return new JarFileAnalyzer();
-	}
+    @Override
+    public IJarFileAnalyzer create() {
+        return new JarFileAnalyzer();
+    }
 
 }

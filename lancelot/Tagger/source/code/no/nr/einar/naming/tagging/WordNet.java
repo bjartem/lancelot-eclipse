@@ -15,27 +15,27 @@ import edu.mit.jwi.IDictionary;
 import edu.mit.jwi.item.POS;
 
 public final class WordNet {
-	
-	private final IDictionary wnDict = LancelotRegistry.getInstance().getWordnetDictionary();
-	
-	public boolean isNoun(final String s) {
-		return isWordClass(s, POS.NOUN);
-	}
+    
+    private final IDictionary wnDict = LancelotRegistry.getInstance().getWordnetDictionary();
+    
+    public boolean isNoun(final String s) {
+        return isWordClass(s, POS.NOUN);
+    }
 
-	public boolean isVerb(final String s) {
-		return isWordClass(s, POS.VERB);
-	}
-	
-	public boolean isAdjective(final String s) {
-		return isWordClass(s, POS.ADJECTIVE);
-	}
-	
-	public boolean isAdverb(final String s) {
-		return isWordClass(s, POS.ADVERB);
-	}
-	
-	private boolean isWordClass(final String s, final POS pos) {
-		return wnDict.getIndexWord(s, pos) != null;
-	}
+    public boolean isVerb(final String s) {
+        return isWordClass(s, POS.VERB);
+    }
+    
+    public boolean isAdjective(final String s) {
+        return isWordClass(s, POS.ADJECTIVE);
+    }
+    
+    public boolean isAdverb(final String s) {
+        return isWordClass(s, POS.ADVERB);
+    }
+    
+    private boolean isWordClass(final String s, final POS pos) {
+        return wnDict.getIndexWord(s, pos) != null;
+    }
 
 }

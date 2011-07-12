@@ -12,14 +12,14 @@ package no.nr.einar.naming.tagging;
 
 public abstract class ChainTagger implements FragmentTagger {
 
-	protected final FragmentTagger nextTagger;
-	
-	public ChainTagger(final FragmentTagger nextTagger) {
-		this.nextTagger = nextTagger;
-	}
-	
-	protected void debug(final String message) {
-//		System.out.println(message);
-	}
+    protected final FragmentTagger nextTagger;
+    
+    public ChainTagger(final FragmentTagger nextTagger) {
+        this.nextTagger = nextTagger;
+    }
+    
+    protected void debug(final String message) {
+//        System.out.println(message);
+    }
 
 }

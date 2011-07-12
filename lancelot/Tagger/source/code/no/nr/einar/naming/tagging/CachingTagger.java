@@ -15,30 +15,30 @@ import java.util.List;
 import java.util.Map;
 
 public final class CachingTagger implements PosTagger {
-	
-	private final Map<String, List<String>> map = new HashMap<String, List<String>>();
-	private final PosTagger tagger = new JavaTagger();
-	
-	private static String getName(final List<String> fragments) {
-		final StringBuffer $ = new StringBuffer();
-		for (final String f: fragments) {
-			if ($.length() > 0) {
-				$.append("-");
-			}
-			$.append(f);
-		}
-		return $.toString();
-	}
+    
+    private final Map<String, List<String>> map = new HashMap<String, List<String>>();
+    private final PosTagger tagger = new JavaTagger();
+    
+    private static String getName(final List<String> fragments) {
+        final StringBuffer $ = new StringBuffer();
+        for (final String f: fragments) {
+            if ($.length() > 0) {
+                $.append("-");
+            }
+            $.append(f);
+        }
+        return $.toString();
+    }
 
-	public List<String> tag(final List<String> fragments) {
-		final String name = getName(fragments);
-		List<String> $ = map.get(name);
-		if ($ != null) {
-			return $;
-		}
-		$ = tagger.tag(fragments);
-		map.put(name, $);
-		return $;
-	}
+    public List<String> tag(final List<String> fragments) {
+        final String name = getName(fragments);
+        List<String> $ = map.get(name);
+        if ($ != null) {
+            return $;
+        }
+        $ = tagger.tag(fragments);
+        map.put(name, $);
+        return $;
+    }
 
 }

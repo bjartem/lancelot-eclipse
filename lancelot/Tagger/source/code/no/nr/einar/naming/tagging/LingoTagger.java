@@ -18,38 +18,38 @@ import java.util.Set;
 import no.nr.lancelot.analysis.LancelotRegistry;
 
 public final class LingoTagger extends ChainTagger {
-	
-	private final Map<String, Set<Tag>> dict;
+    
+    private final Map<String, Set<Tag>> dict;
 
-	public LingoTagger(final FragmentTagger nextTagger) {
-		super(nextTagger);
-		dict = createLingoDictionary();
-	}
+    public LingoTagger(final FragmentTagger nextTagger) {
+        super(nextTagger);
+        dict = createLingoDictionary();
+    }
 
-	private static Map<String, Set<Tag>> createLingoDictionary() {
-		return LancelotRegistry.getInstance().getLingoDictionary();
-	}
+    private static Map<String, Set<Tag>> createLingoDictionary() {
+        return LancelotRegistry.getInstance().getLingoDictionary();
+    }
 
-	@Override
-	public List<Tag> tag(final String s) {
-		debug(this.getClass().toString());
-		
-		final List<Tag> $ = new ArrayList<Tag>();
-		if (dict.containsKey(s)) {
-			$.addAll(dict.get(s));
-		} else {
-			final String upper = s.toUpperCase();
-			if (dict.containsKey(upper)) {
-				$.addAll(dict.get(upper));
-			}
-		}
-		if ($.isEmpty()) {
-			$.addAll(nextTagger.tag(s));
-		}
-		
-		debug(this.getClass().toString() + " : " + $.size());
+    @Override
+    public List<Tag> tag(final String s) {
+        debug(this.getClass().toString());
+        
+        final List<Tag> $ = new ArrayList<Tag>();
+        if (dict.containsKey(s)) {
+            $.addAll(dict.get(s));
+        } else {
+            final String upper = s.toUpperCase();
+            if (dict.containsKey(upper)) {
+                $.addAll(dict.get(upper));
+            }
+        }
+        if ($.isEmpty()) {
+            $.addAll(nextTagger.tag(s));
+        }
+        
+        debug(this.getClass().toString() + " : " + $.size());
 
-		return $;
-	}
+        return $;
+    }
 
 }

@@ -21,53 +21,53 @@ import org.eclipse.jdt.core.IRegion;
 import org.eclipse.jdt.core.JavaCore;
 
 final class RichRegion implements IRegion {
-	private final IRegion underlyingRegion = JavaCore.newRegion();
-	
-	RichRegion(final List<?> selectedObjects) {
-	    if (selectedObjects == null)
-	        throw new IllegalArgumentException();
-		populate(selectedObjects);
-	}
-	
-	private void populate(final List<?> selectedObjects) {
-		for (final Object selectedObject : selectedObjects) 
-			populate(selectedObject);
-	}
-	
-	private void populate(final Object selectedObject) {
-		if (! (selectedObject instanceof IJavaElement) ) {
-			LancelotPlugin.logError("Unidentified selection: " + selectedObject);
-			return;
-		}
-		
-		final IJavaElement selectedJavaElement = (IJavaElement) selectedObject;
-		underlyingRegion.add(selectedJavaElement);
-	}
-	
-	public List<IResource> getTopLevelResources() {
-		final List<IResource> res = new LinkedList<IResource>();
-		for (final IJavaElement javaElement : getElements()) 
-			res.add(javaElement.getResource());
-		return res;
-	}
+    private final IRegion underlyingRegion = JavaCore.newRegion();
+    
+    RichRegion(final List<?> selectedObjects) {
+        if (selectedObjects == null)
+            throw new IllegalArgumentException();
+        populate(selectedObjects);
+    }
+    
+    private void populate(final List<?> selectedObjects) {
+        for (final Object selectedObject : selectedObjects) 
+            populate(selectedObject);
+    }
+    
+    private void populate(final Object selectedObject) {
+        if (! (selectedObject instanceof IJavaElement) ) {
+            LancelotPlugin.logError("Unidentified selection: " + selectedObject);
+            return;
+        }
+        
+        final IJavaElement selectedJavaElement = (IJavaElement) selectedObject;
+        underlyingRegion.add(selectedJavaElement);
+    }
+    
+    public List<IResource> getTopLevelResources() {
+        final List<IResource> res = new LinkedList<IResource>();
+        for (final IJavaElement javaElement : getElements()) 
+            res.add(javaElement.getResource());
+        return res;
+    }
 
-	@Override
-	public void add(final IJavaElement element) {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void add(final IJavaElement element) {
+        throw new UnsupportedOperationException();
+    }
 
-	@Override
-	public boolean contains(final IJavaElement element) {
-		return underlyingRegion.contains(element);
-	}
+    @Override
+    public boolean contains(final IJavaElement element) {
+        return underlyingRegion.contains(element);
+    }
 
-	@Override
-	public IJavaElement[] getElements() {
-		return underlyingRegion.getElements();
-	}
+    @Override
+    public IJavaElement[] getElements() {
+        return underlyingRegion.getElements();
+    }
 
-	@Override
-	public boolean remove(final IJavaElement element) {
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public boolean remove(final IJavaElement element) {
+        throw new UnsupportedOperationException();
+    }
 }

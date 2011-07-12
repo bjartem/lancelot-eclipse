@@ -36,24 +36,24 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 public class RunLancelotAction extends AbstractLancelotAction {
-	@Override
-	protected void run(final RichRegion region) {
-		try {
-		    if (!workspaceIsAutoBuilding()) {
-		        signalAutoBuildingProblem();
-		        return;
-		    }
-		    
-		    if (containsJavaBuildErrors(region)) {
-		        signalCompilationProblem();
+    @Override
+    protected void run(final RichRegion region) {
+        try {
+            if (!workspaceIsAutoBuilding()) {
+                signalAutoBuildingProblem();
                 return;
-		    }
-	
-			runController(region);
-		} catch (CoreException e) {
-			LancelotPlugin.logException(e);
-		}
-	}
+            }
+            
+            if (containsJavaBuildErrors(region)) {
+                signalCompilationProblem();
+                return;
+            }
+    
+            runController(region);
+        } catch (CoreException e) {
+            LancelotPlugin.logException(e);
+        }
+    }
 
     private boolean workspaceIsAutoBuilding() {
         final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -67,7 +67,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
             "Lancelot can not run when auto-building is disabled."
         );
     }
-	
+    
     private boolean containsJavaBuildErrors(final RichRegion region) throws CoreException {
         for (final IResource resource : region.getTopLevelResources())
             if (GatheringHelper.hasJavaBuildErrors(resource)) 
@@ -78,21 +78,21 @@ public class RunLancelotAction extends AbstractLancelotAction {
     private void signalCompilationProblem() {
         openInformation(
             "Lancelot cannot run",
-		    "Some of the selected resources has Java compilation errors. " +
-		    "The analysis can not run on code that does not compile."
-		);
-	}
+            "Some of the selected resources has Java compilation errors. " +
+            "The analysis can not run on code that does not compile."
+        );
+    }
     
     private void openInformation(final String title, final String message) {
         MessageDialog.openInformation(null, title, message );
     }
 
-	private void runController(final RichRegion region) {
+    private void runController(final RichRegion region) {
         final AbstractGatherer gatherer = createGatherer(region);
         final IAnalysisController analyser = createAnalyser();
         final ILancelotView view = createView();
 
-	    runInForeground(new IRunnableWithProgress() {
+        runInForeground(new IRunnableWithProgress() {
             @Override
             public void run(final IProgressMonitor monitor) {
                 try {
@@ -102,7 +102,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
                 }
             }
         });
-	}
+    }
 
     private AbstractGatherer createGatherer(final RichRegion region) {
         final IResource[] generatedResources = JavaCore.getGeneratedResources(region, false);
@@ -117,26 +117,26 @@ public class RunLancelotAction extends AbstractLancelotAction {
     private ILancelotView createView() {
         return new BugMarkingView();
     }
-	
+    
     @SuppressWarnings(value = "EI_EXPOSE_REP2", justification = "Data flows in private scope.")
-	protected static final class Gatherer extends AbstractGatherer {
-		private final IResource[] resources;
+    protected static final class Gatherer extends AbstractGatherer {
+        private final IResource[] resources;
 
-	    public Gatherer(final IResource[] generatedResources) {
-			this.resources = generatedResources;
-		}
+        public Gatherer(final IResource[] generatedResources) {
+            this.resources = generatedResources;
+        }
 
-		@Override
+        @Override
         public List<IClassFile> gatherFiles() throws CoreException {
-			final List<IClassFile> result = new LinkedList<IClassFile>();
-			
-			for (final IResource resource : resources) {
-				final IClassFile maybeClassFile = GatheringHelper.findClassFileOrNull(resource);
-				if (maybeClassFile != null)
-					result.add(maybeClassFile);
-			}
-			
-			return result;
-		}
-	}
+            final List<IClassFile> result = new LinkedList<IClassFile>();
+            
+            for (final IResource resource : resources) {
+                final IClassFile maybeClassFile = GatheringHelper.findClassFileOrNull(resource);
+                if (maybeClassFile != null)
+                    result.add(maybeClassFile);
+            }
+            
+            return result;
+        }
+    }
 }

@@ -12,12 +12,12 @@ package no.nr.einar.naming.rulebook;
 
 public final class WildcardPart implements IPhrasePart {
 
-	public boolean captures(final NamePart part) {
-		return true;
-	}
-	
-	public String toString() {
-		return "*";
-	}
+    public boolean captures(final NamePart part) {
+        return true;
+    }
+    
+    public String toString() {
+        return "*";
+    }
 
 }

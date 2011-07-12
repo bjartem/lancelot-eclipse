@@ -11,12 +11,12 @@
 package no.nr.lancelot.eclipse.test;
 
 public final class TestUtils {
-	private TestUtils() {}
-	
-	public static String join(final String... strings){
-		final StringBuffer sb = new StringBuffer();
-		for (final String s : strings)
-			sb.append(s);
-		return sb.toString();
-	}
+    private TestUtils() {}
+    
+    public static String join(final String... strings){
+        final StringBuffer sb = new StringBuffer();
+        for (final String s : strings)
+            sb.append(s);
+        return sb.toString();
+    }
 }

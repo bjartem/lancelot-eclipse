@@ -13,49 +13,49 @@ package no.nr.einar.naming.jarmony.test;
 import java.net.URL;
 
 public class TestUtils {
-	
-	private TestUtils() {}
+    
+    private TestUtils() {}
 
-	private URL getLocationOfThisClass() {
-		return getClass().getResource(getClass().getSimpleName() + ".class");
-	}
+    private URL getLocationOfThisClass() {
+        return getClass().getResource(getClass().getSimpleName() + ".class");
+    }
 
-	private String getFolder() {
-		final String path = getLocationOfThisClass().getFile();
-		final String projectPath = path.substring(0, path.indexOf("/bin"));
-		final String testDataPath = projectPath + "/Jarmony/test-data";
-		return testDataPath;
-	}
-	
-	public static String getFolderPath() {
-		return getBasePath() + "/jar-files";
-	}
-	
-	public static String getFilePath(final String fileName) {
-		return getFolderPath() + "/" + fileName;
-	}
-	
-	public static String getDummyPath() {
-		return getBasePath() + "/dummy-files";
-	}
-	
-	public static String getXsltPath() {
-		return getBasePath() + "/../xslt/";
-	}
-	
-	public static String getExpectedOutputPath() {
-		return getBasePath() + "/expected-output-files";
-	}
-	
-	public static String getExpectedOutputPath(final String fileName) {
-		return getExpectedOutputPath() + "/" + fileName;
-	}
-	
-	public static String getBasePath() { 
-		return new TestUtils().getFolder();
-	}
-	
-	public static String getDummyPath(final String fileName) {
-		return getDummyPath() + "/" + fileName;
-	}
+    private String getFolder() {
+        final String path = getLocationOfThisClass().getFile();
+        final String projectPath = path.substring(0, path.indexOf("/bin"));
+        final String testDataPath = projectPath + "/Jarmony/test-data";
+        return testDataPath;
+    }
+    
+    public static String getFolderPath() {
+        return getBasePath() + "/jar-files";
+    }
+    
+    public static String getFilePath(final String fileName) {
+        return getFolderPath() + "/" + fileName;
+    }
+    
+    public static String getDummyPath() {
+        return getBasePath() + "/dummy-files";
+    }
+    
+    public static String getXsltPath() {
+        return getBasePath() + "/../xslt/";
+    }
+    
+    public static String getExpectedOutputPath() {
+        return getBasePath() + "/expected-output-files";
+    }
+    
+    public static String getExpectedOutputPath(final String fileName) {
+        return getExpectedOutputPath() + "/" + fileName;
+    }
+    
+    public static String getBasePath() { 
+        return new TestUtils().getFolder();
+    }
+    
+    public static String getDummyPath(final String fileName) {
+        return getDummyPath() + "/" + fileName;
+    }
 }

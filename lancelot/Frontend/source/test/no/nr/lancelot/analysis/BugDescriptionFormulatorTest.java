@@ -20,56 +20,56 @@ import no.nr.lancelot.analysis.BugDescriptionFormulator;
 import org.junit.Test;
 
 public class BugDescriptionFormulatorTest {
-	@Test
-	public void testConcat() {
-		assertEquals("", BugDescriptionFormulator.concat(""));
-		assertEquals("AA", BugDescriptionFormulator.concat("AA"));
-		assertEquals("AABBCC", BugDescriptionFormulator.concat("AA", "BB", "CC"));
-	}
+    @Test
+    public void testConcat() {
+        assertEquals("", BugDescriptionFormulator.concat(""));
+        assertEquals("AA", BugDescriptionFormulator.concat("AA"));
+        assertEquals("AABBCC", BugDescriptionFormulator.concat("AA", "BB", "CC"));
+    }
 
-	@Test
-	@SuppressWarnings("serial")
-	public void testConjugate() {
-		assertEquals(
-		    "",
-		    BugDescriptionFormulator.conjugate(
-		    	new ArrayList<String>(),
-		    	"sep",
-		    	"conj"
-		   )
-		);
-		
-		assertEquals(
-		    "A",
-		    BugDescriptionFormulator.conjugate(
-		    	new ArrayList<String>(){{
-		    		add("A");
-		    	}},
-		    	"sep",
-		    	"conj"
-		   )
-		);
+    @Test
+    @SuppressWarnings("serial")
+    public void testConjugate() {
+        assertEquals(
+            "",
+            BugDescriptionFormulator.conjugate(
+                new ArrayList<String>(),
+                "sep",
+                "conj"
+           )
+        );
+        
+        assertEquals(
+            "A",
+            BugDescriptionFormulator.conjugate(
+                new ArrayList<String>(){{
+                    add("A");
+                }},
+                "sep",
+                "conj"
+           )
+        );
 
-		assertEquals(
-		    "AsepconjB",
-		    BugDescriptionFormulator.conjugate(
-		    	new ArrayList<String>(){{
-		    		add("A"); add("B");
-		    	}},
-		    	"sep",
-		    	"conj"
-		   )
-		);
-		
-		assertEquals(
-		    "AsepBsepCsepconjD",
-		    BugDescriptionFormulator.conjugate(
-		    	new ArrayList<String>(){{
-		    		add("A"); add("B"); add("C"); add("D");
-		    	}},
-		    	"sep",
-		    	"conj"
-		   )
-		);
-	}
+        assertEquals(
+            "AsepconjB",
+            BugDescriptionFormulator.conjugate(
+                new ArrayList<String>(){{
+                    add("A"); add("B");
+                }},
+                "sep",
+                "conj"
+           )
+        );
+        
+        assertEquals(
+            "AsepBsepCsepconjD",
+            BugDescriptionFormulator.conjugate(
+                new ArrayList<String>(){{
+                    add("A"); add("B"); add("C"); add("D");
+                }},
+                "sep",
+                "conj"
+           )
+        );
+    }
 }

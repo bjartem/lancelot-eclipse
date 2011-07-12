@@ -12,18 +12,18 @@ package no.nr.einar.naming.rulebook;
 
 public final class TagPart implements IPhrasePart {
 
-	private final String tag;
+    private final String tag;
 
-	public TagPart(final String tag) {
-		this.tag = tag;
-	}
+    public TagPart(final String tag) {
+        this.tag = tag;
+    }
 
-	public boolean captures(final NamePart part) {
-		return tag.equals(part.getTag());
-	}
-	
-	public String toString() {
-		return "[" + tag + "]";
-	}
+    public boolean captures(final NamePart part) {
+        return tag.equals(part.getTag());
+    }
+    
+    public String toString() {
+        return "[" + tag + "]";
+    }
 
 }

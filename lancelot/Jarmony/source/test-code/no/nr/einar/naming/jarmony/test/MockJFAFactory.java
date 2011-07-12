@@ -21,14 +21,14 @@ import no.nr.einar.pb.model.JavaJar;
 import no.nr.lancelot.analysis.LancelotTestUtils;
 
 public final class MockJFAFactory implements JFAFactory {
-	
-	public IJarFileAnalyzer create() {
-		return new IJarFileAnalyzer() {
-			@Override
-			public JavaJar analyze(final JarFile jarFile) throws IOException {
-				return new JavaJar("", "foo.jar");
-			}
-		};
-	}
+    
+    public IJarFileAnalyzer create() {
+        return new IJarFileAnalyzer() {
+            @Override
+            public JavaJar analyze(final JarFile jarFile) throws IOException {
+                return new JavaJar("", "foo.jar");
+            }
+        };
+    }
 
 }

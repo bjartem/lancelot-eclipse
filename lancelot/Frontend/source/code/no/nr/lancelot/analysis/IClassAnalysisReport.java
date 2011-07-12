@@ -15,9 +15,9 @@ import java.util.List;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 public interface IClassAnalysisReport {
-	String getPackageName();
-	String getClassName();
-	@Nullable Object getOperationKey();
-	boolean hasBugs();
-	List<MethodBugReport> getMethodBugReports();
+    String getPackageName();
+    String getClassName();
+    @Nullable Object getOperationKey();
+    boolean hasBugs();
+    List<MethodBugReport> getMethodBugReports();
 }

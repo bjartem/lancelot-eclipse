@@ -11,7 +11,7 @@
 package no.nr.einar.naming.rulebook;
 
 public interface IPhrasePart {
-	
-	boolean captures(NamePart part);
+    
+    boolean captures(NamePart part);
 
 }

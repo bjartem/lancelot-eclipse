@@ -20,23 +20,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public final class AnalyzerTest {
-	
-	@BeforeClass
-	public static void initializeLancelot() throws Exception{
-		LancelotTestUtils.loadDefaultConfiguration();
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void configCannotBeNull() {
-		new Analyzer(null);
-	}
-	
-	@Test
-	public void t() throws IOException {
-		final String path = TestUtils.getDummyPath("dummy.jar");
-		final Analyzer testObj = new Analyzer(new Configuration(path));
-		testObj.injectFactory(new MockJFAFactory());
-		testObj.analyze();
-	}
+    
+    @BeforeClass
+    public static void initializeLancelot() throws Exception{
+        LancelotTestUtils.loadDefaultConfiguration();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void configCannotBeNull() {
+        new Analyzer(null);
+    }
+    
+    @Test
+    public void t() throws IOException {
+        final String path = TestUtils.getDummyPath("dummy.jar");
+        final Analyzer testObj = new Analyzer(new Configuration(path));
+        testObj.injectFactory(new MockJFAFactory());
+        testObj.analyze();
+    }
 
 }

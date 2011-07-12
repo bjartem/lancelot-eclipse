@@ -19,40 +19,40 @@ import edu.mit.jwi.item.POS;
 import edu.mit.jwi.morph.WordnetStemmer;
 
 public final class MorphyTagger extends ChainTagger {
-	
-	private final WordnetStemmer stemmer = new WordnetStemmer(
-			LancelotRegistry.getInstance().getWordnetDictionary());
+    
+    private final WordnetStemmer stemmer = new WordnetStemmer(
+            LancelotRegistry.getInstance().getWordnetDictionary());
 
-	public MorphyTagger(final FragmentTagger nextTagger) {
-		super(nextTagger);
-	}
+    public MorphyTagger(final FragmentTagger nextTagger) {
+        super(nextTagger);
+    }
 
-	@Override
-	public List<Tag> tag(final String s) {
-		debug(this.getClass().toString());
-		
-		final List<Tag> $ = new ArrayList<Tag>();
-		if (stemsFrom(s, POS.NOUN)) {
-			$.add(Tag.Noun);
-		}
-		if (stemsFrom(s, POS.VERB)) {
-			$.add(Tag.Verb);
-		}
-		if (stemsFrom(s, POS.ADJECTIVE)) {
-			$.add(Tag.Adjective);
-		}
-		if (stemsFrom(s, POS.ADVERB)) {
-			$.add(Tag.Adverb);
-		}
-		
-		debug(this.getClass().toString() + " : " + $.size());
-		
-		return $;
-	}
+    @Override
+    public List<Tag> tag(final String s) {
+        debug(this.getClass().toString());
+        
+        final List<Tag> $ = new ArrayList<Tag>();
+        if (stemsFrom(s, POS.NOUN)) {
+            $.add(Tag.Noun);
+        }
+        if (stemsFrom(s, POS.VERB)) {
+            $.add(Tag.Verb);
+        }
+        if (stemsFrom(s, POS.ADJECTIVE)) {
+            $.add(Tag.Adjective);
+        }
+        if (stemsFrom(s, POS.ADVERB)) {
+            $.add(Tag.Adverb);
+        }
+        
+        debug(this.getClass().toString() + " : " + $.size());
+        
+        return $;
+    }
 
-	private boolean stemsFrom(final String s, final POS pos) {
-		final List<String> stems = stemmer.findStems(s, pos);
-		return stems.size() > 0;
-	}
+    private boolean stemsFrom(final String s, final POS pos) {
+        final List<String> stems = stemmer.findStems(s, pos);
+        return stems.size() > 0;
+    }
 
 }

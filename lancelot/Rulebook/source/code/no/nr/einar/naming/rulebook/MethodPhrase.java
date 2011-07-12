@@ -15,36 +15,36 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class MethodPhrase implements Iterable<NamePart> {
-	
-	private final List<NamePart> parts;
+    
+    private final List<NamePart> parts;
 
-	public MethodPhrase(final List<String> fragments, final List<String> tags) {
-		this.parts = deriveParts(fragments, tags);
-	}
-	
-	private List<NamePart> deriveParts(final List<String> fragments, final List<String> tags) {
-		final List<NamePart> $ = new ArrayList<NamePart>();
-		final Iterator<String> fItor = fragments.iterator();
-		final Iterator<String> tItor = tags.iterator();
-		while (fItor.hasNext() && tItor.hasNext()) {
-			$.add(new NamePart(fItor.next(), tItor.next()));
-		}
-		return $;
-	}
+    public MethodPhrase(final List<String> fragments, final List<String> tags) {
+        this.parts = deriveParts(fragments, tags);
+    }
+    
+    private List<NamePart> deriveParts(final List<String> fragments, final List<String> tags) {
+        final List<NamePart> $ = new ArrayList<NamePart>();
+        final Iterator<String> fItor = fragments.iterator();
+        final Iterator<String> tItor = tags.iterator();
+        while (fItor.hasNext() && tItor.hasNext()) {
+            $.add(new NamePart(fItor.next(), tItor.next()));
+        }
+        return $;
+    }
 
-	public String toString() {
-		final StringBuilder sb = new StringBuilder();
-		for (final NamePart part : parts) {
-			if (sb.length() > 0) {
-				sb.append("-");
-			}
-			sb.append(part.getText() + "/" + part.getTag());
-		}
-		return sb.toString();
-	}
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        for (final NamePart part : parts) {
+            if (sb.length() > 0) {
+                sb.append("-");
+            }
+            sb.append(part.getText() + "/" + part.getTag());
+        }
+        return sb.toString();
+    }
 
-	public Iterator<NamePart> iterator() {
-		return parts.iterator();
-	}
+    public Iterator<NamePart> iterator() {
+        return parts.iterator();
+    }
 
 }

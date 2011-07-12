@@ -11,6 +11,6 @@
 package no.nr.lancelot.eclipse.testdata.methodmaptest;
 
 public class Beta {
-	public static class BetaAlpha {
-	}
+    public static class BetaAlpha {
+    }
 }
