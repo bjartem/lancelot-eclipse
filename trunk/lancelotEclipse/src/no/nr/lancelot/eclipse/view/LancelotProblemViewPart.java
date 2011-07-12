@@ -32,7 +32,6 @@ public final class LancelotProblemViewPart extends ViewPart {
 
     private Table table;
 
-    @SuppressWarnings("unused")
     @Override
     public void createPartControl(Composite parent) {
         table = new Table(parent, SWT.H_SCROLL | SWT.V_SCROLL | SWT.MULTI | SWT.FULL_SELECTION);

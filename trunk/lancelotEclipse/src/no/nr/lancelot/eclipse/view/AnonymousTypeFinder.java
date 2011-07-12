@@ -45,7 +45,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.IdentityHashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +59,8 @@ import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 final class AnonymousTypeFinder {
     private AnonymousTypeFinder() {}
@@ -251,6 +252,7 @@ final class AnonymousTypeFinder {
         }
     }
 
+    @SuppressWarnings(value="SE_COMPARATOR_SHOULD_BE_SERIALIZABLE", justification="Never serialized")
     private static final class SourceOffsetComparator implements Comparator<IType> {
         /**
          * First source occurrence wins.
@@ -325,28 +327,6 @@ final class AnonymousTypeFinder {
 
         final AnonymClassComparator classComparator = new AnonymClassComparator(anonType, sourceComparator);
         Collections.sort(anonymous, classComparator);
-    }
-
-    private static void debugCompilePrio(final AnonymClassComparator classComparator) {
-        final Map<IType, Integer> map = classComparator.map;
-        Comparator<IType> prioComp = new Comparator<IType>() {
-
-            public int compare(IType e1, IType e2) {
-                int result = map.get(e1).compareTo(map.get(e2));
-                if (result == 0) {
-                    return e1.toString().compareTo(e2.toString());
-                }
-                return -result;
-            }
-
-        };
-
-        List<IType> keys = new ArrayList<IType>(map.keySet());
-        Collections.sort(keys, prioComp);
-        for (Iterator<IType> iterator = keys.iterator(); iterator.hasNext();) {
-            Object key = iterator.next();
-            System.out.println(map.get(key) + " : " + key);
-        }
     }
 
     private static int getAnonCompilePriority(IJavaElement elt, IJavaElement firstAncestor, IJavaElement topAncestor,
