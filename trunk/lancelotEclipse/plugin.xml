@@ -28,26 +28,13 @@
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            objectClass="org.eclipse.core.resources.IProject"
-            nameFilter="*"
-            id="no.nr.lancelot.eclipse.toggleNatureContribution">
-         <action
-               label="Toggle Lancelot Nature"
-               class="no.nr.lancelot.eclipse.actions.ToggleNatureAction"
-               menubarPath="additions"
-               enablesFor="+"
-               id="toggleNatureAction">
-         </action>
-      </objectContribution>
    </extension>
-    <extension
+   <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
             id="no.nr.lancelot.eclipse.javaElementActions"
-            objectClass="org.eclipse.jdt.core.IOpenable">
+            objectClass="org.eclipse.jdt.core.IJavaElement">
          <menu
                id="lancelot"
                label="Lancelot"
@@ -65,7 +52,24 @@
                label="Find naming bugs"
                menubarPath="lancelot/additions"
                tooltip="Find naming bugs"/>
-
+      </objectContribution>
+   </extension>   
+      <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="no.nr.lancelot.eclipse.javaProjectActions"
+            objectClass="org.eclipse.jdt.core.IJavaProject">
+         <menu
+               id="lancelot"
+               label="Lancelot"
+               path="group.build"/>
+         <action
+               label="Enable/disable automatical analysis"
+               class="no.nr.lancelot.eclipse.actions.ToggleNatureAction"
+               menubarPath="lancelot/additions"
+               enablesFor="+"
+               id="toggleNatureAction"/>
       </objectContribution>
    </extension>
    <extension
@@ -81,21 +85,6 @@
             name="ALTERNATIVE_NAMES">
       </attribute>
    </extension>
-   <extension
-         point="org.eclipse.ui.views">
-      <view
-            allowMultiple="false"
-            category="no.nr.lancelot.eclipse.viewCategory"
-            class="no.nr.lancelot.eclipse.view.LancelotProblemViewPart"
-            id="no.nr.lancelot.eclipse.lancelotProblemView"
-            name="Problems"
-            restorable="true">
-      </view>
-      <category
-            id="no.nr.lancelot.eclipse.viewCategory"
-            name="Lancelot">
-      </category>
-   </extension>
    
    <extension
     point="org.eclipse.ui.ide.markerResolution">
@@ -103,6 +92,38 @@
         markerType="no.nr.lancelot.eclipse.namingBugMarker"
         class="no.nr.lancelot.eclipse.view.LancelotMarkerResolutionGenerator">
     </markerResolutionGenerator>
+    </extension>
+   
+   <extension 
+      point="org.eclipse.ui.views"> 
+      <view 
+            allowMultiple="false"
+            category="no.nr.lancelot.eclipse.viewCategory"
+             class="no.nr.lancelot.eclipse.view.LancelotMarkerView" 
+             id="no.nr.lancelot.eclipse.view.markerView" 
+             name="Naming bugs">
+      </view>
+      <category
+            id="no.nr.lancelot.eclipse.viewCategory"
+            name="Lancelot">
+      </category>
+    </extension>
+    
+    <extension 
+      point="org.eclipse.ui.ide.markerSupport"> 
+   <markerContentGenerator 
+         id="no.nr.lancelot.eclipse.view.markerViewContentGenerator" 
+         name="Naming Bug Marker Content Generator"> 
+        <markerTypeReference 
+             id="no.nr.lancelot.eclipse.namingBugMarker"/> 
+        <markerFieldReference 
+             id="org.eclipse.ui.ide.locationField"/> 
+       <markerFieldReference 
+             id="org.eclipse.ui.ide.resourceField"/> 
+       <markerFieldReference 
+             id="org.eclipse.ui.ide.descriptionField"/> 
+    </markerContentGenerator> 
 </extension>
+
 
 </plugin>

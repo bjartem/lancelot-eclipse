@@ -23,16 +23,28 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 
-public class LancelotInitializer {
+public final class LancelotInitializer {
+    /* The ID of the lancelot *analysis engine* plugin.
+     */
     public static final String ANALYSIS_PLUGIN_ID = "no.nr.lancelot"; 
+    
+    /* This is the bundle belonging to the lancelot analysis engine, 
+     * not lancelotEclipse.
+     *
+     * Atm, we put the work of actually initializing the engine 
+     * (by providing the correct paths) to the client code (in 
+     * this case lancelotEclipse), even though the resources that are 
+     * referenced are bundled with the engine itself. The rationale is 
+     * that the engine should not need to know too much about context-
+     * specific bundling and packaging.
+     */
+    private final Bundle analysisBundle = Platform.getBundle(ANALYSIS_PLUGIN_ID);    
     
     private final static IPath RULEBOOK_PATH     = new Path("resources/rules.xml"),
                                WORDNET_DICT_PATH = new Path("resources/wordnet-3-dict/"),
-                               LINGO_PATH = new Path("resources/manual_dict.txt"),
-                               REVERSE_MAP_PATH = new Path("resources/reverse_map.txt");
+                               LINGO_PATH        = new Path("resources/manual_dict.txt"),
+                               REVERSE_MAP_PATH  = new Path("resources/reverse_map.txt");
 
-    private final Bundle analysisBundle = Platform.getBundle(ANALYSIS_PLUGIN_ID);
-    
     public void run() {
         try {
             final long startTimeMs = System.currentTimeMillis();
@@ -45,7 +57,8 @@ public class LancelotInitializer {
                 findReverseMapFile()
             );
             
-            final long spentTimeMs = System.currentTimeMillis() - startTimeMs;
+            final long stopTimeMs = System.currentTimeMillis();
+            final long spentTimeMs = stopTimeMs - startTimeMs;
             LancelotPlugin.logInfo("Lancelot initialized in " + spentTimeMs + " ms.");
         } catch (Exception e) {
             LancelotPlugin.logException(e);
