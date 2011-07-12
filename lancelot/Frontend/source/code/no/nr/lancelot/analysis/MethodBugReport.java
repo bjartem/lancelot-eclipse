@@ -39,8 +39,10 @@ public final class MethodBugReport implements IMethodBugReport {
         
         this.method = method;
         this.violations = Collections.unmodifiableList(new LinkedList<Rule>(violations));
-        this.textualDescription = new BugDescriptionFormulator(method.getMethodName(), violations)
-                                          .getDescription();
+        this.textualDescription = new BugDescriptionFormulator(
+        		                      method.getMethodName(), 
+        		                      violations
+        		                  ).getDescription();
     }
 
     @Override

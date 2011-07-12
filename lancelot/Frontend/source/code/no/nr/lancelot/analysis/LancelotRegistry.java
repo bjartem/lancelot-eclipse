@@ -109,10 +109,10 @@ public final class LancelotRegistry {
     }
 
     public static void initialize(
-            final URL rulebookUrl, 
-            final URL wordnetDictUrl, 
-            final File lingoFile,
-            final File semanticMapFile
+        final URL rulebookUrl, 
+        final URL wordnetDictUrl, 
+        final File lingoFile,
+        final File semanticMapFile
     ) throws RulebookInitException, LingoInitException, SemanticsMapInitException {
         if (isInitialized())
             throw new RuntimeException("Already initialized!");

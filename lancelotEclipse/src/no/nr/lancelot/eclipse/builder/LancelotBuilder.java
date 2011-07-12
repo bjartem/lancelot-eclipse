@@ -16,7 +16,7 @@ import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.analysis.Analyzer;
 import no.nr.lancelot.eclipse.analysis.IAnalyzer;
 import no.nr.lancelot.eclipse.controller.LancelotController;
-import no.nr.lancelot.eclipse.gathering.AbstractGatherer;
+import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.gathering.GatheringHelper;
 import no.nr.lancelot.eclipse.view.BugMarkingView;
 import no.nr.lancelot.eclipse.view.ILancelotView;
@@ -49,7 +49,7 @@ public final class LancelotBuilder extends IncrementalProjectBuilder {
         }
 
         try {
-            final AbstractGatherer gatherer = createGatherer();
+            final IGatherer gatherer = createGatherer();
             final IAnalyzer analyser = new Analyzer();
             final ILancelotView annotator = new BugMarkingView();
             new LancelotController(gatherer, analyser, annotator, monitor).run();
@@ -60,7 +60,7 @@ public final class LancelotBuilder extends IncrementalProjectBuilder {
         return null;
     }
     
-    private AbstractGatherer createGatherer() {
+    private IGatherer createGatherer() {
         @Nullable 
         final IResourceDelta possibleDelta = getDelta(getProject());
         return new BuilderGatherer(getProject(), possibleDelta);

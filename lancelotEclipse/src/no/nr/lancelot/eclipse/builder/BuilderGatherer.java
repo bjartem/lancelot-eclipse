@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import no.nr.lancelot.eclipse.LancelotPlugin;
-import no.nr.lancelot.eclipse.gathering.AbstractGatherer;
+import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.gathering.GatheringHelper;
 
 import org.eclipse.core.resources.IProject;
@@ -27,7 +27,7 @@ import org.eclipse.jdt.core.IClassFile;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-final class BuilderGatherer extends AbstractGatherer {
+final class BuilderGatherer implements IGatherer {
     private final IProject project;
     private final IResourceDelta rootDelta;
     private final boolean needsFullSearch;
