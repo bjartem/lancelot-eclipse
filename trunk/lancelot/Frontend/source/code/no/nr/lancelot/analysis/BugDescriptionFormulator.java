@@ -97,8 +97,7 @@ public final class BugDescriptionFormulator {
                 ),
                 COLON,
                 AND
-            ),
-            "."
+            )
         );
     }
     
