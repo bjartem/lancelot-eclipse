@@ -25,26 +25,14 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.IClassFile;
 
 public final class Analyzer implements IAnalyzer {
-    private List<IClassAnalysisReport> analysisReports = null;
-    
     @Override
-    public List<IClassAnalysisReport> getAnalysisReports() {
-        if (analysisReports == null)
-            throw new IllegalStateException("Analysis has not run!");
-        return analysisReports;
-    }
-    
-    @Override
-    public void run(
+    public List<IClassAnalysisReport> run(
         final List<IClassFile> filesForAnalysis, 
         final IProgressMonitor monitor
     ) throws IOException, CoreException {
         if (filesForAnalysis == null || monitor == null)
             throw new IllegalArgumentException();
 
-        if (analysisReports != null)
-            throw new IllegalStateException("Analysis has already run!");
-        
         final List<ClassAnalysisOperation> operations = createAnalysisOperations(filesForAnalysis);
     
         try {
@@ -69,9 +57,9 @@ public final class Analyzer implements IAnalyzer {
                 monitor.worked(1);
             }
             
-            analysisReports = Collections.unmodifiableList(tempAnalysisReports);
-            
             logCompletion();
+
+            return Collections.unmodifiableList(tempAnalysisReports);
         } finally {
             monitor.done();
         }

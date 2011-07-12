@@ -17,7 +17,7 @@ import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.analysis.Analyzer;
 import no.nr.lancelot.eclipse.analysis.IAnalyzer;
 import no.nr.lancelot.eclipse.controller.LancelotController;
-import no.nr.lancelot.eclipse.gathering.AbstractGatherer;
+import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.gathering.GatheringHelper;
 import no.nr.lancelot.eclipse.view.BugMarkingView;
 import no.nr.lancelot.eclipse.view.ILancelotView;
@@ -88,7 +88,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
     }
 
     private void runController(final RichRegion region) {
-        final AbstractGatherer gatherer = createGatherer(region);
+        final IGatherer gatherer = createGatherer(region);
         final IAnalyzer analyser = createAnalyser();
         final ILancelotView view = createView();
 
@@ -104,9 +104,9 @@ public class RunLancelotAction extends AbstractLancelotAction {
         });
     }
 
-    private AbstractGatherer createGatherer(final RichRegion region) {
+    private IGatherer createGatherer(final RichRegion region) {
         final IResource[] generatedResources = JavaCore.getGeneratedResources(region, false);
-        final AbstractGatherer gatherer = new Gatherer(generatedResources);
+        final IGatherer gatherer = new Gatherer(generatedResources);
         return gatherer;
     }
     
@@ -119,7 +119,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
     }
     
     @SuppressWarnings(value = "EI_EXPOSE_REP2", justification = "Data flows in private scope.")
-    protected static final class Gatherer extends AbstractGatherer {
+    protected static final class Gatherer implements IGatherer {
         private final IResource[] resources;
 
         public Gatherer(final IResource[] generatedResources) {

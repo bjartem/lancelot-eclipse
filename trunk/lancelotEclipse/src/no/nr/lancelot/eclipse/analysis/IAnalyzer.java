@@ -10,7 +10,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClassFile;
 
 public interface IAnalyzer {
-    List<IClassAnalysisReport> getAnalysisReports();
-    void run(List<IClassFile> filesForAnalysis, IProgressMonitor monitor) 
+    List<IClassAnalysisReport> run(List<IClassFile> filesForAnalysis, IProgressMonitor monitor) 
     throws IOException, CoreException;
 }

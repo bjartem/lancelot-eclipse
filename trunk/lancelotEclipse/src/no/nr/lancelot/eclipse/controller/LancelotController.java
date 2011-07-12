@@ -16,7 +16,7 @@ import java.util.List;
 import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.analysis.IAnalyzer;
-import no.nr.lancelot.eclipse.gathering.AbstractGatherer;
+import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
 
 import org.eclipse.core.runtime.CoreException;
@@ -38,8 +38,8 @@ public final class LancelotController {
                                                 + ANALYSIS_WORK_UNITS 
                                                 + VIEW_WORK_UNITS;
 
-    private final AbstractGatherer gatherer;
-    private final IAnalyzer analysisController;
+    private final IGatherer gatherer;
+    private final IAnalyzer analyzer;
     private final ILancelotView view;
     private final IProgressMonitor mainMonitor;
     
@@ -47,16 +47,16 @@ public final class LancelotController {
     private List<IClassAnalysisReport> analysisReports = null;
 
     public LancelotController(
-        final AbstractGatherer gatherer,
-        final IAnalyzer analysisController,
+        final IGatherer gatherer,
+        final IAnalyzer analyzer,
         final ILancelotView view,
         final IProgressMonitor mainMonitor
     ) {
-        if (gatherer == null || analysisController == null || view == null || mainMonitor == null)
+        if (gatherer == null || analyzer == null || view == null || mainMonitor == null)
             throw new IllegalArgumentException();
         
         this.gatherer = gatherer;
-        this.analysisController = analysisController;
+        this.analyzer = analyzer;
         this.view = view;
         this.mainMonitor = mainMonitor;
 
@@ -101,7 +101,7 @@ public final class LancelotController {
         );
     }
     
-    protected void gather() throws CoreException {
+    private void gather() throws CoreException {
         mainMonitor.subTask("Gathering files for analysis...");
         
         final List<IClassFile> gatherResult = gatherer.gatherFiles();
@@ -112,7 +112,7 @@ public final class LancelotController {
         mainMonitor.worked(GATHERING_WORK_UNITS);
     }
     
-    protected void analyze() throws CoreException, IOException {
+    private void analyze() throws CoreException, IOException {
         if (filesForAnalysis == null)
             throw new AssertionError("Files have not been gathered yet!");
         
@@ -120,11 +120,15 @@ public final class LancelotController {
                                                      mainMonitor, 
                                                      ANALYSIS_WORK_UNITS
                                                  );
-        analysisController.run(filesForAnalysis, analysisMonitor);
-        analysisReports = analysisController.getAnalysisReports();
+        final List<IClassAnalysisReport> analysisReports = analyzer.run(filesForAnalysis, analysisMonitor);
+        if (analysisReports == null)
+            throw new RuntimeException("Analyzer returned null. This should never happen.");
+        
+        this.analysisReports = analysisReports;
+            
     }
     
-    protected void passResultstoView() throws CoreException {
+    private void passResultstoView() throws CoreException {
         if (analysisReports == null)
             throw new AssertionError("Analysis has not been run!");
        
