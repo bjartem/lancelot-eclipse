@@ -11,17 +11,17 @@
 package no.nr.einar.naming.tagging;
 
 public enum Tag {
-	
-	Noun,
-	Verb,
-	Adjective,
-	Adverb, 
-	Number, 
-	Pronoun, 
-	Conjunction, 
-	Preposition, 
-	Article, 
-	Special,
-	Unknown
+    
+    Noun,
+    Verb,
+    Adjective,
+    Adverb, 
+    Number, 
+    Pronoun, 
+    Conjunction, 
+    Preposition, 
+    Article, 
+    Special,
+    Unknown
 
 }

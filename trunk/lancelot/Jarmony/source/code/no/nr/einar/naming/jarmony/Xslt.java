@@ -24,35 +24,35 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 public class Xslt {
-		
-	private final StreamSource source;
-		
-	public Xslt(final String xsltFile) {
-		
-		this.source = new StreamSource(getClass().getResourceAsStream(xsltFile));
-	}
-	
-	public String transform(final String xml) {
+        
+    private final StreamSource source;
+        
+    public Xslt(final String xsltFile) {
+        
+        this.source = new StreamSource(getClass().getResourceAsStream(xsltFile));
+    }
+    
+    public String transform(final String xml) {
         final Source xmlSource = new StreamSource(new StringReader(xml));
         return transform(xmlSource);
-	}
-	
-	private String transform(final Source source) {
-		final OutputStream out = new ByteArrayOutputStream();
-		try {
-			transformer().transform(source, new StreamResult(out));
-		} catch (final TransformerException e) {
-			throw new RuntimeException("Transformation went bad.");
-		}
-		return out.toString();
-	}
+    }
+    
+    private String transform(final Source source) {
+        final OutputStream out = new ByteArrayOutputStream();
+        try {
+            transformer().transform(source, new StreamResult(out));
+        } catch (final TransformerException e) {
+            throw new RuntimeException("Transformation went bad.");
+        }
+        return out.toString();
+    }
 
-	private Transformer transformer() {
-		try {
-			return TransformerFactory.newInstance().newTransformer(source);
-		} catch (final TransformerConfigurationException e) {
-			throw new RuntimeException("Unable to create Transformer!");
-		}
-	}
+    private Transformer transformer() {
+        try {
+            return TransformerFactory.newInstance().newTransformer(source);
+        } catch (final TransformerConfigurationException e) {
+            throw new RuntimeException("Unable to create Transformer!");
+        }
+    }
 
 }

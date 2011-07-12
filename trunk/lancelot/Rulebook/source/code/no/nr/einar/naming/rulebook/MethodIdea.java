@@ -11,25 +11,25 @@
 package no.nr.einar.naming.rulebook;
 
 public final class MethodIdea {
-	
-	private final MethodPhrase phrase;
-	private final int semantics;
+    
+    private final MethodPhrase phrase;
+    private final int semantics;
 
-	public MethodIdea(final MethodPhrase phrase, final int semantics) {
-		this.phrase = phrase;
-		this.semantics = semantics;
-	}
-	
-	public MethodPhrase getPhrase() {
-		return phrase;
-	}
-	
-	public int getSemantics() {
-		return semantics;
-	}
-	
-	public String toString() {
-		return phrase.toString() + " [" + semantics + "]";
-	}
+    public MethodIdea(final MethodPhrase phrase, final int semantics) {
+        this.phrase = phrase;
+        this.semantics = semantics;
+    }
+    
+    public MethodPhrase getPhrase() {
+        return phrase;
+    }
+    
+    public int getSemantics() {
+        return semantics;
+    }
+    
+    public String toString() {
+        return phrase.toString() + " [" + semantics + "]";
+    }
 
 }

@@ -13,7 +13,7 @@ package no.nr.einar.naming.tagging;
 import java.util.List;
 
 public interface FragmentTagger {
-	
-	List<Tag> tag(String fragment);
+    
+    List<Tag> tag(String fragment);
 
 }

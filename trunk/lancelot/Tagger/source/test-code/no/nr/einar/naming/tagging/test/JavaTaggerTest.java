@@ -24,85 +24,85 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public final class JavaTaggerTest {
-	
-	private PosTagger testObj;
-	
-	@BeforeClass
-	public static void initializeLancelot() throws Exception{
-		LancelotTestUtils.loadDefaultConfiguration();
-	}
-	
-	@Before
-	public void setUp() {
-		testObj = new JavaTagger();
-	}
-	
-	@Test
-	public void t() {
-		check(new String[] { "get", "last", "name" },  new String[] { "verb", "adjective", "noun" });
-	}
-	
-	@Test
-	public void t2() {
-		check(new String[] { "is", "default", "scheme" }, new String[] { "verb", "adjective", "noun" });
-	}
-	
-	@Test
-	public void t3() {
-		check(new String[] { "key", "pressed" }, new String[] { "noun", "adjective" });
-	}
-	
-	@Test
-	public void t4() {
-		check(new String[] { "action", "performed" }, new String[] { "noun", "verb" });
-	}
-	
-	@Test
-	public void inventedadjective0() {
-		check(new String[] { "is", "queryable" }, new String[] { "verb", "adjective" });
-	}
-	
-	@Test
-	public void notAnInventedadjective() {
-		check(new String[] { "is", "table" }, new String[] { "verb", "noun" });
-	}
+    
+    private PosTagger testObj;
+    
+    @BeforeClass
+    public static void initializeLancelot() throws Exception{
+        LancelotTestUtils.loadDefaultConfiguration();
+    }
+    
+    @Before
+    public void setUp() {
+        testObj = new JavaTagger();
+    }
+    
+    @Test
+    public void t() {
+        check(new String[] { "get", "last", "name" },  new String[] { "verb", "adjective", "noun" });
+    }
+    
+    @Test
+    public void t2() {
+        check(new String[] { "is", "default", "scheme" }, new String[] { "verb", "adjective", "noun" });
+    }
+    
+    @Test
+    public void t3() {
+        check(new String[] { "key", "pressed" }, new String[] { "noun", "adjective" });
+    }
+    
+    @Test
+    public void t4() {
+        check(new String[] { "action", "performed" }, new String[] { "noun", "verb" });
+    }
+    
+    @Test
+    public void inventedadjective0() {
+        check(new String[] { "is", "queryable" }, new String[] { "verb", "adjective" });
+    }
+    
+    @Test
+    public void notAnInventedadjective() {
+        check(new String[] { "is", "table" }, new String[] { "verb", "noun" });
+    }
 
-	@Test
-	public void inventedadjectiveWithdoubleT() {
-		check(new String[] { "is", "committable" }, new String[] { "verb", "adjective" });
-	}
-	
-	@Test
-	public void adjectiveButNotInvented() {
-		check(new String[] { "is", "able" }, new String[] { "verb", "adjective" });
-	}
+    @Test
+    public void inventedadjectiveWithdoubleT() {
+        check(new String[] { "is", "committable" }, new String[] { "verb", "adjective" });
+    }
+    
+    @Test
+    public void adjectiveButNotInvented() {
+        check(new String[] { "is", "able" }, new String[] { "verb", "adjective" });
+    }
 
-	@Test
-	public void geekLingo() {
-		check(new String[] { "accum", "attribs" }, new String[] { "verb", "noun" });
-	}
+    @Test
+    public void geekLingo() {
+        check(new String[] { "accum", "attribs" }, new String[] { "verb", "noun" });
+    }
 
-	@Test
-	public void moreGeekLingo() {
-		check(new String[] { "bootstrap", "multithread", "app" }, new String[] { "verb", "adjective", "noun" });
-	}
+    @Test
+    public void moreGeekLingo() {
+        check(new String[] { "bootstrap", "multithread", "app" }, new String[] { "verb", "adjective", "noun" });
+    }
 
-	
-	private void check(final String[] fragments, final String[] expectedTags) {
-		assertEqualTags(expectedTags, testObj.tag(getFragments(fragments)));
-	}
-	
-	private void assertEqualTags(final String[] expectedTags, final List<String> tags) {
-		assertEquals(expectedTags.length, tags.size());
-		for (int i = 0; i < expectedTags.length; i++) {
-			final String expected = expectedTags[i];
-			final String actual = tags.get(i);
-			assertEquals("Failed at fragment " + i + "!", expected, actual);
-		}
-	}
+    
+    private void check(final String[] fragments, final String[] expectedTags) {
+        assertEqualTags(expectedTags, testObj.tag(getFragments(fragments)));
+    }
+    
+    private void assertEqualTags(final String[] expectedTags, final List<String> tags) {
+        assertEquals(expectedTags.length, tags.size());
+        for (int i = 0; i < expectedTags.length; i++) {
+            final String expected = expectedTags[i];
+            final String actual = tags.get(i);
+            assertEquals("Failed at fragment " + i + "!", expected, actual);
+        }
+    }
 
-	private static List<String> getFragments(final String ... parts) {
-		return Arrays.asList(parts);
-	}
+    private static List<String> getFragments(final String ... parts) {
+        return Arrays.asList(parts);
+    }
 
 }

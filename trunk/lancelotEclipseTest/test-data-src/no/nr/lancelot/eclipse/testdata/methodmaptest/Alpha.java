@@ -20,11 +20,11 @@ public class Alpha<K> {
     }
     
     public List<K> second(K a, Set<List<Set<K>>> b) {
-    	return null;
+        return null;
     }
     
     public List<K> second(Set<List<Set<K>>> a, K b) {
-    	return null;
+        return null;
     }
     
     public void third(int a, BetaAlpha b, float c) throws Exception {

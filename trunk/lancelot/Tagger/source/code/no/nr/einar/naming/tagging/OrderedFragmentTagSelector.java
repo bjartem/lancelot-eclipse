@@ -13,29 +13,29 @@ package no.nr.einar.naming.tagging;
 import java.util.Set;
 
 public abstract class OrderedFragmentTagSelector extends FragmentTagSelector {
-	
-	public OrderedFragmentTagSelector(
-			final String fragment, 
-			final Set<Tag> candidateTags) {
-		super(fragment, candidateTags);
-	}
+    
+    public OrderedFragmentTagSelector(
+            final String fragment, 
+            final Set<Tag> candidateTags) {
+        super(fragment, candidateTags);
+    }
 
-	@Override
-	public Tag select() {
-		final Tag[] order = getSelectionOrder();
-		for (int i = 0; i < order.length; i++) {
-			final Tag tag = order[i];
-			if (canBe(tag)) {
-				return tag;
-			}
-		}
-		return defaultSelect();
-	}
-	
-	protected Tag defaultSelect() {
-		return Tag.Unknown;
-	}
-	
-	protected abstract Tag[] getSelectionOrder();
+    @Override
+    public Tag select() {
+        final Tag[] order = getSelectionOrder();
+        for (int i = 0; i < order.length; i++) {
+            final Tag tag = order[i];
+            if (canBe(tag)) {
+                return tag;
+            }
+        }
+        return defaultSelect();
+    }
+    
+    protected Tag defaultSelect() {
+        return Tag.Unknown;
+    }
+    
+    protected abstract Tag[] getSelectionOrder();
 
 }

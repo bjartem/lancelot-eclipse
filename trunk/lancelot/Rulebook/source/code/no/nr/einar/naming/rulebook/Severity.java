@@ -11,19 +11,19 @@
 package no.nr.einar.naming.rulebook;
 
 public enum Severity {
-	
-	NOTIFY(0x1),
-	RECONSIDER(0x2),
-	INAPPROPRIATE(0x4);
+    
+    NOTIFY(0x1),
+    RECONSIDER(0x2),
+    INAPPROPRIATE(0x4);
 
-	private final int flag;
+    private final int flag;
 
-	private Severity(final int flag) {
-		this.flag = flag;
-	}
+    private Severity(final int flag) {
+        this.flag = flag;
+    }
 
-	public int getFlag() {
-		return flag;
-	}
+    public int getFlag() {
+        return flag;
+    }
 
 }

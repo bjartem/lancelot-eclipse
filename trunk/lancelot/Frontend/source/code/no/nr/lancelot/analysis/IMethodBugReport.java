@@ -17,9 +17,9 @@ import no.nr.einar.naming.rulebook.Severity;
 import no.nr.einar.pb.model.JavaMethod;
 
 public interface IMethodBugReport {
-	JavaMethod getMethod();
-	List<Rule> getViolations();
-	List<String> getAlternativeNameSuggestions();
-	String getTextualDescription();
-	Severity getMaximumSeverity();
+    JavaMethod getMethod();
+    List<Rule> getViolations();
+    List<String> getAlternativeNameSuggestions();
+    String getTextualDescription();
+    Severity getMaximumSeverity();
 }

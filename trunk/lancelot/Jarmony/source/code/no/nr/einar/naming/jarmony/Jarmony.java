@@ -13,11 +13,11 @@ package no.nr.einar.naming.jarmony;
 import java.io.IOException;
 
 public final class Jarmony {
-	
-	public static void main(final String[] args) throws IOException {
-		for (final Configuration config : new Args(args)) {
-			new Analyzer(config).analyze();
-		}
-	}	
+    
+    public static void main(final String[] args) throws IOException {
+        for (final Configuration config : new Args(args)) {
+            new Analyzer(config).analyze();
+        }
+    }    
 
 }

@@ -22,157 +22,157 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class MethodMapTest {
-	private TestProject testProject = null;
+    private TestProject testProject = null;
     private IType alphaType = null;
-	private IMethod[] alphaMethods = null;
+    private IMethod[] alphaMethods = null;
     
-	@Before
-	public void setup() throws Exception {
-		testProject = TestProject.createTestProjectFromScenario("methodmaptest");	
+    @Before
+    public void setup() throws Exception {
+        testProject = TestProject.createTestProjectFromScenario("methodmaptest");    
         alphaType = testProject.getJavaProject().findType(
-        						            "no.nr.lancelot.eclipse.testdata.methodmaptest.Alpha");
-		alphaMethods = alphaType.getMethods();
-	}
-	
-	@After
-	public void tearDown() throws Exception {
+                                            "no.nr.lancelot.eclipse.testdata.methodmaptest.Alpha");
+        alphaMethods = alphaType.getMethods();
+    }
+    
+    @After
+    public void tearDown() throws Exception {
         alphaMethods = null;
-		alphaType = null;
-		testProject.delete();
-		testProject = null;
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	@SuppressWarnings("unused")
-	public void testExceptionForNullArgumentToConstructor() throws JavaModelException {
-		new MethodMap(null);
-	}
+        alphaType = null;
+        testProject.delete();
+        testProject = null;
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    @SuppressWarnings("unused")
+    public void testExceptionForNullArgumentToConstructor() throws JavaModelException {
+        new MethodMap(null);
+    }
 
-	@Test
-	public void testFindMethod() throws JavaModelException {
-		assertEquals(
-			alphaMethods[1],
-			new MethodMap(alphaType).findMethod(
-				"second",
-				new String[]{ "java.lang.Object", "java.util.Set" },
-				"java.util.List"
-			)
-		);
-		
-		assertEquals(
-			alphaMethods[2],
-			new MethodMap(alphaType).findMethod(
-				"second",
-				new String[]{ "java.util.Set", "java.lang.Object" },
-				"java.util.List"
-			)
-		);
-		
-		assertEquals(
-			alphaMethods[3],
-			new MethodMap(alphaType).findMethod(
-				"third",
-				new String[]{
-					"int",
-					"no.nr.lancelot.eclipse.testdata.methodmaptest.Beta.BetaAlpha", 
-					"float"
-			     },
-				"void"
-			)
-		);
-		
-		assertEquals(
-			alphaMethods[4],
-			new MethodMap(alphaType).findMethod(
-				"third",
-				new String[]{
-					"int",
-					"no.nr.lancelot.eclipse.testdata.methodmaptest.Beta.BetaAlpha", 
-					"int"
-			     },
-				"void"
-			)
-		);
-	}
+    @Test
+    public void testFindMethod() throws JavaModelException {
+        assertEquals(
+            alphaMethods[1],
+            new MethodMap(alphaType).findMethod(
+                "second",
+                new String[]{ "java.lang.Object", "java.util.Set" },
+                "java.util.List"
+            )
+        );
+        
+        assertEquals(
+            alphaMethods[2],
+            new MethodMap(alphaType).findMethod(
+                "second",
+                new String[]{ "java.util.Set", "java.lang.Object" },
+                "java.util.List"
+            )
+        );
+        
+        assertEquals(
+            alphaMethods[3],
+            new MethodMap(alphaType).findMethod(
+                "third",
+                new String[]{
+                    "int",
+                    "no.nr.lancelot.eclipse.testdata.methodmaptest.Beta.BetaAlpha", 
+                    "float"
+                 },
+                "void"
+            )
+        );
+        
+        assertEquals(
+            alphaMethods[4],
+            new MethodMap(alphaType).findMethod(
+                "third",
+                new String[]{
+                    "int",
+                    "no.nr.lancelot.eclipse.testdata.methodmaptest.Beta.BetaAlpha", 
+                    "int"
+                 },
+                "void"
+            )
+        );
+    }
 
-	@Test
-	public void testMatchTypeBasic() throws JavaModelException {
-		assertEquals(
-		    MatchType.DEFINITE_MATCH, 
-		    MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "int[][]")
-		);
-		
-		assertEquals(
-		    MatchType.DEFINITE_MATCH, 
-		    MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[1], "double")
-		);
-	}
-	
-	@Test
-	public void testMatchType1() throws JavaModelException {
-		assertEquals(
-		    MatchType.MISMATCH, 
-		    MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "float[]")
-		);
-		
-		assertEquals(
-			MatchType.MISMATCH, 
-	        MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "T")
-		);
-		
-		assertEquals(
-			MatchType.MISMATCH, 
-	        MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "String")
-		);
-	}
-	
-	@Test
-	public void testMatchNonBasicType() throws JavaModelException {
-		assertEquals(
-		    MatchType.DEFINITE_MATCH, 
-		    MethodMap.match(
-		    	alphaMethods[0], 
-		    	alphaMethods[0].getParameterTypes()[2], 
-		    	"java.util.List"
-		    )
-		);
-		
-		assertEquals(
-			MatchType.MISMATCH, 
-	        MethodMap.match(
-	            alphaMethods[0], 
-	            alphaMethods[0].getParameterTypes()[2], 
-	            "java.lang.String"
-	        )
-		);
-		
-		assertEquals(
-			MatchType.POSSIBLE_MATCH, 
-	        MethodMap.match(
-	            alphaMethods[0], 
-	            alphaMethods[0].getParameterTypes()[3], 
-	            "java.lang.Object"
-	        )
-		);
-	}
+    @Test
+    public void testMatchTypeBasic() throws JavaModelException {
+        assertEquals(
+            MatchType.DEFINITE_MATCH, 
+            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "int[][]")
+        );
+        
+        assertEquals(
+            MatchType.DEFINITE_MATCH, 
+            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[1], "double")
+        );
+    }
+    
+    @Test
+    public void testMatchType1() throws JavaModelException {
+        assertEquals(
+            MatchType.MISMATCH, 
+            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "float[]")
+        );
+        
+        assertEquals(
+            MatchType.MISMATCH, 
+            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "T")
+        );
+        
+        assertEquals(
+            MatchType.MISMATCH, 
+            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "String")
+        );
+    }
+    
+    @Test
+    public void testMatchNonBasicType() throws JavaModelException {
+        assertEquals(
+            MatchType.DEFINITE_MATCH, 
+            MethodMap.match(
+                alphaMethods[0], 
+                alphaMethods[0].getParameterTypes()[2], 
+                "java.util.List"
+            )
+        );
+        
+        assertEquals(
+            MatchType.MISMATCH, 
+            MethodMap.match(
+                alphaMethods[0], 
+                alphaMethods[0].getParameterTypes()[2], 
+                "java.lang.String"
+            )
+        );
+        
+        assertEquals(
+            MatchType.POSSIBLE_MATCH, 
+            MethodMap.match(
+                alphaMethods[0], 
+                alphaMethods[0].getParameterTypes()[3], 
+                "java.lang.Object"
+            )
+        );
+    }
 
-	@Test
-	public void testConcatSplittedName() {
-		assertEquals("Name", MethodMap.concatSplittedName(new String[]{ "", "Name" }));
-		assertEquals(
-		    "a.bb.ccc.Name.Core", 
-		    MethodMap.concatSplittedName(new String[]{ "a.bb.ccc", "Name.Core" })
-		);
-	}
+    @Test
+    public void testConcatSplittedName() {
+        assertEquals("Name", MethodMap.concatSplittedName(new String[]{ "", "Name" }));
+        assertEquals(
+            "a.bb.ccc.Name.Core", 
+            MethodMap.concatSplittedName(new String[]{ "a.bb.ccc", "Name.Core" })
+        );
+    }
 
-	@Test
-	public void testExtractRawType() {
-		assertEquals("Map", MethodMap.extractRawType("[[[QMap<QString;*>;"));
-	}
+    @Test
+    public void testExtractRawType() {
+        assertEquals("Map", MethodMap.extractRawType("[[[QMap<QString;*>;"));
+    }
 
-	@Test
-	public void testAppendArrays() {
-		assertEquals("int[][]", MethodMap.appendArrays("int", 2));
-		assertEquals("java.lang.String", MethodMap.appendArrays("java.lang.String", 0));
-	}
+    @Test
+    public void testAppendArrays() {
+        assertEquals("int[][]", MethodMap.appendArrays("int", 2));
+        assertEquals("java.lang.String", MethodMap.appendArrays("java.lang.String", 0));
+    }
 }

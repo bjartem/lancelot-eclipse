@@ -14,22 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class PhraseTagger implements AmbiguousTagger {
-	
-	private final FragmentTagger tagger = 
-		new ShortcircuitTagger(
-			new WordNetTagger(
-				new AdditionalWordClassTagger(
-					new WordsmithTagger(
-						new LingoTagger(
-							new MorphyTagger(null))))));
+    
+    private final FragmentTagger tagger = 
+        new ShortcircuitTagger(
+            new WordNetTagger(
+                new AdditionalWordClassTagger(
+                    new WordsmithTagger(
+                        new LingoTagger(
+                            new MorphyTagger(null))))));
 
-	@Override
-	public List<List<Tag>> tag(final List<String> fragments) {
-		final List<List<Tag>> $ = new ArrayList<List<Tag>>();
-		for (final String f : fragments) {
-			$.add(tagger.tag(f));
-		}
-		return $;
-	}
+    @Override
+    public List<List<Tag>> tag(final List<String> fragments) {
+        final List<List<Tag>> $ = new ArrayList<List<Tag>>();
+        for (final String f : fragments) {
+            $.add(tagger.tag(f));
+        }
+        return $;
+    }
 
 }

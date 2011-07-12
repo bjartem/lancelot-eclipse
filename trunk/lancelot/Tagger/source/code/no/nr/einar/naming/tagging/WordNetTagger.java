@@ -14,37 +14,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class WordNetTagger extends ChainTagger {
-	
-	public WordNetTagger(final FragmentTagger nextTagger) {
-		super(nextTagger);
-	}
+    
+    public WordNetTagger(final FragmentTagger nextTagger) {
+        super(nextTagger);
+    }
 
-	private final WordNet wn = new WordNet();
+    private final WordNet wn = new WordNet();
 
-	@Override
-	public List<Tag> tag(final String s) {
-		debug(this.getClass().toString());
-		
-		final List<Tag> $ = new ArrayList<Tag>();
-		if (wn.isNoun(s)) {
-			$.add(Tag.Noun);
-		}
-		if (wn.isVerb(s)) {
-			$.add(Tag.Verb);
-		}
-		if (wn.isAdjective(s)) {
-			$.add(Tag.Adjective);
-		}
-		if (wn.isAdverb(s)) {
-			$.add(Tag.Adverb);
-		}
-		if ($.isEmpty()) {
-			$.addAll(nextTagger.tag(s));
-		}
-		
-		debug(this.getClass().toString() + " : " + $.size());
-		
-		return $;
-	}
-	
+    @Override
+    public List<Tag> tag(final String s) {
+        debug(this.getClass().toString());
+        
+        final List<Tag> $ = new ArrayList<Tag>();
+        if (wn.isNoun(s)) {
+            $.add(Tag.Noun);
+        }
+        if (wn.isVerb(s)) {
+            $.add(Tag.Verb);
+        }
+        if (wn.isAdjective(s)) {
+            $.add(Tag.Adjective);
+        }
+        if (wn.isAdverb(s)) {
+            $.add(Tag.Adverb);
+        }
+        if ($.isEmpty()) {
+            $.addAll(nextTagger.tag(s));
+        }
+        
+        debug(this.getClass().toString() + " : " + $.size());
+        
+        return $;
+    }
+    
 }

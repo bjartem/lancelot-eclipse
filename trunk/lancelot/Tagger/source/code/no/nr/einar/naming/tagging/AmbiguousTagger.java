@@ -13,7 +13,7 @@ package no.nr.einar.naming.tagging;
 import java.util.List;
 
 public interface AmbiguousTagger {
-	
-	List<List<Tag>> tag(final List<String> fragments);
+    
+    List<List<Tag>> tag(final List<String> fragments);
 
 }

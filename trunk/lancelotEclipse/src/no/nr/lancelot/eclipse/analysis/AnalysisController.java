@@ -26,78 +26,78 @@ import org.eclipse.jdt.core.IClassFile;
 
 public final class AnalysisController implements IAnalysisController {
 
-	private List<ClassAnalysisReport> analysisReports = null;
-	
+    private List<ClassAnalysisReport> analysisReports = null;
+    
     @Override
     public List<ClassAnalysisReport> getAnalysisReports() {
-		if (analysisReports == null)
-			throw new IllegalStateException("Analysis has not run!");
-		return analysisReports;
-	}
-	
-	@Override
+        if (analysisReports == null)
+            throw new IllegalStateException("Analysis has not run!");
+        return analysisReports;
+    }
+    
+    @Override
     public void run(
         final List<IClassFile> filesForAnalysis, 
         final IProgressMonitor monitor
     ) throws IOException, CoreException {
-	    if (filesForAnalysis == null || monitor == null)
+        if (filesForAnalysis == null || monitor == null)
             throw new IllegalArgumentException();
 
-	    if (analysisReports != null)
-	        throw new IllegalStateException("Analysis has already run!");
-	    
-	    final List<ClassAnalysisOperation> operations = createAnalysisOperations(filesForAnalysis);
+        if (analysisReports != null)
+            throw new IllegalStateException("Analysis has already run!");
+        
+        final List<ClassAnalysisOperation> operations = createAnalysisOperations(filesForAnalysis);
     
-		try {
-			final int numClasses = operations.size(),
-	                  totalWork = numClasses;
+        try {
+            final int numClasses = operations.size(),
+                      totalWork = numClasses;
 
-			logStart(numClasses);
-			monitor.beginTask("Naming analysis", totalWork);
+            logStart(numClasses);
+            monitor.beginTask("Naming analysis", totalWork);
 
-			final List<ClassAnalysisReport> tempAnalysisReports = 
-				                                           new LinkedList<ClassAnalysisReport>();
-			
-			for (final ClassAnalysisOperation operation : operations) { 	
-				if (monitor.isCanceled()) 
-					throw new OperationCanceledException();
-				
-				monitor.subTask("Analyzing " + operation.getClassName() + "...");
-				
-				final ClassAnalysisReport analysisReport = operation.run();
-				tempAnalysisReports.add(analysisReport);
-				
-				monitor.worked(1);
-			}
-			
-			analysisReports = Collections.unmodifiableList(tempAnalysisReports);
-			
-			logCompletion();
-		} finally {
-			monitor.done();
-		}
-	}
-
-	private void logStart(final int numClasses) {
-		LancelotPlugin.logInfo(getClass(), "Starting analysis of " + numClasses + " classes...");
-	}
-	
-    private void logCompletion() {
-		LancelotPlugin.logInfo(getClass(), "Analysis completed.");
+            final List<ClassAnalysisReport> tempAnalysisReports = 
+                                                           new LinkedList<ClassAnalysisReport>();
+            
+            for (final ClassAnalysisOperation operation : operations) {     
+                if (monitor.isCanceled()) 
+                    throw new OperationCanceledException();
+                
+                monitor.subTask("Analyzing " + operation.getClassName() + "...");
+                
+                final ClassAnalysisReport analysisReport = operation.run();
+                tempAnalysisReports.add(analysisReport);
+                
+                monitor.worked(1);
+            }
+            
+            analysisReports = Collections.unmodifiableList(tempAnalysisReports);
+            
+            logCompletion();
+        } finally {
+            monitor.done();
+        }
     }
 
-	protected static List<ClassAnalysisOperation> createAnalysisOperations(
-		final List<IClassFile> classFiles
-	) throws CoreException {
-		final List<ClassAnalysisOperation> result = new LinkedList<ClassAnalysisOperation>();
-		
-		for (final IClassFile cf : classFiles) {
-			final String className = cf.getElementName();
-			final byte[] byteCode = cf.getBytes();
-			final Object key = cf;
-			result.add(new ClassAnalysisOperation(className, byteCode, key));
-		}
+    private void logStart(final int numClasses) {
+        LancelotPlugin.logInfo(getClass(), "Starting analysis of " + numClasses + " classes...");
+    }
+    
+    private void logCompletion() {
+        LancelotPlugin.logInfo(getClass(), "Analysis completed.");
+    }
 
-		return result;
-	}
+    protected static List<ClassAnalysisOperation> createAnalysisOperations(
+        final List<IClassFile> classFiles
+    ) throws CoreException {
+        final List<ClassAnalysisOperation> result = new LinkedList<ClassAnalysisOperation>();
+        
+        for (final IClassFile cf : classFiles) {
+            final String className = cf.getElementName();
+            final byte[] byteCode = cf.getBytes();
+            final Object key = cf;
+            result.add(new ClassAnalysisOperation(className, byteCode, key));
+        }
+
+        return result;
+    }
 }

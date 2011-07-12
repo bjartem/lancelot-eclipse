@@ -20,32 +20,32 @@ import no.nr.lancelot.analysis.LancelotRegistry;
 import no.nr.lancelot.analysis.SemanticsMap.SemanticsMapInitException;
 
 public class LancelotTestUtils {
-	private static final URL RULEBOOK_URL,
-	     			         WORDNET_URL;
-	private static final File LINGO_FILE,
-							  REVERSE_MAP_FILE;
-	
-	static {
-		try {
-			final String classLocation = LancelotTestUtils.class.getResource(
-										     LancelotTestUtils.class.getSimpleName() + ".class"
-										 ).getFile();
-			final String classDirectoryPath = new File(classLocation).getParent();
-			final String lancelotInstallPath = classDirectoryPath.replaceAll("bin/.*", "");
-			final String resourcesUrlPrefix = "file://" + lancelotInstallPath + "resources/";
-			
-			RULEBOOK_URL = new URL(resourcesUrlPrefix + "rules.xml");
-			WORDNET_URL = new URL(resourcesUrlPrefix + "wordnet-3-dict/");
-			LINGO_FILE = new File(lancelotInstallPath + "resources/manual_dict.txt");
-			REVERSE_MAP_FILE = new File(lancelotInstallPath + "resources/reverse_map.txt");
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e + " throwed in initialization!");
-		}
-	}
-	
-	public static void loadDefaultConfiguration() 
-	throws RulebookInitException, LingoInitException, SemanticsMapInitException {
-		if (!LancelotRegistry.isInitialized())
-			LancelotRegistry.initialize(RULEBOOK_URL, WORDNET_URL, LINGO_FILE, REVERSE_MAP_FILE);
-	}
+    private static final URL RULEBOOK_URL,
+                              WORDNET_URL;
+    private static final File LINGO_FILE,
+                              REVERSE_MAP_FILE;
+    
+    static {
+        try {
+            final String classLocation = LancelotTestUtils.class.getResource(
+                                             LancelotTestUtils.class.getSimpleName() + ".class"
+                                         ).getFile();
+            final String classDirectoryPath = new File(classLocation).getParent();
+            final String lancelotInstallPath = classDirectoryPath.replaceAll("bin/.*", "");
+            final String resourcesUrlPrefix = "file://" + lancelotInstallPath + "resources/";
+            
+            RULEBOOK_URL = new URL(resourcesUrlPrefix + "rules.xml");
+            WORDNET_URL = new URL(resourcesUrlPrefix + "wordnet-3-dict/");
+            LINGO_FILE = new File(lancelotInstallPath + "resources/manual_dict.txt");
+            REVERSE_MAP_FILE = new File(lancelotInstallPath + "resources/reverse_map.txt");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e + " throwed in initialization!");
+        }
+    }
+    
+    public static void loadDefaultConfiguration() 
+    throws RulebookInitException, LingoInitException, SemanticsMapInitException {
+        if (!LancelotRegistry.isInitialized())
+            LancelotRegistry.initialize(RULEBOOK_URL, WORDNET_URL, LINGO_FILE, REVERSE_MAP_FILE);
+    }
 }

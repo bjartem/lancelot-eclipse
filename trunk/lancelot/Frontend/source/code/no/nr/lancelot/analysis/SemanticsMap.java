@@ -24,16 +24,16 @@ import no.nr.einar.pb.model.Attribute;
 
 public class SemanticsMap {
     public interface AttributeFlagFinder {
-    	int getAttributeCount();
-    	int translate(final String attributeName);
-	}
+        int getAttributeCount();
+        int translate(final String attributeName);
+    }
 
-	@SuppressWarnings("serial")
-	public static class SemanticsMapInitException extends Exception {
-    	private SemanticsMapInitException(final Throwable t) {
-    		super(t);
-    	}
-    	
+    @SuppressWarnings("serial")
+    public static class SemanticsMapInitException extends Exception {
+        private SemanticsMapInitException(final Throwable t) {
+            super(t);
+        }
+        
         private SemanticsMapInitException(final String msg) {
             super(msg);
         }
@@ -48,64 +48,64 @@ public class SemanticsMap {
         }
         
         if (finder == null) {
-        	throw new IllegalArgumentException();
+            throw new IllegalArgumentException();
         }
         
         try {
-	        final BufferedReader fileReader = new BufferedReader(new FileReader(mapFile));
-	        	        
-	        final int[] attributeMapping = parseAttributes(fileReader, finder);
-	        this.profileToSuggestionMap = Collections.unmodifiableMap(
-	        	parseSuggestions(fileReader, attributeMapping)
-	        );
+            final BufferedReader fileReader = new BufferedReader(new FileReader(mapFile));
+                        
+            final int[] attributeMapping = parseAttributes(fileReader, finder);
+            this.profileToSuggestionMap = Collections.unmodifiableMap(
+                parseSuggestions(fileReader, attributeMapping)
+            );
         } catch (Exception e) {
-        	throw new SemanticsMapInitException(e);
+            throw new SemanticsMapInitException(e);
         }
     }
     
     public List<String> findSuggestionsFor(final int semanticProfile) {
-    	final boolean knowsProfile = profileToSuggestionMap.containsKey(semanticProfile);
-    	if (knowsProfile)
-    		return profileToSuggestionMap.get(semanticProfile);
-    	return Collections.emptyList();
+        final boolean knowsProfile = profileToSuggestionMap.containsKey(semanticProfile);
+        if (knowsProfile)
+            return profileToSuggestionMap.get(semanticProfile);
+        return Collections.emptyList();
     }
 
     protected static int[] parseAttributes(
-    	final BufferedReader reader, 
-    	final AttributeFlagFinder finder
+        final BufferedReader reader, 
+        final AttributeFlagFinder finder
     ) throws IOException, SemanticsMapInitException {
-    	final int[] res = new int[finder.getAttributeCount()];
-    	
-    	final String attributesHeaderLine = reader.readLine();
-    	if (!"##ATTRIBUTES##".equals(attributesHeaderLine)) {
-    		throw new SemanticsMapInitException("Invalid start of file. Expected '##ATTRIBUTES##'");
-    	}
-    	
-    	for (int mapFileFlagId = 0; mapFileFlagId < finder.getAttributeCount(); ++mapFileFlagId) {
-    		final String attributeName = reader.readLine();
-    		
-    		if (attributeName == null) {
-    			throw new SemanticsMapInitException("Premature EOF!");
-    		}
-    		
-    		final int jarmonyAttributeFlag = finder.translate(attributeName);
-    		res[mapFileFlagId] = jarmonyAttributeFlag;
-    	}
-    	
-    	return res;
+        final int[] res = new int[finder.getAttributeCount()];
+        
+        final String attributesHeaderLine = reader.readLine();
+        if (!"##ATTRIBUTES##".equals(attributesHeaderLine)) {
+            throw new SemanticsMapInitException("Invalid start of file. Expected '##ATTRIBUTES##'");
+        }
+        
+        for (int mapFileFlagId = 0; mapFileFlagId < finder.getAttributeCount(); ++mapFileFlagId) {
+            final String attributeName = reader.readLine();
+            
+            if (attributeName == null) {
+                throw new SemanticsMapInitException("Premature EOF!");
+            }
+            
+            final int jarmonyAttributeFlag = finder.translate(attributeName);
+            res[mapFileFlagId] = jarmonyAttributeFlag;
+        }
+        
+        return res;
     }
     
-	private static Map<Integer, List<String>> parseSuggestions(
-		final BufferedReader reader, 
-		final int[] attributeMapping
-	) throws IOException, SemanticsMapInitException {
-		final Map<Integer, List<String>> res = new HashMap<Integer, List<String>>();
+    private static Map<Integer, List<String>> parseSuggestions(
+        final BufferedReader reader, 
+        final int[] attributeMapping
+    ) throws IOException, SemanticsMapInitException {
+        final Map<Integer, List<String>> res = new HashMap<Integer, List<String>>();
 
-    	final String profilesHeaderLine = reader.readLine();
-    	if (!"##PROFILES##".equals(profilesHeaderLine)) {
-    		throw new SemanticsMapInitException("Invalid input. Expected '##PROFILES##'");
-    	}
-		
+        final String profilesHeaderLine = reader.readLine();
+        if (!"##PROFILES##".equals(profilesHeaderLine)) {
+            throw new SemanticsMapInitException("Invalid input. Expected '##PROFILES##'");
+        }
+        
         for (;;) {
             final String line = reader.readLine();
             final boolean isEOF = line == null;
@@ -114,7 +114,7 @@ public class SemanticsMap {
             }
 
             @SuppressWarnings("null")
-			final String[] parts = line.split("\\s+");
+            final String[] parts = line.split("\\s+");
             
             final int mapFileProfile = Integer.parseInt(parts[0]);
             final int jarmonyProfile = convertProfile(mapFileProfile, attributeMapping);
@@ -126,17 +126,17 @@ public class SemanticsMap {
             
             res.put(jarmonyProfile, Collections.unmodifiableList(suggestions));
         }
-	}
+    }
 
-	protected static int convertProfile(final int mapFileProfile, final int[] attributeMapping) {
-		int res = 0;
-		
-		for (int i = 0; i < attributeMapping.length; ++i) {
-			if ((mapFileProfile & (1 << i)) != 0) {
-				res |= attributeMapping[i];
-			}
-		}
-		
-		return res;
-	}
+    protected static int convertProfile(final int mapFileProfile, final int[] attributeMapping) {
+        int res = 0;
+        
+        for (int i = 0; i < attributeMapping.length; ++i) {
+            if ((mapFileProfile & (1 << i)) != 0) {
+                res |= attributeMapping[i];
+            }
+        }
+        
+        return res;
+    }
 }

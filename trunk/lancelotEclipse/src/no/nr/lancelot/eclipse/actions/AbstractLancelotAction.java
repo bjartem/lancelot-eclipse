@@ -25,23 +25,23 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
 public abstract class AbstractLancelotAction implements IObjectActionDelegate {
-	private ISelection selection = null;
+    private ISelection selection = null;
 
-	@Override
-	public void run(final IAction action) {
-		if (!(selection instanceof IStructuredSelection))
-			return;
-	
-		final List<?> selectedObjects = ((IStructuredSelection) selection).toList();
-		final RichRegion selectedRegion = new RichRegion(selectedObjects);
-		
-		run(selectedRegion);
-	}
-	
-	protected abstract void run(final RichRegion selectedRegion);
-	
-	protected void runInForeground(final IRunnableWithProgress action) {
-	    final IWorkbench workbench = PlatformUI.getWorkbench();
+    @Override
+    public void run(final IAction action) {
+        if (!(selection instanceof IStructuredSelection))
+            return;
+    
+        final List<?> selectedObjects = ((IStructuredSelection) selection).toList();
+        final RichRegion selectedRegion = new RichRegion(selectedObjects);
+        
+        run(selectedRegion);
+    }
+    
+    protected abstract void run(final RichRegion selectedRegion);
+    
+    protected void runInForeground(final IRunnableWithProgress action) {
+        final IWorkbench workbench = PlatformUI.getWorkbench();
         final IProgressService progressService = workbench.getProgressService();
         
         try {
@@ -50,14 +50,14 @@ public abstract class AbstractLancelotAction implements IObjectActionDelegate {
             LancelotPlugin.logException(e, "Raised while running " + action);
         }
     }
-	
+    
     @Override
- 	public void selectionChanged(final IAction action, final ISelection newSelection) {
-		this.selection = newSelection;
-	}
+     public void selectionChanged(final IAction action, final ISelection newSelection) {
+        this.selection = newSelection;
+    }
 
-	@Override
-	public void setActivePart(final IAction action, final IWorkbenchPart targetPart) {
-		// Do nothing.
-	}
+    @Override
+    public void setActivePart(final IAction action, final IWorkbenchPart targetPart) {
+        // Do nothing.
+    }
 }

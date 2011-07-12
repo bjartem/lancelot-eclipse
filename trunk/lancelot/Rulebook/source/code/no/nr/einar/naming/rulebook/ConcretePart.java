@@ -11,19 +11,19 @@
 package no.nr.einar.naming.rulebook;
 
 public final class ConcretePart implements IPhrasePart {
-	
-	private final String text;
+    
+    private final String text;
 
-	public ConcretePart(final String text) {
-		this.text = text;
-	}
+    public ConcretePart(final String text) {
+        this.text = text;
+    }
 
-	public boolean captures(final NamePart part) {
-		return text.equals(part.getText());
-	}
-	
-	public String toString() {
-		return text;
-	}
+    public boolean captures(final NamePart part) {
+        return text.equals(part.getText());
+    }
+    
+    public String toString() {
+        return text;
+    }
 
 }

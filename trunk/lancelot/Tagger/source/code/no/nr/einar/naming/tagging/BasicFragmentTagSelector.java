@@ -14,23 +14,23 @@ import java.util.Set;
 
 public final class BasicFragmentTagSelector extends OrderedFragmentTagSelector {
 
-	private final FragmentTagSelector defaultSelector;
-	
-	public BasicFragmentTagSelector(
-			final FragmentTagSelector defaultSelector,
-			final String fragment, 
-			final Set<Tag> candidateTags) {
-		super(fragment, candidateTags);
-		this.defaultSelector = defaultSelector;
-	}
+    private final FragmentTagSelector defaultSelector;
+    
+    public BasicFragmentTagSelector(
+            final FragmentTagSelector defaultSelector,
+            final String fragment, 
+            final Set<Tag> candidateTags) {
+        super(fragment, candidateTags);
+        this.defaultSelector = defaultSelector;
+    }
 
-	@Override
-	protected Tag[] getSelectionOrder() {
-		return new Tag[] { Tag.Number, Tag.Pronoun, Tag.Preposition, Tag.Conjunction, Tag.Article };
-	}
-	
-	protected Tag defaultSelect() {
-		return defaultSelector.select();
-	}
-	
+    @Override
+    protected Tag[] getSelectionOrder() {
+        return new Tag[] { Tag.Number, Tag.Pronoun, Tag.Preposition, Tag.Conjunction, Tag.Article };
+    }
+    
+    protected Tag defaultSelect() {
+        return defaultSelector.select();
+    }
+    
 }

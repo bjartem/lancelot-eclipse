@@ -14,21 +14,21 @@ import java.util.Set;
 
 public final class RegularFragmentTagSelector extends FragmentTagSelector {
 
-	private final FragmentTagSelector defaultSelector;
+    private final FragmentTagSelector defaultSelector;
 
-	public RegularFragmentTagSelector(
-			final String fragment, 
-			final Set<Tag> candidateTags) {
-		super(fragment, candidateTags);
-		defaultSelector = new DefaultFragmentTagSelector(fragment, candidateTags);
-	}
+    public RegularFragmentTagSelector(
+            final String fragment, 
+            final Set<Tag> candidateTags) {
+        super(fragment, candidateTags);
+        defaultSelector = new DefaultFragmentTagSelector(fragment, candidateTags);
+    }
 
-	@Override
-	public Tag select() {
-		if (canBe(Tag.Noun) && canBe(Tag.Adjective)) {
-			return Tag.Adjective;
-		}
-		return defaultSelector.select();
-	}
-	
+    @Override
+    public Tag select() {
+        if (canBe(Tag.Noun) && canBe(Tag.Adjective)) {
+            return Tag.Adjective;
+        }
+        return defaultSelector.select();
+    }
+    
 }

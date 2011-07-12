@@ -16,5 +16,5 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IClassFile;
 
 public abstract class AbstractGatherer {
-	public abstract List<IClassFile> gatherFiles() throws CoreException;
+    public abstract List<IClassFile> gatherFiles() throws CoreException;
 }

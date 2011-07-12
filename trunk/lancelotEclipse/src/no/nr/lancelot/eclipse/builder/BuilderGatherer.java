@@ -33,7 +33,7 @@ final class BuilderGatherer extends AbstractGatherer {
     private final boolean needsFullSearch;
     
     private final List<IClassFile> result = new LinkedList<IClassFile>();
-	
+    
     public BuilderGatherer(final IProject project, @Nullable final IResourceDelta rootDelta) {
         if (project == null)
             throw new IllegalArgumentException();
@@ -44,11 +44,11 @@ final class BuilderGatherer extends AbstractGatherer {
         this.needsFullSearch = rootDelta == null;
     }
     
-	@Override
-	public List<IClassFile> gatherFiles() throws CoreException {
-		logStart();
+    @Override
+    public List<IClassFile> gatherFiles() throws CoreException {
+        logStart();
         
-		if (needsFullSearch)
+        if (needsFullSearch)
             fullSearch();
         else
             incrementalSearch();
@@ -57,22 +57,22 @@ final class BuilderGatherer extends AbstractGatherer {
         return result;
     }
     
-	private void logStart() {
-		LancelotPlugin.logInfo(
-			getClass(), 
-			"Starting gathering of class files... [Full search: " + needsFullSearch + "]"
-		);
-	}
-	
+    private void logStart() {
+        LancelotPlugin.logInfo(
+            getClass(), 
+            "Starting gathering of class files... [Full search: " + needsFullSearch + "]"
+        );
+    }
+    
     private void logSuccessfulCompletion() {
         final int numFound = result.size();
         LancelotPlugin.logInfo(
-        	getClass(), 
-        	"Gathering completed successfully. Found " + numFound + " class files."
+            getClass(), 
+            "Gathering completed successfully. Found " + numFound + " class files."
         );
     }
 
-	private void fullSearch() throws CoreException {
+    private void fullSearch() throws CoreException {
         project.accept(new FullGatherVisitor());
     }
     
@@ -81,9 +81,9 @@ final class BuilderGatherer extends AbstractGatherer {
     }
     
     private void take(final IResource resource) {
-    	final IClassFile maybeClassFile = GatheringHelper.findClassFileOrNull(resource);
-    	if (maybeClassFile != null)
-    		result.add(maybeClassFile);
+        final IClassFile maybeClassFile = GatheringHelper.findClassFileOrNull(resource);
+        if (maybeClassFile != null)
+            result.add(maybeClassFile);
     }
 
     private final class FullGatherVisitor implements IResourceVisitor {

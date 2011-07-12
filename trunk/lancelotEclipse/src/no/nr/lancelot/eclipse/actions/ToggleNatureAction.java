@@ -24,67 +24,67 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
 public final class ToggleNatureAction implements IObjectActionDelegate {
-	private ISelection selection;
+    private ISelection selection;
 
-	@Override
-	public void run(final IAction action) {
-		if (! (selection instanceof IStructuredSelection))
-			return;
-		
-		for (final Object element : ((IStructuredSelection) selection).toArray()) {
-			IProject project = null;
-			
-			if (element instanceof IProject) 
-				project = (IProject) element;
-			else if (element instanceof IAdaptable) 
-				project = (IProject) ((IAdaptable) element).getAdapter(IProject.class);
-			
-			if (project != null) 
-				toggleNature(project);
-		}
-	}
+    @Override
+    public void run(final IAction action) {
+        if (! (selection instanceof IStructuredSelection))
+            return;
+        
+        for (final Object element : ((IStructuredSelection) selection).toArray()) {
+            IProject project = null;
+            
+            if (element instanceof IProject) 
+                project = (IProject) element;
+            else if (element instanceof IAdaptable) 
+                project = (IProject) ((IAdaptable) element).getAdapter(IProject.class);
+            
+            if (project != null) 
+                toggleNature(project);
+        }
+    }
 
-	@Override
-	public void selectionChanged(final IAction action, final ISelection newSelection) {
-		this.selection = newSelection;
-	}
+    @Override
+    public void selectionChanged(final IAction action, final ISelection newSelection) {
+        this.selection = newSelection;
+    }
 
-	@Override
-	public void setActivePart(final IAction action, final IWorkbenchPart targetPart) {
-		// Do nothing.
-	}
+    @Override
+    public void setActivePart(final IAction action, final IWorkbenchPart targetPart) {
+        // Do nothing.
+    }
 
-	private void toggleNature(final IProject project) {
-		try {
-			IProjectDescription description = project.getDescription();
-			String[] natures = description.getNatureIds();
+    private void toggleNature(final IProject project) {
+        try {
+            IProjectDescription description = project.getDescription();
+            String[] natures = description.getNatureIds();
 
-			for (int i = 0; i < natures.length; ++i) {
-				if (LancelotNature.NATURE_ID.equals(natures[i])) {
-					// Remove the nature
-					String[] newNatures = new String[natures.length - 1];
-					System.arraycopy(natures, 0, newNatures, 0, i);
-					System.arraycopy(natures, i + 1, newNatures, i,
-							natures.length - i - 1);
-					description.setNatureIds(newNatures);
-					project.setDescription(description, null);
+            for (int i = 0; i < natures.length; ++i) {
+                if (LancelotNature.NATURE_ID.equals(natures[i])) {
+                    // Remove the nature
+                    String[] newNatures = new String[natures.length - 1];
+                    System.arraycopy(natures, 0, newNatures, 0, i);
+                    System.arraycopy(natures, i + 1, newNatures, i,
+                            natures.length - i - 1);
+                    description.setNatureIds(newNatures);
+                    project.setDescription(description, null);
 
-					LancelotPlugin.logInfo("Removed Lancelot nature.");
-					return;
-				}
-			}
+                    LancelotPlugin.logInfo("Removed Lancelot nature.");
+                    return;
+                }
+            }
 
-			// Add the nature
-			final String[] newNatures = new String[natures.length + 1];
-			System.arraycopy(natures, 0, newNatures, 0, natures.length);
-			newNatures[natures.length] = LancelotNature.NATURE_ID;
-			description.setNatureIds(newNatures);
-			project.setDescription(description, null);
-			
-			LancelotPlugin.logInfo("Added Lancelot nature.");
-		} catch (CoreException e) {
-			e.printStackTrace();
-			// @TODO!! FIXME
-		}
-	}
+            // Add the nature
+            final String[] newNatures = new String[natures.length + 1];
+            System.arraycopy(natures, 0, newNatures, 0, natures.length);
+            newNatures[natures.length] = LancelotNature.NATURE_ID;
+            description.setNatureIds(newNatures);
+            project.setDescription(description, null);
+            
+            LancelotPlugin.logInfo("Added Lancelot nature.");
+        } catch (CoreException e) {
+            e.printStackTrace();
+            // @TODO!! FIXME
+        }
+    }
 }

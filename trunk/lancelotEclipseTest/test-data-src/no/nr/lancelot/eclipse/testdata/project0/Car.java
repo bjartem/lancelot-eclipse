@@ -11,9 +11,9 @@
 package no.nr.lancelot.eclipse.testdata.project0;
 
 public class Car {
-	private int n;
-	
-	public void containsBar(final int n) {
-		this.n = n;
-	}
+    private int n;
+    
+    public void containsBar(final int n) {
+        this.n = n;
+    }
 }

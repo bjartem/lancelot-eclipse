@@ -20,58 +20,58 @@ import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 
 public class LancelotNature implements IProjectNature {
-	public static final String NATURE_ID = LancelotPlugin.PLUGIN_ID + ".nature";
+    public static final String NATURE_ID = LancelotPlugin.PLUGIN_ID + ".nature";
 
-	private IProject project = null;
+    private IProject project = null;
 
-	public void configure() throws CoreException {
-		final IProjectDescription desc = project.getDescription();
-		final ICommand[] commands = desc.getBuildSpec();
+    public void configure() throws CoreException {
+        final IProjectDescription desc = project.getDescription();
+        final ICommand[] commands = desc.getBuildSpec();
 
-		for (final ICommand command : commands) {
-			final boolean builderAlreadyLoaded = isLancelotBuildCommand(command);
-			if (builderAlreadyLoaded) {
-				LancelotPlugin.logError("Lancelot nature configuration failed: Already loaded!");
-				return;
-			}
-		}
+        for (final ICommand command : commands) {
+            final boolean builderAlreadyLoaded = isLancelotBuildCommand(command);
+            if (builderAlreadyLoaded) {
+                LancelotPlugin.logError("Lancelot nature configuration failed: Already loaded!");
+                return;
+            }
+        }
 
-		final ICommand[] newCommands = new ICommand[commands.length + 1];
-		System.arraycopy(commands, 0, newCommands, 0, commands.length);
-		final ICommand command = desc.newCommand();
-		command.setBuilderName(LancelotBuilder.BUILDER_ID);
-		newCommands[newCommands.length - 1] = command;
-		desc.setBuildSpec(newCommands);
+        final ICommand[] newCommands = new ICommand[commands.length + 1];
+        System.arraycopy(commands, 0, newCommands, 0, commands.length);
+        final ICommand command = desc.newCommand();
+        command.setBuilderName(LancelotBuilder.BUILDER_ID);
+        newCommands[newCommands.length - 1] = command;
+        desc.setBuildSpec(newCommands);
 
-		project.setDescription(desc, null);
-	}
-	
-	public void deconfigure() throws CoreException {
-		final IProjectDescription description = getProject().getDescription();
-		final ICommand[] commands = description.getBuildSpec();
+        project.setDescription(desc, null);
+    }
+    
+    public void deconfigure() throws CoreException {
+        final IProjectDescription description = getProject().getDescription();
+        final ICommand[] commands = description.getBuildSpec();
 
-		for (int i = 0; i < commands.length; ++i)
+        for (int i = 0; i < commands.length; ++i)
             if (isLancelotBuildCommand(commands[i])) {
-				final ICommand[] newCommands = new ICommand[commands.length - 1];
-				System.arraycopy(commands, 0, newCommands, 0, i);
-				System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);
-				description.setBuildSpec(newCommands);
-				project.setDescription(description, null);
-				return;
-			}
+                final ICommand[] newCommands = new ICommand[commands.length - 1];
+                System.arraycopy(commands, 0, newCommands, 0, i);
+                System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);
+                description.setBuildSpec(newCommands);
+                project.setDescription(description, null);
+                return;
+            }
 
-		LancelotPlugin.logError("Lancelot nature deconfiguration failed: Not loaded!");
-	}
+        LancelotPlugin.logError("Lancelot nature deconfiguration failed: Not loaded!");
+    }
 
-	private boolean isLancelotBuildCommand(final ICommand command) {
-		return command.getBuilderName().equals(LancelotBuilder.BUILDER_ID);
-	}
+    private boolean isLancelotBuildCommand(final ICommand command) {
+        return command.getBuilderName().equals(LancelotBuilder.BUILDER_ID);
+    }
 
-	public IProject getProject() {
-		return project;
-	}
+    public IProject getProject() {
+        return project;
+    }
 
-	public void setProject(final IProject project) {
-		this.project = project;
-	}
+    public void setProject(final IProject project) {
+        this.project = project;
+    }
 }

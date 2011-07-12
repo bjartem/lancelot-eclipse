@@ -14,6 +14,6 @@ import java.util.List;
 
 public interface PosTagger {
 
-	List<String> tag(final List<String> fragments);
-	
+    List<String> tag(final List<String> fragments);
+    
 }

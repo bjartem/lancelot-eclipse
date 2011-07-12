@@ -21,54 +21,54 @@ import org.eclipse.jdt.core.IJavaModelMarker;
 import org.eclipse.jdt.core.JavaCore;
 
 public final class GatheringHelper {
-	private GatheringHelper() {}
+    private GatheringHelper() {}
 
-	public static boolean isProbableClassFile(final IResource resource) {
-		if (resource == null)
-			throw new IllegalArgumentException();
-		
-		final boolean isFile = resource.getType() == IResource.FILE;
-		
-		final String pathString = resource.getFullPath().toString();
+    public static boolean isProbableClassFile(final IResource resource) {
+        if (resource == null)
+            throw new IllegalArgumentException();
+        
+        final boolean isFile = resource.getType() == IResource.FILE;
+        
+        final String pathString = resource.getFullPath().toString();
         final boolean hasClassSuffix = pathString.endsWith(".class");
         final boolean isPackageInfo = pathString.endsWith("package-info.class");
         
         return isFile && hasClassSuffix && !isPackageInfo;                                    
-	}
+    }
 
-	public static IClassFile findClassFileOrNull(final IResource resource) {
-		if (resource == null)
-			throw new IllegalArgumentException();
-		
-		if (!isProbableClassFile(resource))
-			return null;
-		
-		try {
+    public static IClassFile findClassFileOrNull(final IResource resource) {
+        if (resource == null)
+            throw new IllegalArgumentException();
+        
+        if (!isProbableClassFile(resource))
+            return null;
+        
+        try {
             return JavaCore.createClassFileFrom((IFile) resource);
         } catch (ClassCastException e) {
             LancelotPlugin.logException(e, "This should never happen!");
             return null;
         }
-	}
+    }
 
-	public static boolean hasJavaBuildErrors(final IResource resource) throws CoreException {
-		if (resource == null)
-			throw new IllegalArgumentException();
-		
-		final IMarker[] problemMarkers = resource.findMarkers(
-		    IJavaModelMarker.JAVA_MODEL_PROBLEM_MARKER, 
-			false, 
-			IResource.DEPTH_INFINITE
-		);
-		
-		for (final IMarker marker : problemMarkers) 
-			if (indicatesJavaBuildError(marker))
-				return true;
-		
-		return false;
-	}
+    public static boolean hasJavaBuildErrors(final IResource resource) throws CoreException {
+        if (resource == null)
+            throw new IllegalArgumentException();
+        
+        final IMarker[] problemMarkers = resource.findMarkers(
+            IJavaModelMarker.JAVA_MODEL_PROBLEM_MARKER, 
+            false, 
+            IResource.DEPTH_INFINITE
+        );
+        
+        for (final IMarker marker : problemMarkers) 
+            if (indicatesJavaBuildError(marker))
+                return true;
+        
+        return false;
+    }
 
-	static boolean indicatesJavaBuildError(final IMarker marker) {
-		return marker.getAttribute(IMarker.SEVERITY, 0) == IMarker.SEVERITY_ERROR;
-	}
+    static boolean indicatesJavaBuildError(final IMarker marker) {
+        return marker.getAttribute(IMarker.SEVERITY, 0) == IMarker.SEVERITY_ERROR;
+    }
 }
