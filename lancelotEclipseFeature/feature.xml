@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="no.nr.lancelot.eclipse.feature"
+      label="Lancelot"
+      version="0.1.0.qualifier"
+      provider-name="Norwegian Comping Center"
+      plugin="no.nr.lancelot.eclipse">
+
+   <description url="http://www.example.com/description">
+      Lancelot is a static analysis tool for finding badly named methods in Java code.
+   </description>
+
+   <copyright>
+      (c) 2011 Norwegian Computing Center
+   </copyright>
+
+   <license>
+      Lancelot is free software distributed under the terms of the
+Eclipse Public License.
+http://www.eclipse.org/legal/epl-v10.html
+   </license>
+
+   <plugin
+         id="no.nr.lancelot.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="no.nr.lancelot"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>
