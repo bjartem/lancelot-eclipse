@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/no.nr.lancelot.eclipse.feature_0.1.0.201107111312.jar" id="no.nr.lancelot.eclipse.feature" version="0.1.0.201107111312">
+      <category name="no.nr.lancelot.eclipse"/>
+   </feature>
+   <category-def name="no.nr.lancelot.eclipse" label="Lancelot"/>
+</site>
