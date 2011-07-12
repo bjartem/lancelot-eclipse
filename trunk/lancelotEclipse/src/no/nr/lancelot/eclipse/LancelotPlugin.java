@@ -21,24 +21,33 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.BundleContext;
 
+/* This class acts as a initializer and an entry point for 
+ * common functionality. 
+ * 
+ * It is not the correct place to  begin reading the plugin. 
+ * Have a look at the classes in package actions or the main 
+ * LancelotController instead.
+ */
 public class LancelotPlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "no.nr.lancelot.eclipse";
 
-    private static LancelotPlugin plugin = null;
+    public static final String SUPPRESS_WARNINGS_NAME = "NamingBug";
+
+    private static LancelotPlugin INSTANCE = null;
     
     public static LancelotPlugin getDefault() {
-        return plugin;
+        return INSTANCE;
     }
 
     @Override
     public void start(final BundleContext context) throws Exception {
         super.start(context);
-        plugin = this;        
+        INSTANCE = this;        
     }
 
     @Override
     public void stop(final BundleContext context) throws Exception {
-        plugin = null;
+        INSTANCE = null;
         super.stop(context);
     }
     
@@ -48,13 +57,13 @@ public class LancelotPlugin extends AbstractUIPlugin {
     }
 
     public static void logTrace(final Object message) {
-        final boolean isTracing = true; // @TODO TODO !! PLUG IN PROPERERLY TO TRACING SYSTEM. FAQ PAGE 117.
+        // FIXME !! PLUG IN PROPERERLY TO TRACING SYSTEM. FAQ PAGE 117.
+        final boolean isTracing = true;
         if (!isTracing)
             return;
         System.out.println(message);
     }
     
-    // @TODO TODO!
     public static void logInfo(final Object message) {
         logTrace(message);
     }
@@ -64,20 +73,19 @@ public class LancelotPlugin extends AbstractUIPlugin {
     }
     
     public static void logError(final String message) {
-        getDefault().getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, message));
+        INSTANCE.getLog().log(new Status(IStatus.ERROR, PLUGIN_ID, message));
     }
     
     public static void logException(final Throwable throwable, final String comment) {
-        logError(
-            "Exception " + throwable + " raised. Message: " + throwable.getMessage() + "." +
-            "Comment: " + comment + "."
-        );
-        throwable.printStackTrace(System.err);
+        logError(String.format(
+            "Exception %s raised. [Message: %s. Comment: %s].",
+            throwable, throwable.getMessage(), comment
+        ));
     }
     
     public static void logException(final Throwable throwable) {
         throwable.printStackTrace();
-        logException(throwable, "[No comment]");
+        logException(throwable, "(No comment)");
     }
     
     public static void throwWrappedException(final Throwable throwable, final String comment) 
@@ -86,6 +94,7 @@ public class LancelotPlugin extends AbstractUIPlugin {
     }
     
     public static void reportFatalError(final String details) {
+        // We must ensure that we open the error dialog in the UI thread.
         new UIJob("Message dialog job") {
             @Override
             public IStatus runInUIThread(final IProgressMonitor monitor) {

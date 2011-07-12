@@ -12,12 +12,12 @@ package no.nr.lancelot.eclipse.view;
 
 import java.util.List;
 
-import no.nr.lancelot.analysis.ClassAnalysisReport;
+import no.nr.lancelot.analysis.IClassAnalysisReport;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 public interface ILancelotView {
-    void run(List<ClassAnalysisReport> analysisReports, IProgressMonitor annotationMonitor) 
+    void run(List<IClassAnalysisReport> analysisReports, IProgressMonitor annotationMonitor) 
     throws CoreException;
 }

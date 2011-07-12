@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import no.nr.lancelot.analysis.ClassAnalysisOperation;
-import no.nr.lancelot.analysis.ClassAnalysisReport;
+import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
 
 import org.eclipse.core.runtime.CoreException;
@@ -24,12 +24,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.IClassFile;
 
-public final class AnalysisController implements IAnalysisController {
-
-    private List<ClassAnalysisReport> analysisReports = null;
+public final class Analyzer implements IAnalyzer {
+    private List<IClassAnalysisReport> analysisReports = null;
     
     @Override
-    public List<ClassAnalysisReport> getAnalysisReports() {
+    public List<IClassAnalysisReport> getAnalysisReports() {
         if (analysisReports == null)
             throw new IllegalStateException("Analysis has not run!");
         return analysisReports;
@@ -55,8 +54,8 @@ public final class AnalysisController implements IAnalysisController {
             logStart(numClasses);
             monitor.beginTask("Naming analysis", totalWork);
 
-            final List<ClassAnalysisReport> tempAnalysisReports = 
-                                                           new LinkedList<ClassAnalysisReport>();
+            final List<IClassAnalysisReport> tempAnalysisReports = 
+                                                           new LinkedList<IClassAnalysisReport>();
             
             for (final ClassAnalysisOperation operation : operations) {     
                 if (monitor.isCanceled()) 
@@ -64,7 +63,7 @@ public final class AnalysisController implements IAnalysisController {
                 
                 monitor.subTask("Analyzing " + operation.getClassName() + "...");
                 
-                final ClassAnalysisReport analysisReport = operation.run();
+                final IClassAnalysisReport analysisReport = operation.run();
                 tempAnalysisReports.add(analysisReport);
                 
                 monitor.worked(1);

@@ -13,10 +13,9 @@ package no.nr.lancelot.eclipse.controller;
 import java.io.IOException;
 import java.util.List;
 
-import no.nr.lancelot.analysis.ClassAnalysisReport;
+import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
-import no.nr.lancelot.eclipse.analysis.AnalysisController;
-import no.nr.lancelot.eclipse.analysis.IAnalysisController;
+import no.nr.lancelot.eclipse.analysis.IAnalyzer;
 import no.nr.lancelot.eclipse.gathering.AbstractGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
 
@@ -40,16 +39,16 @@ public final class LancelotController {
                                                 + VIEW_WORK_UNITS;
 
     private final AbstractGatherer gatherer;
-    private final IAnalysisController analysisController;
+    private final IAnalyzer analysisController;
     private final ILancelotView view;
     private final IProgressMonitor mainMonitor;
     
     private List<IClassFile> filesForAnalysis = null;
-    private List<ClassAnalysisReport> analysisReports = null;
+    private List<IClassAnalysisReport> analysisReports = null;
 
     public LancelotController(
         final AbstractGatherer gatherer,
-        final IAnalysisController analysisController,
+        final IAnalyzer analysisController,
         final ILancelotView view,
         final IProgressMonitor mainMonitor
     ) {
@@ -128,6 +127,7 @@ public final class LancelotController {
     protected void passResultstoView() throws CoreException {
         if (analysisReports == null)
             throw new AssertionError("Analysis has not been run!");
+       
         final IProgressMonitor viewMonitor = new SubProgressMonitor(
                                                  mainMonitor, 
                                                  VIEW_WORK_UNITS

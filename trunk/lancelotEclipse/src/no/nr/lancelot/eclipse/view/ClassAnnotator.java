@@ -135,7 +135,7 @@ final class ClassAnnotator {
                 suppressions = (Object[]) annotationValue;
             
             for (Object suppressed : suppressions)
-                if (suppressed.equals("NamingBug"))
+                if (suppressed.equals(LancelotPlugin.SUPPRESS_WARNINGS_NAME))
                     return true;
         } catch (Exception e) {
             LancelotPlugin.logException(e, "Nasty region. Check array access and casts.");
