@@ -1,129 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
-<plugin>
+<?eclipse version="3.4"?><plugin>
 
-   <extension
-         id="no.nr.lancelot.eclipse.builder"
-         name="Lancelot Project Builder"
-         point="org.eclipse.core.resources.builders">
-      <builder
-            hasNature="true">
-         <run
-               class="no.nr.lancelot.eclipse.builder.LancelotBuilder">
-         </run>
-      </builder>
-   </extension>
-   <extension
-         id="no.nr.lancelot.eclipse.nature"
-         name="Lancelot Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="no.nr.lancelot.eclipse.nature.LancelotNature">
-         </run>
-      </runtime>
-      <builder
-            id="no.nr.lancelot.eclipse.builder">
-      </builder>
-   </extension>
-   <extension
-         point="org.eclipse.ui.popupMenus">
-   </extension>
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="no.nr.lancelot.eclipse.javaElementActions"
-            objectClass="org.eclipse.jdt.core.IJavaElement">
-         <menu
-               id="lancelot"
-               label="Lancelot"
-               path="group.build"/>
-         <action
-               class="no.nr.lancelot.eclipse.actions.ClearMarkersAction"
-               icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
-               id="no.nr.lancelot.clearMarkers"
-               label="Clear bug markers"
-               menubarPath="lancelot/additions"
-               tooltip="Clear bug markers"/>
-         <action
-               class="no.nr.lancelot.eclipse.actions.RunLancelotAction"
-               id="no.nr.lancelot.runLancelot"
-               label="Find naming bugs"
-               menubarPath="lancelot/additions"
-               tooltip="Find naming bugs"/>
-      </objectContribution>
-   </extension>   
-      <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="no.nr.lancelot.eclipse.javaProjectActions"
-            objectClass="org.eclipse.jdt.core.IJavaProject">
-         <menu
-               id="lancelot"
-               label="Lancelot"
-               path="group.build"/>
-         <action
-               label="Enable/disable automatical analysis"
-               class="no.nr.lancelot.eclipse.actions.ToggleNatureAction"
-               menubarPath="lancelot/additions"
-               enablesFor="+"
-               id="toggleNatureAction"/>
-      </objectContribution>
-   </extension>
-   <extension
-         point="org.eclipse.core.resources.markers"
-         id="no.nr.lancelot.eclipse.namingBugMarker"
-         name="Naming Bug">
-      <super type="org.eclipse.core.resources.problemmarker"/>
-      <super type="org.eclipse.core.resources.textmarker"/>
-      <persistent
-            value="true">
-      </persistent>
-      <attribute
-            name="ALTERNATIVE_NAMES">
-      </attribute>
-   </extension>
-   
-   <extension
-    point="org.eclipse.ui.ide.markerResolution">
+  <!-- Builder -->
+  <extension
+      id="no.nr.lancelot.eclipse.builder"
+      name="Lancelot Project Builder"
+      point="org.eclipse.core.resources.builders">
+    <builder hasNature="true">
+      <run class="no.nr.lancelot.eclipse.builder.LancelotBuilder"></run>
+    </builder>
+  </extension>
+
+  <!-- Nature -->
+  <extension
+      id="no.nr.lancelot.eclipse.nature"
+      name="Lancelot Project Nature"
+      point="org.eclipse.core.resources.natures">
+    <runtime>
+      <run class="no.nr.lancelot.eclipse.nature.LancelotNature"></run>
+    </runtime>
+    <builder id="no.nr.lancelot.eclipse.builder"></builder>
+  </extension>
+
+  <!-- Menu contributions for all Java elements -->
+  <extension point="org.eclipse.ui.popupMenus">
+    <objectContribution
+        adaptable="true"
+        id="no.nr.lancelot.eclipse.javaElementActions"
+        objectClass="org.eclipse.jdt.core.IJavaElement">
+      <menu
+          id="lancelot"
+          label="Lancelot"
+          path="group.build"
+      />
+      <action
+          class="no.nr.lancelot.eclipse.actions.ClearMarkersAction"
+          icon="platform:/plugin/org.eclipse.ui/icons/full/etool16/delete_edit.gif"
+          id="no.nr.lancelot.clearMarkers"
+          label="Clear bug markers"
+          menubarPath="lancelot/additions"
+          tooltip="Clear bug markers"
+      />
+      <action
+          class="no.nr.lancelot.eclipse.actions.RunLancelotAction"
+          id="no.nr.lancelot.runLancelot"
+          label="Find naming bugs"
+          menubarPath="lancelot/additions"
+          tooltip="Find naming bugs"
+      />
+    </objectContribution>
+  </extension>
+
+  <!-- Menu contributions that only apply for Java project root nodes -->
+  <extension point="org.eclipse.ui.popupMenus">
+    <objectContribution
+        adaptable="true"
+        id="no.nr.lancelot.eclipse.javaProjectActions"
+        objectClass="org.eclipse.jdt.core.IJavaProject">
+      <menu
+          id="lancelot"
+          label="Lancelot"
+          path="group.build"
+      />
+      <action
+          class="no.nr.lancelot.eclipse.actions.ToggleNatureAction"
+          enablesFor="+"
+          id="toggleNatureAction"
+          label="Enable/disable automatical analysis"
+          menubarPath="lancelot/additions"
+      />
+    </objectContribution>
+  </extension>
+
+  <!-- Naming bug marker type -->
+  <extension
+      id="no.nr.lancelot.eclipse.namingBugMarker"
+      name="Naming Bug"
+      point="org.eclipse.core.resources.markers">
+    <super type="org.eclipse.core.resources.problemmarker" />
+    <super type="org.eclipse.core.resources.textmarker" />
+    <persistent value="true"></persistent>
+    <attribute name="ALTERNATIVE_NAMES"></attribute>
+  </extension>
+
+  <!-- Marker resolution generator (quick fixes) for naming bug markers -->
+  <extension point="org.eclipse.ui.ide.markerResolution">
     <markerResolutionGenerator
-        markerType="no.nr.lancelot.eclipse.namingBugMarker"
-        class="no.nr.lancelot.eclipse.view.LancelotMarkerResolutionGenerator">
-    </markerResolutionGenerator>
-    </extension>
-   
-   <extension 
-      point="org.eclipse.ui.views"> 
-      <view 
-            allowMultiple="false"
-            category="no.nr.lancelot.eclipse.viewCategory"
-             class="no.nr.lancelot.eclipse.view.LancelotMarkerView" 
-             id="no.nr.lancelot.eclipse.view.markerView" 
-             name="Naming bugs">
-      </view>
-      <category
-            id="no.nr.lancelot.eclipse.viewCategory"
-            name="Lancelot">
-      </category>
-    </extension>
-    
-    <extension 
-      point="org.eclipse.ui.ide.markerSupport"> 
-   <markerContentGenerator 
-         id="no.nr.lancelot.eclipse.view.markerViewContentGenerator" 
-         name="Naming Bug Marker Content Generator"> 
-        <markerTypeReference 
-             id="no.nr.lancelot.eclipse.namingBugMarker"/> 
-        <markerFieldReference 
-             id="org.eclipse.ui.ide.locationField"/> 
-       <markerFieldReference 
-             id="org.eclipse.ui.ide.resourceField"/> 
-       <markerFieldReference 
-             id="org.eclipse.ui.ide.descriptionField"/> 
-    </markerContentGenerator> 
-</extension>
+        class="no.nr.lancelot.eclipse.view.LancelotMarkerResolutionGenerator"
+        markerType="no.nr.lancelot.eclipse.namingBugMarker"></markerResolutionGenerator>
+  </extension>
 
+  <!-- Naming bug view -->
+  <extension point="org.eclipse.ui.views">
+    <view
+        allowMultiple="false"
+        category="no.nr.lancelot.eclipse.viewCategory"
+        class="no.nr.lancelot.eclipse.view.LancelotMarkerView"
+        id="no.nr.lancelot.eclipse.view.markerView"
+        name="Naming bugs"></view>
+    <category
+        id="no.nr.lancelot.eclipse.viewCategory"
+        name="Lancelot"></category>
+  </extension>
+
+  <!-- Content generator for naming bug view -->
+  <extension point="org.eclipse.ui.ide.markerSupport">
+    <markerContentGenerator
+        id="no.nr.lancelot.eclipse.view.markerViewContentGenerator"
+        name="Naming Bug Marker Content Generator">
+      <markerTypeReference id="no.nr.lancelot.eclipse.namingBugMarker" />
+      <markerFieldReference id="org.eclipse.ui.ide.locationField" />
+      <markerFieldReference id="org.eclipse.ui.ide.resourceField" />
+      <markerFieldReference id="org.eclipse.ui.ide.descriptionField" />
+    </markerContentGenerator>
+  </extension>
 
 </plugin>

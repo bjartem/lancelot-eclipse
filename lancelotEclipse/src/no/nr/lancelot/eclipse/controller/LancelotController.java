@@ -65,18 +65,18 @@ public final class LancelotController {
     
     public void run() throws CoreException {
         final long startTimeMs = System.currentTimeMillis();
-        final int totalWork = TOTAL_WORK_UNITS;
 
         try {
             logStart();            
-            mainMonitor.beginTask("Lancelot analysis", totalWork);
+            mainMonitor.beginTask("Lancelot analysis", TOTAL_WORK_UNITS);
             
             gather();
             analyze();
             passResultstoView();    
             
-            final long totalTimeMs = System.currentTimeMillis() - startTimeMs;
-            logCompletion(totalTimeMs);
+            final long stopTimeMs = System.currentTimeMillis();
+            final long spentTimeMs = stopTimeMs - startTimeMs;
+            logCompletion(spentTimeMs);
         } catch (OperationCanceledException e) {
             logCancellation();
         } catch (IOException e) {
@@ -94,10 +94,10 @@ public final class LancelotController {
         LancelotPlugin.logInfo(getClass(), "Analysis aborted by user.");
     }
     
-    private void logCompletion(final long totalTimeMs) {
+    private void logCompletion(final long spentTimeMs) {
         LancelotPlugin.logInfo(
             getClass(), 
-            "Lancelot analysis completed in " + totalTimeMs + " ms."
+            "Lancelot analysis completed in " + spentTimeMs + " ms."
         );
     }
     
@@ -116,10 +116,7 @@ public final class LancelotController {
         if (filesForAnalysis == null)
             throw new AssertionError("Files have not been gathered yet!");
         
-        final IProgressMonitor analysisMonitor = new SubProgressMonitor(
-                                                     mainMonitor, 
-                                                     ANALYSIS_WORK_UNITS
-                                                 );
+        final IProgressMonitor analysisMonitor = new SubProgressMonitor(mainMonitor, ANALYSIS_WORK_UNITS);
         final List<IClassAnalysisReport> analysisReports = analyzer.run(filesForAnalysis, analysisMonitor);
         if (analysisReports == null)
             throw new RuntimeException("Analyzer returned null. This should never happen.");
@@ -132,10 +129,7 @@ public final class LancelotController {
         if (analysisReports == null)
             throw new AssertionError("Analysis has not been run!");
        
-        final IProgressMonitor viewMonitor = new SubProgressMonitor(
-                                                 mainMonitor, 
-                                                 VIEW_WORK_UNITS
-                                             );
+        final IProgressMonitor viewMonitor = new SubProgressMonitor(mainMonitor, VIEW_WORK_UNITS);
         view.run(analysisReports, viewMonitor);
     }
 }
