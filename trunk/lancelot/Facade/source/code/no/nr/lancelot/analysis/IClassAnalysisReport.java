@@ -19,5 +19,5 @@ public interface IClassAnalysisReport {
     String getClassName();
     @Nullable Object getOperationKey();
     boolean hasBugs();
-    List<MethodBugReport> getMethodBugReports();
+    List<IMethodBugReport> getMethodBugReports();
 }

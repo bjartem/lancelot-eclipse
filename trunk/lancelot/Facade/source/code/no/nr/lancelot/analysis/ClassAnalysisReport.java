@@ -19,12 +19,12 @@ import no.nr.einar.pb.model.JavaClass;
 public final class ClassAnalysisReport implements IClassAnalysisReport {
     private final String packageName;
     private final String className;
-    private final List<MethodBugReport> methodBugReports;
+    private final List<IMethodBugReport> methodBugReports;
     private final Object operationKey;
 
     ClassAnalysisReport(
         final JavaClass javaClass, 
-        final List<MethodBugReport> bugReports,
+        final List<IMethodBugReport> bugReports,
         final Object operationKey
     ) {
         this.packageName = javaClass.getNamespace();
@@ -55,7 +55,7 @@ public final class ClassAnalysisReport implements IClassAnalysisReport {
     }
 
     @Override
-    public List<MethodBugReport> getMethodBugReports() {
+    public List<IMethodBugReport> getMethodBugReports() {
         return methodBugReports;
     }
 

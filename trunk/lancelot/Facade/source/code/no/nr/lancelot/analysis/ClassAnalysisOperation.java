@@ -67,10 +67,10 @@ public final class ClassAnalysisOperation {
         final ClassStreamAnalyzer csa = new ClassStreamAnalyzer();
         final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
         
-        final List<MethodBugReport> bugReports = new LinkedList<MethodBugReport>();
+        final List<IMethodBugReport> bugReports = new LinkedList<IMethodBugReport>();
         
         for (final JavaMethod method : javaClass) {
-            final MethodBugReport possibleBug = verify(method);    
+            final IMethodBugReport possibleBug = verify(method);    
             if (possibleBug != null) {
                 bugReports.add(possibleBug);
             }
@@ -79,7 +79,7 @@ public final class ClassAnalysisOperation {
         return new ClassAnalysisReport(javaClass, bugReports, key);
     }
     
-    public MethodBugReport verify(final JavaMethod javaMethod) {
+    public IMethodBugReport verify(final JavaMethod javaMethod) {
         final MethodIdea idea = deriveIdea(javaMethod, tagger);
         final Set<Rule> violations = rulebook.check(idea);
         return violations.isEmpty() ? null : new MethodBugReport(javaMethod, violations);
