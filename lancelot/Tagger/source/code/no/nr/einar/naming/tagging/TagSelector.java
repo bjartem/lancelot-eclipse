@@ -20,7 +20,7 @@ public final class TagSelector {
     
     private static class FragmentSelectorFactory {
         
-        private final int firstIndex = 0;
+        private static final int firstIndex = 0;
         private final int lastIndex;
         
         public FragmentSelectorFactory(final int lastIndex) {

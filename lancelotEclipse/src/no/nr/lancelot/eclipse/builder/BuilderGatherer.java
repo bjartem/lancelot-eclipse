@@ -49,9 +49,9 @@ final class BuilderGatherer implements IGatherer {
         logStart();
         
         if (needsFullSearch)
-            fullSearch();
+            runFullSearch();
         else
-            incrementalSearch();
+            runIncrementalSearch();
 
         logSuccessfulCompletion();
         return result;
@@ -72,15 +72,15 @@ final class BuilderGatherer implements IGatherer {
         );
     }
 
-    private void fullSearch() throws CoreException {
+    private void runFullSearch() throws CoreException {
         project.accept(new FullGatherVisitor());
     }
     
-    private void incrementalSearch() throws CoreException {
+    private void runIncrementalSearch() throws CoreException {
         rootDelta.accept(new IncrementalGatherVisitor());       
     }
     
-    private void take(final IResource resource) {
+    private void consider(final IResource resource) {
         final IClassFile maybeClassFile = GatheringHelper.findClassFileOrNull(resource);
         if (maybeClassFile != null)
             result.add(maybeClassFile);
@@ -89,7 +89,7 @@ final class BuilderGatherer implements IGatherer {
     private final class FullGatherVisitor implements IResourceVisitor {
         @Override
         public boolean visit(final IResource resource) {
-            take(resource);
+            consider(resource);
             return true; // Signal wish to continue visiting children.
         }
     }
@@ -100,7 +100,7 @@ final class BuilderGatherer implements IGatherer {
             switch (delta.getKind()) {
                 case IResourceDelta.ADDED:    // Fall through.
                 case IResourceDelta.CHANGED:
-                    take(delta.getResource());
+                    consider(delta.getResource());
                     break;
                 case IResourceDelta.REMOVED:
                     break;
