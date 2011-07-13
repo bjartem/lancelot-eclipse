@@ -79,8 +79,8 @@ final class SourceTypeFinder {
         final String[] subNameSegments = Arrays.copyOfRange(nameSegments, 1, nameSegments.length);            
 
         IType type = enclosingType;
-        for (final String typeName : subNameSegments) {
-            type = isAnonName(typeName) ? findAnonymous(type, typeName) : type.getType(typeName); 
+        for (final String name : subNameSegments) {
+            type = isAnonymousName(name) ? findAnonymous(type, name) : type.getType(name); 
             if (type == null || !type.exists()) 
                 throw new TypeNotFoundException(  
                       "type:" + (type == null ? "null" : type.getElementName()) 
@@ -91,7 +91,7 @@ final class SourceTypeFinder {
         return type;
     }
 
-    private boolean isAnonName(final String typeName) {
+    private boolean isAnonymousName(final String typeName) {
         if (typeName.isEmpty())
             throw new AssertionError("typeName is empty");
         for (char ch : typeName.toCharArray())
