@@ -29,8 +29,8 @@ public class LancelotNature implements IProjectNature {
         final ICommand[] commands = desc.getBuildSpec();
 
         for (final ICommand command : commands) {
-            final boolean builderAlreadyLoaded = isLancelotBuildCommand(command);
-            if (builderAlreadyLoaded) {
+            final boolean builderIsAlreadyLoaded = isLancelotBuildCommand(command);
+            if (builderIsAlreadyLoaded) {
                 LancelotPlugin.logError("Lancelot nature configuration failed: Already loaded!");
                 return;
             }
