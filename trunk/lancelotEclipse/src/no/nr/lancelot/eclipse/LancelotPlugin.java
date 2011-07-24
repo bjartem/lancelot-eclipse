@@ -103,22 +103,6 @@ public class LancelotPlugin extends AbstractUIPlugin {
         throw new CoreException(new Status(IStatus.ERROR, PLUGIN_ID, comment, throwable));
     }
     
-    public static void reportFatalError(final String details) {
-        /* Until the day a functioning multi-threaded UI loop is designed, 
-         * we must ensure that we open the error dialog in the UI thread ;)
-         */
-        new UIJob("Fatal error reporting dialog") {
-            @Override
-            public IStatus runInUIThread(final IProgressMonitor monitor) {
-                final String title = "Fatal error",
-                             message = "Lancelot encountered a fatal error.\n\n" +
-                                       "Details: " + details;
-                MessageDialog.openError(null, title, message);
-                return Status.OK_STATUS;
-            }
-        }.schedule();
-    }
-    
     private static final class Initializer {
         /* The ID of the lancelot *analysis engine* plugin.
          */
@@ -156,10 +140,24 @@ public class LancelotPlugin extends AbstractUIPlugin {
                 final long stopTimeMs = System.currentTimeMillis();
                 final long spentTimeMs = stopTimeMs - startTimeMs;
                 LancelotPlugin.logInfo("Lancelot initialized in " + spentTimeMs + " ms.");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 LancelotPlugin.logException(e);
-                LancelotPlugin.reportFatalError("Backend initialization failed. (" + e + ")");
+                reportFatalError(e);
             }
+        }
+
+        private void reportFatalError(final Exception e) {
+            new UIJob("Fatal error report") {
+                @Override
+                public IStatus runInUIThread(final IProgressMonitor monitor) {
+                    MessageDialog.openError(
+                        null, 
+                        "Lancelot Fatal Error", 
+                        "Lancelot engine initialization failed. (" + e + ")"
+                    );
+                    return Status.OK_STATUS;
+                }
+            }.schedule();
         }
         
         private URL findRulebookUrl() throws IOException {

@@ -12,6 +12,7 @@ package no.nr.lancelot.eclipse.actions;
 
 import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.nature.LancelotNature;
+import no.nr.lancelot.eclipse.view.MessageDialogHelper;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -19,7 +20,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IObjectActionDelegate;
@@ -56,7 +56,7 @@ public final class ToggleNatureAction implements IObjectActionDelegate {
         // Do nothing.
     }
 
-    private void toggleNature(final IProject project) {
+    protected void toggleNature(final IProject project) {
         try {
             if (isLancelotNaturePresent(project))
                 removeLancelotNature(project);
@@ -67,7 +67,7 @@ public final class ToggleNatureAction implements IObjectActionDelegate {
         }
     }
 
-    private boolean isLancelotNaturePresent(final IProject project) throws CoreException {
+    protected boolean isLancelotNaturePresent(final IProject project) throws CoreException {
         final IProjectDescription description = project.getDescription();
         final String[] natures = description.getNatureIds();
         
@@ -78,34 +78,35 @@ public final class ToggleNatureAction implements IObjectActionDelegate {
         return false;
     }
     
-    private void removeLancelotNature(final IProject project) throws CoreException {
+    protected void removeLancelotNature(final IProject project) throws CoreException {
+        final IProjectDescription description = project.getDescription();
+        final String[] natures = description.getNatureIds();
+        final int natureId = findLancelotNatureId(project);
+
+        final String[] newNatures = new String[natures.length - 1];
+        System.arraycopy(natures, 0, newNatures, 0, natureId);
+        System.arraycopy(natures, natureId + 1, newNatures, natureId, natures.length - natureId - 1);
+        description.setNatureIds(newNatures);
+        project.setDescription(description, null);
+
+         MessageDialogHelper.openInformation(
+             "Lancelot disabled", 
+             "Automatical analysis disabled for '" + project.getName() + "'"
+         );
+    }
+    
+    protected int findLancelotNatureId(final IProject project) throws CoreException {
         final IProjectDescription description = project.getDescription();
         final String[] natures = description.getNatureIds();
       
-        for (int i = 0; i < natures.length; ++i) {
-            if (LancelotNature.NATURE_ID.equals(natures[i])) {
-                // Remove the nature
-                final String[] newNatures = new String[natures.length - 1];
-                System.arraycopy(natures, 0, newNatures, 0, i);
-                System.arraycopy(natures, i + 1, newNatures, i, natures.length - i - 1);
-                description.setNatureIds(newNatures);
-                project.setDescription(description, null);
-
-                reportDisabling(project);
-                return;
-            }
-        }
+        for (int natureId = 0; natureId < natures.length; ++natureId) 
+            if (LancelotNature.NATURE_ID.equals(natures[natureId])) 
+                return natureId;
+        
+        throw new IllegalStateException("project does not have the Lancelot nature!");
     }
 
-    private void reportDisabling(final IProject project) {
-        MessageDialog.openInformation(
-            null, 
-            "Lancelot disabled", 
-            "Automatical analysis disabled for '" + project.getName() + "'"
-        );
-    }
-    
-    private void addLancelotNature(IProject project) throws CoreException {
+    protected void addLancelotNature(final IProject project) throws CoreException {
         final IProjectDescription description = project.getDescription();
         final String[] natures = description.getNatureIds();
 
@@ -116,12 +117,7 @@ public final class ToggleNatureAction implements IObjectActionDelegate {
         description.setNatureIds(newNatures);
         project.setDescription(description, null);
         
-        reportEnabling(project);
-    }
-    
-    private void reportEnabling(final IProject project) {
-        MessageDialog.openInformation(
-            null, 
+        MessageDialogHelper.openInformation(
             "Lancelot enabled", 
             "Automatical analysis enabled for '" + project.getName() + "'"
         );

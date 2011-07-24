@@ -17,10 +17,11 @@ import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.analysis.Analyzer;
 import no.nr.lancelot.eclipse.analysis.IAnalyzer;
 import no.nr.lancelot.eclipse.controller.LancelotController;
-import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.gathering.GatheringHelper;
-import no.nr.lancelot.eclipse.view.BugMarkingView;
+import no.nr.lancelot.eclipse.gathering.IGatherer;
+import no.nr.lancelot.eclipse.view.BugAnnotationLancelotView;
 import no.nr.lancelot.eclipse.view.ILancelotView;
+import no.nr.lancelot.eclipse.view.MessageDialogHelper;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -30,7 +31,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
@@ -62,7 +62,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
     }
     
     private void signalAutoBuildingProblem() {
-        openInformation(
+        MessageDialogHelper.openInformation(
             "Auto-building disabled", 
             "Lancelot can not run when auto-building is disabled."
         );
@@ -76,15 +76,11 @@ public class RunLancelotAction extends AbstractLancelotAction {
     }
     
     private void signalCompilationProblem() {
-        openInformation(
+        MessageDialogHelper.openInformation(
             "Lancelot cannot run",
             "Some of the selected resources has Java compilation errors. " +
             "The analysis can not run on code that does not compile."
         );
-    }
-    
-    private void openInformation(final String title, final String message) {
-        MessageDialog.openInformation(null, title, message );
     }
 
     private void runController(final RichRegion region) {
@@ -115,7 +111,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
     }
 
     private ILancelotView createView() {
-        return new BugMarkingView();
+        return new BugAnnotationLancelotView();
     }
     
     @SuppressWarnings(value = "EI_EXPOSE_REP2", justification = "Data flows in private scope.")
