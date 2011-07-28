@@ -80,13 +80,20 @@ public final class ClassAnalysisOperation {
     }
     
     public IMethodBugReport verify(final JavaMethod javaMethod) {
+    	return null;
+    	
+    	/*
         final MethodIdea idea = deriveIdea(javaMethod, tagger);
         final Set<Rule> violations = rulebook.check(idea);
         return violations.isEmpty() ? null : new MethodBugReport(javaMethod, violations);
+        */
     }
     
     private static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
-        final String name = javaMethod.getMethodName();
+        return null;
+    	
+        /*
+    	final String name = javaMethod.getMethodName();
         final NameSplitter splitter = new NameSplitter();
         final List<String> parts = splitter.split(name);
         final List<Fragment> collapsedFragments = FragmentCollapser.collapse(parts, javaMethod);
@@ -97,6 +104,7 @@ public final class ClassAnalysisOperation {
         final List<String> tags = tagger.tag(fragments);
         final MethodPhrase phrase = new MethodPhrase(fragments, correctTags(collapsedFragments, tags));
         return new MethodIdea(phrase, javaMethod.getSemantics());
+        */
     }
 
     private static List<String> correctTags(final List<Fragment> fragments, final List<String> tags) {

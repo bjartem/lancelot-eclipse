@@ -13,9 +13,7 @@ Bundle-ClassPath: .,
  lib/asm-tree-3.0.jar,
  lib/edu.mit.jwi_2.1.4_jdk.jar,
  lib/annotations.jar,
- lib/jsr305.jar,
- lib/pb-analysis.jar,
- lib/pb-model.jar
+ lib/jsr305.jar
 Export-Package: no.nr.einar.naming.rulebook,
  no.nr.einar.pb.analysis,
  no.nr.einar.pb.analysis.code.asm,

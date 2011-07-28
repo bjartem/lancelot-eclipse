@@ -57,9 +57,10 @@ public final class MethodBugReport implements IMethodBugReport {
     
     @Override
     public List<String> getAlternativeNameSuggestions() {
-        final SemanticsMap semanticsMap = LancelotRegistry.getInstance().getSemanticsMap();
-        final int semantics = method.getSemantics();
-        return semanticsMap.findSuggestionsFor(semantics);
+        return new LinkedList<String>();
+    	//final SemanticsMap semanticsMap = LancelotRegistry.getInstance().getSemanticsMap();
+        //final long semantics = method.getSemantics();
+        //return semanticsMap.findSuggestionsFor(semantics);
     }
 
     @Override

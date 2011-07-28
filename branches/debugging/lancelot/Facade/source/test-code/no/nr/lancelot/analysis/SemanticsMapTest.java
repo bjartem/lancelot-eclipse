@@ -38,7 +38,7 @@ public class SemanticsMapTest {
     @Test
     public final void testParseAttributes() throws Exception {
         try {
-            final int[] actualParse = SemanticsMap.parseAttributes(
+            final long[] actualParse = SemanticsMap.parseAttributes(
                 new BufferedReader(new FileReader(createMockFile(
                     "##ATTRIBUTES##",
                     "BBB", // Bit 0 
@@ -47,7 +47,7 @@ public class SemanticsMapTest {
                 ))),
                 new AttributeFlagFinder() {
                     @Override
-                    public int translate(final String attributeName) {
+                    public long translate(final String attributeName) {
                         if (attributeName.equals("AAA")) {
                             return 1 << 4;
                         } else if (attributeName.equals("BBB")) {
@@ -76,12 +76,14 @@ public class SemanticsMapTest {
 
     @Test
     public final void testConvertProfile() {
-        final int[] attributeMapping = {
-            1 << 5,   // original bit 0
-            1 << 7,   // original bit 1
-            1 << 12,  // original bit 2
-            1 << 19,  // original bit 3
-            1 << 22   // original bit 4
+        final long[] attributeMapping = {
+            1  << 5,   // original bit 0
+            1  << 7,   // original bit 1
+            1  << 12,  // original bit 2
+            1  << 19,  // original bit 3
+            1  << 22,  // original bit 4
+            1L << 42,  // original bit 5
+            1L << 60   // original bit 6
         };
         
         assertEquals(0, SemanticsMap.convertProfile(0, attributeMapping));
@@ -92,8 +94,11 @@ public class SemanticsMapTest {
         );
         
         assertEquals(
-          (1 << 5) | (1 << 7) | (1 << 19) | (1 << 22),        
-          SemanticsMap.convertProfile((1 << 0) | (1 << 1) | (1 << 3) | (1 << 4), attributeMapping)
+          (1 << 5) | (1 << 7) | (1 << 19) | (1 << 22) | (1L << 42) | (1L << 60),        
+          SemanticsMap.convertProfile(
+              (1 << 0) | (1 << 1) | (1 << 3) | (1 << 4) | (1 << 5) | (1 << 6), 
+              attributeMapping
+          )
         );
     }
     

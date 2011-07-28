@@ -32,20 +32,20 @@ public final class BugDescriptionFormulator {
         Collections.unmodifiableMap(
             new EnumMap<Attribute, String>(Attribute.class){{
                 put(Attribute.CONTAINS_LOOP,         "loop");
-                put(Attribute.CREATES_OBJECTS,       "create objects");
+//                put(Attribute.CREATES_OBJECTS,       "create objects");
                 put(Attribute.FIELD_READER,          "read field values");
                 put(Attribute.FIELD_WRITER,          "write to fields");
                 put(Attribute.HAS_BRANCHES,          "branch");
-                put(Attribute.LOCAL_ASSIGNMENT,      "use local variables");
+//                put(Attribute.LOCAL_ASSIGNMENT,      "use local variables");
                 put(Attribute.MULTIPLE_RETURNS,      "have multiple return points");
                 put(Attribute.NO_PARAMETERS,         "have no parameters");
-                put(Attribute.PARAMETER_FALLTHROUGH, "use a parameter as return value");
+//                put(Attribute.PARAMETER_FALLTHROUGH, "use a parameter as return value");
                 put(Attribute.PARAMETER_TO_FIELD,    "write a parameter to a field");
                 put(Attribute.RECURSIVE_CALL,        "use recursive calls");
                 put(Attribute.RETURNS_FIELD_VALUE,   "return a field value");
                 put(Attribute.RETURNS_VOID,          "return void");
                 put(Attribute.SAME_NAME_CALL,        "call methods of the same name");
-                put(Attribute.STATIC,                "are static");
+//                put(Attribute.STATIC,                "are static");
                 put(Attribute.THROWS_EXCEPTIONS,     "throw exceptions");
                 put(Attribute.TYPE_MANIPULATOR,      "perform runtime type manipulation");
             }}

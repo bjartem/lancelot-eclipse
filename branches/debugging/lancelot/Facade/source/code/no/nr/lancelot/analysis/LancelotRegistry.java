@@ -56,10 +56,10 @@ public final class LancelotRegistry {
             throw new IllegalArgumentException("semanticMapFile cannot be null");
         }
         
-        this.rulebook = createRulebook(rulebookUrl);
+        this.rulebook = null;//createRulebook(rulebookUrl);
         this.wordnetDictionary = createWordnetDictionary(wordnetDictionaryUrl);
         this.lingoDictionary = createLingoDictionary(lingoFile);
-        this.semanticsMap = createSemanticMap(semanticMapFile);
+        this.semanticsMap = null; //createSemanticMap(semanticMapFile);
     }
     
     private Rulebook createRulebook(final URL rulebookUrl) throws RulebookInitException {
@@ -81,7 +81,7 @@ public final class LancelotRegistry {
     throws SemanticsMapInitException {
         return new SemanticsMap(semanticMapFile, new AttributeFlagFinder() {
             @Override
-            public int translate(final String attributeName) {
+            public long translate(final String attributeName) {
                 return Attribute.valueOf(attributeName).getFlag();
             }
             
