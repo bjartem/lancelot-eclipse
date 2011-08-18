@@ -13,8 +13,8 @@ package no.nr.einar.naming.rulebook;
 public enum Severity {
     
     NOTIFY(0x1),
-    RECONSIDER(0x2),
-    INAPPROPRIATE(0x4);
+    INAPPROPRIATE(0x2),
+    FORBIDDEN(0x4);
 
     private final int flag;
 

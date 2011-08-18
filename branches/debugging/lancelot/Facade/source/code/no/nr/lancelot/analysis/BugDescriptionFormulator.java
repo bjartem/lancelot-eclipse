@@ -10,10 +10,9 @@
  ******************************************************************************/
 package no.nr.lancelot.analysis;
 
-
 import static no.nr.einar.naming.rulebook.Severity.INAPPROPRIATE;
 import static no.nr.einar.naming.rulebook.Severity.NOTIFY;
-import static no.nr.einar.naming.rulebook.Severity.RECONSIDER;
+import static no.nr.einar.naming.rulebook.Severity.FORBIDDEN;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,23 +30,41 @@ public final class BugDescriptionFormulator {
     protected final static Map<Attribute, String> ATTRIBUTE_DESCRIPTIONS = 
         Collections.unmodifiableMap(
             new EnumMap<Attribute, String>(Attribute.class){{
-                put(Attribute.CONTAINS_LOOP,         "loop");
-//                put(Attribute.CREATES_OBJECTS,       "create objects");
-                put(Attribute.FIELD_READER,          "read field values");
-                put(Attribute.FIELD_WRITER,          "write to fields");
-                put(Attribute.HAS_BRANCHES,          "branch");
-//                put(Attribute.LOCAL_ASSIGNMENT,      "use local variables");
-                put(Attribute.MULTIPLE_RETURNS,      "have multiple return points");
-                put(Attribute.NO_PARAMETERS,         "have no parameters");
-//                put(Attribute.PARAMETER_FALLTHROUGH, "use a parameter as return value");
-                put(Attribute.PARAMETER_TO_FIELD,    "write a parameter to a field");
-                put(Attribute.RECURSIVE_CALL,        "use recursive calls");
-                put(Attribute.RETURNS_FIELD_VALUE,   "return a field value");
-                put(Attribute.RETURNS_VOID,          "return void");
-                put(Attribute.SAME_NAME_CALL,        "call methods of the same name");
-//                put(Attribute.STATIC,                "are static");
-                put(Attribute.THROWS_EXCEPTIONS,     "throw exceptions");
-                put(Attribute.TYPE_MANIPULATOR,      "perform runtime type manipulation");
+                put(Attribute.RETURNS_VOID,           "return void");
+            	put(Attribute.RETURNS_INT,     		  "return int");
+            	put(Attribute.RETURNS_BOOLEAN,        "return boolean");
+            	put(Attribute.RETURNS_STRING, 	      "return String");
+            	put(Attribute.RETURNS_REFERENCE, 	  "return references");
+            	put(Attribute.NO_PARAMETERS,          "have no parameters");
+            	put(Attribute.RETURN_TYPE_IN_NAME,    "RETURN_TYPE_IN_NAME");
+            	put(Attribute.PARAMETER_TYPE_IN_NAME, "PARAMETER_TYPE_IN_NAME");
+
+            	put(Attribute.FIELD_WRITER,           "write to fields");
+            	put(Attribute.FIELD_READER,           "read field values");
+            	put(Attribute.PARAMETER_TO_FIELD,     "PARAMETER TO FIELD");
+            	put(Attribute.RETURNS_FIELD_VALUE,    "RETURNS FIELD VALUE");
+            	put(Attribute.TYPE_MANIPULATOR,       "perform runtime type manipulation");
+            	put(Attribute.RETURNS_CREATED_OBJECT, "RETURNS CREATED OBJECTE");
+            	
+                put(Attribute.CONTAINS_LOOP,    "loop");
+                put(Attribute.HAS_BRANCHES,     "branch");
+                put(Attribute.MULTIPLE_RETURNS, "have multiple return points");
+
+                put(Attribute.CREATES_REGULAR_OBJECTS,   "CREATES_REGULAR_OBJECTS");
+                put(Attribute.CREATES_STRING_OBJECTS,    "CREATES_STRING_OBJECTS");
+                put(Attribute.CREATES_CUSTOM_OBJECTS,    "CREATES_CUSTOM_OBJECTS");
+            	put(Attribute.CREATES_OWN_CLASS_OBJECTS, "CREATES_OWN_CLASS_OBJECTS");
+
+            	put(Attribute.THROWS_EXCEPTIONS,          "throw exceptions");
+            	put(Attribute.CATCHES_EXCEPTIONS,         "catches exceptions");
+            	put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "exposes checked exceptions");
+            	
+            	put(Attribute.RECURSIVE_CALL,           "use recursive calls");
+            	put(Attribute.SAME_NAME_CALL,           "call methods of the same name");
+            	put(Attribute.SAME_VERB_CALL,           "SAME_VERB_CALL");
+            	put(Attribute.METHOD_CALL_ON_FIELD,     "METHOD_CALL_ON_FIELD");
+            	put(Attribute.METHOD_CALL_ON_PARAMETER, "METHOD_CALL_ON_PARAMETER");
+            	put(Attribute.PARAMETER_TO_FIELD_CALL,  "PARAMETER_TO_FIELD_CALL");
             }}
         );
 
@@ -88,12 +105,12 @@ public final class BugDescriptionFormulator {
             "Methods with this name ",
             conjugate(
                 append(
-                    prefixEach(NEVER,      filter(INAPPROPRIATE, true)),
-                    prefixEach(ALWAYS,     filter(INAPPROPRIATE, false)),
-                    prefixEach(SELDOM,     filter(RECONSIDER,    true)),
-                    prefixEach(VERY_OFTEN, filter(RECONSIDER,    false)),
-                    prefixEach(RARELY,     filter(NOTIFY,        true)),
-                    prefixEach(OFTEN,      filter(NOTIFY,        false))
+                    prefixEach(NEVER,      filter(FORBIDDEN,      true)),
+                    prefixEach(ALWAYS,     filter(FORBIDDEN,      false)),
+                    prefixEach(SELDOM,     filter(INAPPROPRIATE,  true)),
+                    prefixEach(VERY_OFTEN, filter(INAPPROPRIATE,  false)),
+                    prefixEach(RARELY,     filter(NOTIFY,         true)),
+                    prefixEach(OFTEN,      filter(NOTIFY,         false))
                 ),
                 COLON,
                 AND

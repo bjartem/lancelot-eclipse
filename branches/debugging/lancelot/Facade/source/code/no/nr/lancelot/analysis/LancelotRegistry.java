@@ -56,7 +56,7 @@ public final class LancelotRegistry {
             throw new IllegalArgumentException("semanticMapFile cannot be null");
         }
         
-        this.rulebook = null;//createRulebook(rulebookUrl);
+        this.rulebook = createRulebook(rulebookUrl);
         this.wordnetDictionary = createWordnetDictionary(wordnetDictionaryUrl);
         this.lingoDictionary = createLingoDictionary(lingoFile);
         this.semanticsMap = null; //createSemanticMap(semanticMapFile);

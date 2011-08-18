@@ -23,6 +23,7 @@ import no.nr.einar.naming.rulebook.MethodIdea;
 import no.nr.einar.naming.rulebook.MethodPhrase;
 import no.nr.einar.naming.rulebook.Rule;
 import no.nr.einar.naming.rulebook.Rulebook;
+import no.nr.einar.naming.rulebook.Type;
 import no.nr.einar.naming.tagging.CachingTagger;
 import no.nr.einar.naming.tagging.PosTagger;
 import no.nr.einar.pb.analysis.code.asm.ClassStreamAnalyzer;
@@ -68,54 +69,84 @@ public final class ClassAnalysisOperation {
         final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
         
         final List<IMethodBugReport> bugReports = new LinkedList<IMethodBugReport>();
-        
+
         for (final JavaMethod method : javaClass) {
-            final IMethodBugReport possibleBug = verify(method);    
-            if (possibleBug != null) {
-                bugReports.add(possibleBug);
+            final IMethodBugReport bugReportOrNull = checkForBugs(method);    
+            if (bugReportOrNull != null) {
+                bugReports.add(bugReportOrNull);
             }
         }
         
         return new ClassAnalysisReport(javaClass, bugReports, key);
     }
     
-    public IMethodBugReport verify(final JavaMethod javaMethod) {
-    	return null;
-    	
-    	/*
+    public IMethodBugReport checkForBugs(final JavaMethod javaMethod) {
         final MethodIdea idea = deriveIdea(javaMethod, tagger);
-        final Set<Rule> violations = rulebook.check(idea);
+        final Set<Rule> violations = rulebook.findViolations(idea);
         return violations.isEmpty() ? null : new MethodBugReport(javaMethod, violations);
-        */
     }
     
-    private static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
-        return null;
-    	
-        /*
-    	final String name = javaMethod.getMethodName();
+    protected static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
+        final MethodPhrase phrase = derivePhrase(javaMethod, tagger);
+        final long semantics = deriveSemantics(javaMethod);
+        final Type returnType = deriveReturnType(javaMethod);
+        final @Nullable Type paramTypeOrNull = deriveParamTypeOrNull(javaMethod);   
+		return new MethodIdea(phrase, semantics, returnType, paramTypeOrNull);
+    }
+
+	protected static MethodPhrase derivePhrase(
+		final JavaMethod javaMethod, 
+		final PosTagger tagger
+	) {
+		final String name = javaMethod.getMethodName();
+        
         final NameSplitter splitter = new NameSplitter();
         final List<String> parts = splitter.split(name);
         final List<Fragment> collapsedFragments = FragmentCollapser.collapse(parts, javaMethod);
         final List<String> fragments = new ArrayList<String>();
+        
         for (final Fragment f: collapsedFragments) {
             fragments.add(f.getText());
         }
+        
         final List<String> tags = tagger.tag(fragments);
-        final MethodPhrase phrase = new MethodPhrase(fragments, correctTags(collapsedFragments, tags));
-        return new MethodIdea(phrase, javaMethod.getSemantics());
-        */
-    }
+        return new MethodPhrase(fragments, correctTags(collapsedFragments, tags));
+	}
 
-    private static List<String> correctTags(final List<Fragment> fragments, final List<String> tags) {
-        final Iterator<Fragment> fItor = fragments.iterator();
-        final Iterator<String> tItor = tags.iterator();
-        final List<String> $ = new ArrayList<String>();
-        while (fItor.hasNext() && tItor.hasNext()) {
-            final Fragment f = fItor.next();
-            final String t = tItor.next();
-            $.add(f.isTypeName() ? "type" : t);
+	private static long deriveSemantics(final JavaMethod javaMethod) {
+		return javaMethod.getSemantics();
+	}
+	
+	protected static Type deriveReturnType(final JavaMethod javaMethod) {
+		final String returnType = javaMethod.getReturnType();
+		return Type.fromFullyQualifiedName(returnType);
+	}
+	
+	@Nullable
+	protected static Type deriveParamTypeOrNull(final JavaMethod javaMethod) {
+		final boolean hasParameters = javaMethod.getParameterTypes().length != 0;
+		if (!hasParameters)
+			return null;
+		
+		final String firstParameterTypeName = javaMethod.getParameterTypes()[0];
+		return Type.fromFullyQualifiedName(firstParameterTypeName);
+	}
+	
+    protected static List<String> correctTags(
+    	final List<Fragment> fragments, 
+    	final List<String> tags
+    ) {
+    	final List<String> result = new ArrayList<String>();
+
+    	final Iterator<Fragment> fragmentItor = fragments.iterator();
+        final Iterator<String> tagsItor = tags.iterator();
+        
+        while (fragmentItor.hasNext() && tagsItor.hasNext()) {
+            final Fragment f = fragmentItor.next();
+            final String t = tagsItor.next();
+            result.add(f.isTypeName() ? "type" : t);
         }
-        return $;
+        
+        return result;
     }
 }

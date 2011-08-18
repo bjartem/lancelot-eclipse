@@ -74,14 +74,14 @@ public final class MethodBugReport implements IMethodBugReport {
     @Override
     public Severity getMaximumSeverity() {
         for (final Rule rule : violations) {
-            if (rule.getSeverity() == Severity.INAPPROPRIATE) {
-                return Severity.INAPPROPRIATE;
+            if (rule.getSeverity() == Severity.FORBIDDEN) {
+                return Severity.FORBIDDEN;
             }
         }
 
         for (final Rule rule : violations) {
-            if (rule.getSeverity() == Severity.RECONSIDER) {
-                return Severity.RECONSIDER;
+            if (rule.getSeverity() == Severity.INAPPROPRIATE) {
+                return Severity.INAPPROPRIATE;
             }
         }
 
