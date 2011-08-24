@@ -62,6 +62,8 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class LancelotMarkerResolutionGenerator implements IMarkerResolutionGenerator {
     private static final IMarkerResolution[] NO_RESOLUTIONS = {};
+    
+    private static final String[] EMPTY_STRING_ARRAY = {};
 
     @Override
     public IMarkerResolution[] getResolutions(final IMarker marker) {
@@ -72,7 +74,7 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
         }
 
         final String[] alternativeNames = findAlternativeNames(marker);
-        if (alternativeNames == null || alternativeNames.length == 0)
+        if (alternativeNames.length == 0)
             return NO_RESOLUTIONS;
 
         final IMethod method = findMethod(marker);
@@ -88,13 +90,17 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
 
         return res;
     }
-
+    
     private String[] findAlternativeNames(final IMarker marker) {
         final String serializedNames = marker.getAttribute(ALTERNATIVE_NAMES_ATTRIBUTE, null);
         if (serializedNames == null) {
             LancelotPlugin.logError("marker " + marker + " has no alternative names attribute!");
-            return null;
+            return EMPTY_STRING_ARRAY;
         }
+        
+        final boolean hasNoAlternatives = serializedNames.length() == 0;
+        if (hasNoAlternatives)
+            return EMPTY_STRING_ARRAY;
 
         return serializedNames.split(ALTERNATIVE_NAMES_SEPARATOR_RE);
     }

@@ -14,10 +14,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import no.nr.einar.naming.tagging.CachingTagger;
-import no.nr.einar.naming.tagging.PosTagger;
-
-public final class Rulebook {
+public final class Rulebook implements IRulebook {
     @SuppressWarnings("serial")
     public static final class RulebookInitException extends Exception {
         private RulebookInitException(final Throwable t) {
@@ -46,7 +43,8 @@ public final class Rulebook {
     	this.root = root;
     }
     
-    public Set<Rule> findViolations(final MethodIdea methodIdea) {
+    @Override
+	public Set<Rule> findViolations(final MethodIdea methodIdea) {
         if (methodIdea == null) {
             throw new IllegalArgumentException();
         }

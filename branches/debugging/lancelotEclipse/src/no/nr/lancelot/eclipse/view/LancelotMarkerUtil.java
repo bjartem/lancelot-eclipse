@@ -29,7 +29,7 @@ public final class LancelotMarkerUtil {
     public static final String BUG_MARKER_TYPE = LancelotPlugin.PLUGIN_ID + ".namingBugMarker";
     
     public static final String ALTERNATIVE_NAMES_ATTRIBUTE = "ALTERNATIVE_NAMES",
-                               METHOD_HANDLE_ID_ATTRIBUTE     = "METHOD_HANDLE";
+                               METHOD_HANDLE_ID_ATTRIBUTE  = "METHOD_HANDLE";
     
     public static final char   ALTERNATIVE_NAMES_SEPARATOR = '|';
     public static final String ALTERNATIVE_NAMES_SEPARATOR_RE = "\\|";
@@ -87,7 +87,7 @@ public final class LancelotMarkerUtil {
         
         public IMarker create() throws CoreException {
             if (!isProperlyConfigured()) 
-                throw new IllegalStateException("Not propertly initialized!");
+                throw new IllegalStateException("Not properly initialized!");
 
             final IMarker marker = resource.createMarker(BUG_MARKER_TYPE);
             addCommonAttributes(marker);
@@ -95,7 +95,7 @@ public final class LancelotMarkerUtil {
             return marker;
         }
         
-        private boolean isProperlyConfigured() {
+        protected boolean isProperlyConfigured() {
             return resource != null 
             && charStart != -1       && charEnd != -1  && location != null 
             && message != null       && severityIsSet  && alternativeNames != null 

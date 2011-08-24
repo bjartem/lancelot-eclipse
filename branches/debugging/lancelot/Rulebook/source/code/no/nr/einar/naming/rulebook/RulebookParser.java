@@ -76,8 +76,9 @@ public final class RulebookParser {
     private Set<Rule> parseRules(final List<Element> xmlRules) {
     	final Set<Rule> result = new HashSet<Rule>();
 
-    	for (final Element xr : xmlRules)
+    	for (final Element xr : xmlRules) {
     		result.add(parseRule(xr));
+    	}
     	
     	return result;
 	}
@@ -125,8 +126,9 @@ public final class RulebookParser {
 
 	private static List<Element> getChildren(final Element element, final String containerName) {
 		final Elements containerMatches = element.getChildElements(containerName);
-		if (containerMatches.size() > 1)
+		if (containerMatches.size() > 1) {
 			throw new RuntimeException("Found more than one matching container element!");
+		}
 		
 		final List<Element> result = new LinkedList<Element>();
 		

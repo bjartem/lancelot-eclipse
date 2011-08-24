@@ -15,12 +15,26 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import no.nr.einar.naming.rulebook.IRulebook;
+import no.nr.einar.naming.rulebook.MethodIdea;
+import no.nr.einar.naming.rulebook.MethodPhrase;
+import no.nr.einar.naming.tagging.CachingTagger;
+import no.nr.einar.naming.tagging.JavaTagger;
+import no.nr.einar.naming.tagging.PosTagger;
+import no.nr.einar.pb.model.JavaMethod;
 
 public final class SemanticsMap {
+    protected static final Pattern TAG_PATTERN = Pattern.compile("^\\[(\\w+)\\]$");
+    
     public interface AttributeFlagFinder {
         int getAttributeCount();
         long translate(final String attributeName);
@@ -39,63 +53,97 @@ public final class SemanticsMap {
 
     private final Map<Long, List<String>> profileToSuggestionMap;
 
-    public SemanticsMap(final File mapFile, final AttributeFlagFinder finder) 
+    public SemanticsMap(final File mapFile) 
     throws SemanticsMapInitException {
         if (mapFile == null) {
             throw new IllegalArgumentException();
         }
         
-        if (finder == null) {
-            throw new IllegalArgumentException();
-        }
-        
         try {
             final BufferedReader fileReader = new BufferedReader(new FileReader(mapFile));
-                        
-            final long[] attributeMapping = parseAttributes(fileReader, finder);
             this.profileToSuggestionMap = Collections.unmodifiableMap(
-                parseSuggestions(fileReader, attributeMapping)
+                parseSuggestions(fileReader)
             );
         } catch (Exception e) {
             throw new SemanticsMapInitException(e);
         }
     }
     
-    public List<String> findSuggestionsFor(final long semanticProfile) {
-        final boolean knowsProfile = profileToSuggestionMap.containsKey(semanticProfile);
-        if (knowsProfile)
-            return profileToSuggestionMap.get(semanticProfile);
-        return Collections.emptyList();
+    public List<String> findSuggestionsFor(final MethodIdea methodIdea) {
+    	if (methodIdea == null) {
+    		throw new IllegalArgumentException();
+    	}
+    	
+    	final long semantics = methodIdea.getSemantics();
+    	
+        final boolean knowsProfile = profileToSuggestionMap.containsKey(semantics);
+        if (knowsProfile) {
+            return filterViableSuggestions(
+            	profileToSuggestionMap.get(semantics), 
+            	methodIdea,
+            	LancelotRegistry.getInstance().getRulebook()
+            );
+        }
+
+    	return Collections.emptyList();
     }
 
-    protected static long[] parseAttributes(
-        final BufferedReader reader, 
-        final AttributeFlagFinder finder
-    ) throws IOException, SemanticsMapInitException {
-        final long[] res = new long[finder.getAttributeCount()];
-        
-        final String attributesHeaderLine = reader.readLine();
-        if (!"##ATTRIBUTES##".equals(attributesHeaderLine)) {
-            throw new SemanticsMapInitException("Invalid start of file. Expected '##ATTRIBUTES##'");
-        }
-        
-        for (int mapFileFlagId = 0; mapFileFlagId < finder.getAttributeCount(); ++mapFileFlagId) {
-            final String attributeName = reader.readLine();
-            
-            if (attributeName == null) {
-                throw new SemanticsMapInitException("Premature EOF!");
-            }
-            
-            final long jarmonyAttributeFlag = finder.translate(attributeName);
-            res[mapFileFlagId] = jarmonyAttributeFlag;
-        }
-        
-        return res;
-    }
+    protected static List<String> filterViableSuggestions(
+    	final List<String> suggestions, 
+    	final MethodIdea originalMethodIdea,
+    	final IRulebook rulebook
+    ) {
+    	final List<String> res = new LinkedList<String>();
+    	
+    	for (final String suggestion : suggestions) {
+    		System.out.println("sugg: " + suggestion);
+    		final MethodIdea newIdea = new MethodIdea(
+    			createPhrase(suggestion),
+    			originalMethodIdea.getSemantics(),
+    			originalMethodIdea.getReturnType(),
+    			originalMethodIdea.getParamType()
+    		);
+    		
+    		final boolean isViable = rulebook.findViolations(newIdea).isEmpty();
+			if (isViable) {
+    			res.add(suggestion);
+			}
+    	}
+    	
+		return res;
+	}
     
-    private static Map<Long, List<String>> parseSuggestions(
-        final BufferedReader reader, 
-        final long[] attributeMapping
+	protected static MethodPhrase createPhrase(final String suggestion) {
+		final PosTagger tagger = new JavaTagger();
+		
+		final List<String> fragments = new LinkedList<String>(),
+				           tags = new LinkedList<String>();
+		
+		for (final String part : suggestion.split("-")) {
+			if (part.equals("*")) {
+				fragments.add("foo");
+				tags.add("noun"); // Could be anything.
+				continue;
+			} 
+			
+			final Matcher m = TAG_PATTERN.matcher(part);
+			if (m.matches()) {
+				fragments.add("foo");
+				tags.add(m.group(1));
+				continue;
+			}
+			
+			assert ! part.contains("[");
+			
+			fragments.add(part);
+			tags.add(tagger.tag(Arrays.asList(new String[]{ part })).get(0));
+		}
+		
+		return new MethodPhrase(fragments, tags);
+	}
+
+	private static Map<Long, List<String>> parseSuggestions(
+        final BufferedReader reader
     ) throws IOException, SemanticsMapInitException {
         final Map<Long, List<String>> res = new HashMap<Long, List<String>>();
 
@@ -113,27 +161,14 @@ public final class SemanticsMap {
 
             final String[] parts = line.split("\\s+");
             
-            final long mapFileProfile = Long.parseLong(parts[0]);
-            final long jarmonyProfile = convertProfile(mapFileProfile, attributeMapping);
+            final long profile = Long.parseLong(parts[0]);
             
             final List<String> suggestions = new ArrayList<String>();
             for (int i = 1; i < parts.length; ++i) {
                 suggestions.add(parts[i]);
             }
             
-            res.put(jarmonyProfile, Collections.unmodifiableList(suggestions));
+            res.put(profile, Collections.unmodifiableList(suggestions));
         }
-    }
-
-    protected static long convertProfile(final long mapFileProfile, final long[] attributeMapping) {
-        long res = 0;
-        
-        for (int i = 0; i < attributeMapping.length; ++i) {
-            if ((mapFileProfile & (1L << i)) != 0) {
-                res |= attributeMapping[i];
-            }
-        }
-        
-        return res;
     }
 }

@@ -19,10 +19,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import no.nr.einar.naming.rulebook.IRulebook;
 import no.nr.einar.naming.rulebook.MethodIdea;
 import no.nr.einar.naming.rulebook.MethodPhrase;
 import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Rulebook;
 import no.nr.einar.naming.rulebook.Type;
 import no.nr.einar.naming.tagging.CachingTagger;
 import no.nr.einar.naming.tagging.PosTagger;
@@ -35,7 +35,7 @@ import no.nr.einar.pb.model.JavaMethod;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ClassAnalysisOperation {
-    private final Rulebook rulebook = LancelotRegistry.getInstance().getRulebook();
+    private final IRulebook rulebook = LancelotRegistry.getInstance().getRulebook();
     private final PosTagger tagger = new CachingTagger();
     
     private final String className;
@@ -83,7 +83,10 @@ public final class ClassAnalysisOperation {
     public IMethodBugReport checkForBugs(final JavaMethod javaMethod) {
         final MethodIdea idea = deriveIdea(javaMethod, tagger);
         final Set<Rule> violations = rulebook.findViolations(idea);
-        return violations.isEmpty() ? null : new MethodBugReport(javaMethod, violations);
+        if (violations.isEmpty())
+        	return null;
+        
+        return new MethodBugReport(javaMethod, idea, violations);
     }
     
     protected static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
@@ -105,8 +108,8 @@ public final class ClassAnalysisOperation {
         final List<Fragment> collapsedFragments = FragmentCollapser.collapse(parts, javaMethod);
         final List<String> fragments = new ArrayList<String>();
         
-        for (final Fragment f: collapsedFragments) {
-            fragments.add(f.getText());
+        for (final Fragment fragment : collapsedFragments) {
+            fragments.add(fragment.getText());
         }
         
         final List<String> tags = tagger.tag(fragments);

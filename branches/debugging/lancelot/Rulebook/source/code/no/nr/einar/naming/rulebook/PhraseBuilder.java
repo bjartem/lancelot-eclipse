@@ -21,7 +21,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 public final class PhraseBuilder {  
 	private PhraseBuilder() {}
 	
-	static Phrase create(
+	public static Phrase create(
     	final String phraseText, 
     	final List<Phrase> refinements, 
     	final Set<Rule> rules

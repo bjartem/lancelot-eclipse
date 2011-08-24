@@ -26,6 +26,10 @@ public final class MethodIdea {
     	final Type returnType, 
     	@Nullable final Type paramTypeOrNull 
     ) {
+    	if (phrase == null) {
+    		throw new IllegalArgumentException();
+    	}
+    	
         this.phrase = phrase;
         this.semantics = semantics;
     
