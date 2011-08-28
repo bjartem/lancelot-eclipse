@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
+import no.nr.einar.naming.rulebook.IRulebook;
 import no.nr.einar.naming.rulebook.Rulebook;
 import no.nr.einar.naming.rulebook.Rulebook.RulebookInitException;
 import no.nr.einar.naming.tagging.LingoReader;
@@ -29,7 +30,7 @@ import static no.nr.lancelot.analysis.SemanticsMap.AttributeFlagFinder;
 public final class LancelotRegistry {
     private static LancelotRegistry INSTANCE = null;
     
-    private final Rulebook rulebook;
+    private final IRulebook rulebook;
     private final IDictionary wordnetDictionary;
     private final Map<String, Set<Tag>> lingoDictionary;
     private final SemanticsMap semanticsMap;
@@ -62,7 +63,7 @@ public final class LancelotRegistry {
         this.semanticsMap = createSemanticMap(semanticMapFile);
     }
     
-    private Rulebook createRulebook(final URL rulebookUrl) throws RulebookInitException {
+    private IRulebook createRulebook(final URL rulebookUrl) throws RulebookInitException {
         return new Rulebook(rulebookUrl);
     }
     
@@ -79,17 +80,7 @@ public final class LancelotRegistry {
 
     private SemanticsMap createSemanticMap(final File semanticMapFile) 
     throws SemanticsMapInitException {
-        return new SemanticsMap(semanticMapFile, new AttributeFlagFinder() {
-            @Override
-            public int translate(final String attributeName) {
-                return Attribute.valueOf(attributeName).getFlag();
-            }
-            
-            @Override
-            public int getAttributeCount() {
-                return Attribute.values().length;
-            }
-        });
+        return new SemanticsMap(semanticMapFile);
     }
 
     public IDictionary getWordnetDictionary() {
@@ -100,7 +91,7 @@ public final class LancelotRegistry {
         return lingoDictionary;
     }
 
-    public Rulebook getRulebook() {
+    public IRulebook getRulebook() {
         return rulebook;
     }
     

@@ -10,6 +10,7 @@
  ******************************************************************************/
 package no.nr.lancelot.analysis;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -17,13 +18,31 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
+import no.nr.einar.naming.rulebook.MethodIdea;
+import no.nr.einar.naming.rulebook.MethodPhrase;
+import no.nr.einar.naming.rulebook.Phrase;
+import no.nr.einar.naming.rulebook.PhraseBuilder;
+import no.nr.einar.naming.rulebook.Rule;
+import no.nr.einar.naming.rulebook.Rulebook.RulebookInitException;
+import no.nr.einar.naming.rulebook.Type;
+import no.nr.einar.naming.tagging.PhraseTagger;
+import no.nr.einar.naming.tagging.LingoReader.LingoInitException;
 import no.nr.lancelot.analysis.SemanticsMap.AttributeFlagFinder;
 import no.nr.lancelot.analysis.SemanticsMap.SemanticsMapInitException;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class SemanticsMapTest {
+	@BeforeClass
+	public static void setupClass() throws Exception {
+		LancelotTestUtils.loadProductionConfiguration();
+	}
 
     @Test
     public final void testSemanticsMap() {
@@ -34,81 +53,87 @@ public class SemanticsMapTest {
     public final void testFindSuggestionsFor() {
 //        fail("Not yet implemented");
     }
-
+    
     @Test
-    public final void testParseAttributes() throws Exception {
-        try {
-            final int[] actualParse = SemanticsMap.parseAttributes(
-                new BufferedReader(new FileReader(createMockFile(
-                    "##ATTRIBUTES##",
-                    "BBB", // Bit 0 
-                    "AAA", // Bit 1
-                    "CCC"  // Bit 2
-                ))),
-                new AttributeFlagFinder() {
-                    @Override
-                    public int translate(final String attributeName) {
-                        if (attributeName.equals("AAA")) {
-                            return 1 << 4;
-                        } else if (attributeName.equals("BBB")) {
-                            return 1 << 6;
-                        } else if (attributeName.equals("CCC")) {
-                            return 1 << 8;
-                        } else {
-                            throw new RuntimeException();
-                        }
-                    }
-                    
-                    @Override
-                    public int getAttributeCount() {
-                        return 3;
-                    }
-                }
-            );
-            
-            assertEquals("BBB(bit0) should map to (1 << 6)", 1 << 6, actualParse[0]); 
-            assertEquals("AAA(bit1) should map to (1 << 4)", 1 << 4, actualParse[1]);
-            assertEquals("CCC(bit2) should map to (1 << 8)", 1 << 8, actualParse[2]);
-        } catch (SemanticsMapInitException e) {
-            fail(e.getMessage());
-        } 
-    }
-
-    @Test
-    public final void testConvertProfile() {
-        final int[] attributeMapping = {
-            1 << 5,   // original bit 0
-            1 << 7,   // original bit 1
-            1 << 12,  // original bit 2
-            1 << 19,  // original bit 3
-            1 << 22   // original bit 4
-        };
-        
-        assertEquals(0, SemanticsMap.convertProfile(0, attributeMapping));
-        
-        assertEquals(
-            1 << 22,        
-            SemanticsMap.convertProfile(1 << 4, attributeMapping)
-        );
-        
-        assertEquals(
-          (1 << 5) | (1 << 7) | (1 << 19) | (1 << 22),        
-          SemanticsMap.convertProfile((1 << 0) | (1 << 1) | (1 << 3) | (1 << 4), attributeMapping)
-        );
+    public void testCreatePhraseA() {
+    	assertEquals(
+    		createMethodPhrase("thought", "noun", "dance", "verb", "hard", "adjective"),
+    		SemanticsMap.createPhrase("thought-dance-hard")
+    	);
     }
     
-    private static final File createMockFile(final String... contents) throws Exception {
-        final File tempFile = File.createTempFile("SemanticsMapTestMOCK", "nosuffix");
-        final FileWriter fw = new FileWriter(tempFile);
-        
-        try {
-            for (final String s : contents) {
-                fw.write(s + '\n');
-            }
-        } finally {
-            fw.close();
-        }
-        
-        return tempFile;
+    private static final class PhraseMatchingTestData {
+		final String capturingPhrase;
+		final String reverseMapText;
+		final Type returnType;
+		final Type paramTypeOrNull;
+
+		PhraseMatchingTestData(
+			final String capturingPhrase, 
+			final String reverseMapText,
+			final Type returnType,
+			final Type paramTypeOrNull
+		) {
+			this.capturingPhrase = capturingPhrase;
+			this.reverseMapText = reverseMapText;
+			this.returnType = returnType;
+			this.paramTypeOrNull = paramTypeOrNull;
+		}
+
+		PhraseMatchingTestData(final String simplePhrase) {
+			this(simplePhrase, simplePhrase, Type.VOID, Type.INT);
+		}
+    }
+    
+    @Test
+    public void testPhraseMatching() {
+    	final List<Phrase> MOCK_NO_REFINEMENTS = Collections.emptyList();
+    	final Set<Rule> MOCK_NO_RULES = Collections.emptySet();
+    	final long MOCK_NULL_SEMANTICS = 0L;
+
+    	final PhraseMatchingTestData[] testDataSet = { 
+            new PhraseMatchingTestData("[verb]-[noun]-foo-*-*-*-*"),
+            
+        	new PhraseMatchingTestData("add-[type]-[pronoun]-*-[adjective]"),
+        		
+    		new PhraseMatchingTestData( 
+    			"void add-[adjective]-[noun]-*(reference...)", 
+    			"add-[adjective]-[noun]-*",
+    			Type.VOID,
+    			Type.REFERENCE
+    		),
+    		
+    		new PhraseMatchingTestData(
+    			"Object create-[noun](String...)", 
+    			"create-[noun]",
+    			Type.OBJECT,
+    			Type.STRING
+    		)
+    	};
+    	
+    	for (final PhraseMatchingTestData testData : testDataSet) {
+			final Phrase capturingPhrase = PhraseBuilder.create(
+				testData.capturingPhrase, 
+				MOCK_NO_REFINEMENTS, 
+				MOCK_NO_RULES
+			);
+    		final MethodPhrase synthesizedName = SemanticsMap.createPhrase(testData.reverseMapText);
+			final MethodIdea synthesizedIdea = new MethodIdea(
+    			synthesizedName, 
+    			MOCK_NULL_SEMANTICS, 
+    			testData.returnType, 
+    			testData.paramTypeOrNull
+    		);
+    		
+    		assertTrue(capturingPhrase.captures(synthesizedIdea));
+    	}
+    }
+    
+    private static MethodPhrase createMethodPhrase(final String... data) {
+    	final List<String> fragments = new LinkedList<String>(),
+    			           tags = new LinkedList<String>();
+    	for (int i = 0; i < data.length; ++i)
+    		(i%2 == 0 ? fragments : tags).add(data[i]);
+    	return new MethodPhrase(fragments, tags);
     }
 }

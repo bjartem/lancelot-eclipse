@@ -22,6 +22,21 @@ public final class ConcretePart implements IPhrasePart {
         return text.equals(part.getText());
     }
     
+    @Override
+    public int hashCode() {
+    	return text.hashCode();
+    }
+    
+    @Override
+    public boolean equals(final Object other) {
+    	if (other == null || !(other.getClass() == ConcretePart.class)) {
+    		return false;
+    	}
+    	
+    	return this.text.equals(((ConcretePart) other).text);
+    }
+    
+    @Override
     public String toString() {
         return text;
     }
