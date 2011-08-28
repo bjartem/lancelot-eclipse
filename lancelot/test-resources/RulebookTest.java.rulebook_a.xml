@@ -1,0 +1,10 @@
+<Rulebook>
+  <Phrases>
+    <Phrase text="get-name">
+      <Refinements>
+        <Phrase text="int get-name(reference...)" />
+      </Refinements>
+    </Phrase>  
+    <Phrase text="int top-int-reference(reference...)" />
+  </Phrases>
+</Rulebook>

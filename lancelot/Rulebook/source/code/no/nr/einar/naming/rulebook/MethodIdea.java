@@ -10,26 +10,58 @@
  ******************************************************************************/
 package no.nr.einar.naming.rulebook;
 
-public final class MethodIdea {
-    
-    private final MethodPhrase phrase;
-    private final int semantics;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
-    public MethodIdea(final MethodPhrase phrase, final int semantics) {
+public final class MethodIdea {
+    private final MethodPhrase phrase;
+    private final long semantics;
+
+    private final Type returnType;
+	private final boolean takesParameter;
+	private final @Nullable Type paramTypeOrNull;
+
+    public MethodIdea(
+    	final MethodPhrase phrase, 
+    	final long semantics,
+    	final Type returnType, 
+    	@Nullable final Type paramTypeOrNull 
+    ) {
+    	if (phrase == null) {
+    		throw new IllegalArgumentException();
+    	}
+    	
         this.phrase = phrase;
         this.semantics = semantics;
+    
+        this.returnType = returnType;
+        this.takesParameter = paramTypeOrNull != null;
+        this.paramTypeOrNull = paramTypeOrNull;
     }
     
     public MethodPhrase getPhrase() {
         return phrase;
     }
     
-    public int getSemantics() {
+    public long getSemantics() {
         return semantics;
     }
     
-    public String toString() {
-        return phrase.toString() + " [" + semantics + "]";
-    }
+    public Type getReturnType() {
+		return returnType;
+	}
 
+	public boolean takesParameter() {
+		return takesParameter;
+	}
+
+	public Type getParamType() {
+		return paramTypeOrNull;
+	}
+
+	public String toString() {
+        return String.format(
+        	"MethodIdea[phrase:%s returnType:%s paramType:%s semantics:%d]",
+        	phrase, returnType, paramTypeOrNull, semantics
+        ); 
+    }
 }

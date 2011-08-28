@@ -10,81 +10,141 @@
  ******************************************************************************/
 package no.nr.einar.naming.rulebook;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public final class Phrase {
+public final class Phrase {  
+	private final List<IPhrasePart> phraseParts;
+	
+	private final Type returnType;
+	private final ParameterRequirement paramRequirement;
     
-    private final List<IPhrasePart> phrase;
-    private final List<Phrase> refinements = new ArrayList<Phrase>();
-    private final Set<Rule> rules = new HashSet<Rule>();
-
-    public Phrase(final String phrase) {
-        this.phrase = derivePhrase(phrase);
-    }
+	private final List<Phrase> refinements;
+    private final Set<Rule> rules;
     
-    private List<IPhrasePart> derivePhrase(final String s) {
-        final List<IPhrasePart> $ = new ArrayList<IPhrasePart>();
-        final String[] parts = s.split("-");
-        for (final String part: parts) {
-            if ("*".equals(part)) {
-                $.add(new WildcardPart());
-            } else if (part.charAt(0) == '[') {
-                int startIndex = 1;
-                if (part.charAt(1) == '/') {
-                    ++startIndex;
-                }
-                final String tag = part.substring(startIndex, part.length() - 1);
-                $.add(new TagPart(tag));
-            } else {
-                $.add(new ConcretePart(part));
-            }
-        }
-        return $;
-    }
-
-    public String toString() {
-        final StringBuilder $ = new StringBuilder();
-        for (final IPhrasePart p : phrase) {
-            $.append(p);
-        }
-        return $.toString();
-    }
-
-    public void addRefinement(final Phrase p) {
-        refinements.add(p);
-    }
-
-    public void addRule(final Rule r) {
-        rules.add(r);
+    // Should only be used directly for testing.
+    protected Phrase(
+    	final List<IPhrasePart> phraseParts, 
+    	final Type returnType,
+    	final ParameterRequirement parameterRequirement,
+    	final List<Phrase> refinements, 
+    	final Set<Rule> rules
+    ) {
+    	this.phraseParts = phraseParts;
+    	this.returnType = returnType;
+    	this.paramRequirement = parameterRequirement;
+    	this.refinements = Collections.unmodifiableList(refinements);
+		this.rules = Collections.unmodifiableSet(rules);
     }
 
     public List<Phrase> getRefinements() {
-        return refinements;
+    	return refinements;
+    }
+    
+    public Set<Rule> getRules() {
+    	return rules;
+    }
+    
+    public boolean captures(final MethodIdea methodIdea) {
+    	return    paramTypeMatches(methodIdea)
+    		   && returnTypeMatches(methodIdea)
+    		   && phraseMatches(methodIdea);
+    }
+    
+    private boolean paramTypeMatches(final MethodIdea methodIdea) {
+    	return paramRequirement.accepts(methodIdea);
     }
 
-    public boolean captures(final MethodPhrase name) {
-        final Iterator<IPhrasePart> pItor = phrase.iterator();
-        IPhrasePart pPart = null;
-        for (final NamePart nPart : name) {
-            if (!(pPart instanceof WildcardPart)) {
-                if (!(pItor.hasNext())) {
+	private boolean returnTypeMatches(final MethodIdea methodIdea) {
+		final boolean weAcceptAnyReturnType = this.returnType == Type.ANY,
+					  returnTypesMatch = this.returnType == methodIdea.getReturnType();
+		return weAcceptAnyReturnType || returnTypesMatch;
+	}
+
+	private boolean phraseMatches(final MethodIdea methodIdea) {
+        final Iterator<IPhrasePart> pItor = phraseParts.iterator();
+        
+        IPhrasePart phrasePart = null;
+        for (final NamePart namePart : methodIdea.getPhrase()) {
+            if (!(phrasePart instanceof WildcardPart)) {
+                if (!pItor.hasNext()) {
                     return false;
                 }
-                pPart = pItor.next();
+                phrasePart = pItor.next();
             }
-            if (!pPart.captures(nPart)) {
+            if (!phrasePart.captures(namePart)) {
                 return false;
             }
         }
+        
         return true;
     }
-
-    public Set<Rule> getRules() {
-        return rules;
+    
+	@Override
+	public int hashCode() {
+		int hashCode = 17;
+		for (final IPhrasePart pp : phraseParts)
+			hashCode *= pp.hashCode();
+		return hashCode;		
+	}
+	
+	@Override
+	public boolean equals(final Object other) {
+		if (other == null)
+			return false;
+		
+		if (!(other.getClass() == Phrase.class))
+			return false;
+		
+		final Phrase otherPhrase = (Phrase) other;
+		return    this.returnType.equals(otherPhrase.returnType)
+			   && this.phraseParts.equals(otherPhrase.phraseParts)
+			   && this.refinements.equals(otherPhrase.refinements)
+			   && this.paramRequirement.equals(otherPhrase.paramRequirement)
+			   && this.rules.equals(otherPhrase.rules);
+	}
+    
+	@Override
+    public String toString() {
+    	final StringBuilder sb = new StringBuilder();
+    	sb.append("Phrase[returnType: " + returnType + " paramTypeReq: " + paramRequirement + " ");
+    	
+    	sb.append("phrase: ");
+    	for (final IPhrasePart pp : phraseParts) {
+    		sb.append(pp);
+    	}
+    	sb.append(" ");
+    	
+    	sb.append("refinements: ");
+    	for (final Phrase p : refinements) {
+    		sb.append(p);
+    	}
+    	sb.append(" ");
+    	
+    	sb.append("rules: ");
+    	for (final Rule r : rules) {
+    		sb.append(r);
+    	}
+    	
+    	sb.append("]");
+    	return sb.toString();
     }
+	
+	/* This method is meant to identify that we have reached the right
+	 * phrase when we are testing. 
+	 */
+	protected String constructSignature() {
+		final StringBuilder sb = new StringBuilder();
 
+		sb.append(returnType + "$");
+    	for (final IPhrasePart pp : phraseParts) {
+    		sb.append(pp + "$");
+    	}
+    	sb.append(paramRequirement);
+    	
+    	return sb.toString();
+		
+	}
 }

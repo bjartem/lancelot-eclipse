@@ -29,7 +29,7 @@ public final class JavaTaggerTest {
     
     @BeforeClass
     public static void initializeLancelot() throws Exception{
-        LancelotTestUtils.loadDefaultConfiguration();
+        LancelotTestUtils.loadProductionConfiguration();
     }
     
     @Before

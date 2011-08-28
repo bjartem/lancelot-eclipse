@@ -60,11 +60,9 @@ public final class Rule {
         return attribute.name() + " - " + (set ? "ON" : "OFF") + " - " + severity.name();
     }
 
-    public boolean covers(final int semantics) {
-        final int actualVal = semantics & attribute.getFlag();
+    public boolean covers(final long semantics) {
+        final long actualVal = semantics & attribute.getFlag();
         final boolean actual = actualVal > 0;
         return actual == set;
     }
-    
-    
 }

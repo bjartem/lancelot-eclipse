@@ -11,8 +11,11 @@
 package no.nr.lancelot.analysis;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+
+import no.nr.einar.pb.model.Attribute;
 
 import org.junit.Test;
 
@@ -68,5 +71,14 @@ public class BugDescriptionFormulatorTest {
                 "conj"
            )
         );
+    }
+    
+    @Test 
+    public void knowsAllAttributes() {
+    	for (final Attribute attribute : Attribute.values())
+    		assertTrue(
+    			"BugDescriptionFormulator must know attribute " + attribute, 
+    			BugDescriptionFormulator.ATTRIBUTE_DESCRIPTIONS.containsKey(attribute)
+    		);
     }
 }

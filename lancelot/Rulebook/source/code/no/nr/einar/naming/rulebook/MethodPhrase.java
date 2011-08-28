@@ -46,5 +46,19 @@ public final class MethodPhrase implements Iterable<NamePart> {
     public Iterator<NamePart> iterator() {
         return parts.iterator();
     }
+    
+    @Override
+    public int hashCode() {
+    	return parts.hashCode();
+    }
+    
+    @Override
+    public boolean equals(final Object other) {
+    	if (!(other instanceof MethodPhrase)) {
+    		return false;
+    	}
+    	
+    	return this.parts.equals(((MethodPhrase) other).parts);
+    }
 
 }

@@ -16,6 +16,17 @@ public final class WildcardPart implements IPhrasePart {
         return true;
     }
     
+    @Override
+    public int hashCode() {
+    	return 42;
+    }
+    
+    @Override
+    public boolean equals(final Object other) {
+    	return other != null && other.getClass() == WildcardPart.class;
+    }
+    
+    @Override
     public String toString() {
         return "*";
     }

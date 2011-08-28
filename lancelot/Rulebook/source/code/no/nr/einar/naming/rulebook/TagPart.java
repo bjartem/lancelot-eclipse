@@ -22,6 +22,21 @@ public final class TagPart implements IPhrasePart {
         return tag.equals(part.getTag());
     }
     
+    @Override
+    public int hashCode() {
+    	return tag.hashCode();
+    }
+    
+    @Override
+    public boolean equals(final Object other) {
+    	if (other == null || !(other.getClass() == TagPart.class)) {
+    		return false;
+    	}
+    	
+    	return this.tag.equals(((TagPart) other).tag);
+    }
+    
+    @Override
     public String toString() {
         return "[" + tag + "]";
     }

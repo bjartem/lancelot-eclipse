@@ -101,8 +101,8 @@ final class MethodAnnotator {
 
     private int toEclipseSeverity(final Severity lancelotSeverity) {
         switch (lancelotSeverity) {
-            case INAPPROPRIATE: return SEVERITY_ERROR;
-            case RECONSIDER:    return SEVERITY_WARNING;
+            case FORBIDDEN:     return SEVERITY_ERROR;
+            case INAPPROPRIATE: return SEVERITY_WARNING;
             case NOTIFY:        return SEVERITY_WARNING;
             default:            throw new RuntimeException("Unhandled Severity case: " + 
                                                               lancelotSeverity);
