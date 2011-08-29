@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import no.nr.lancelot.analysis.IClassAnalysisReport;
-import no.nr.lancelot.eclipse.analysis.IAnalyzer;
+import no.nr.lancelot.eclipse.analysis.IAnalyser;
 import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
 
@@ -29,7 +29,7 @@ public final class LancelotControllerTest {
 	private class StandardScene {
 		final Sequence sequence = context.sequence(null);
 		final IGatherer gatherer = context.mock(IGatherer.class);
-		final IAnalyzer analyzer = context.mock(IAnalyzer.class);
+		final IAnalyser analyzer = context.mock(IAnalyser.class);
 		final ILancelotView view = context.mock(ILancelotView.class);
 		final LancelotController controller = new LancelotController(gatherer, analyzer, view, new NullProgressMonitor());
 	}

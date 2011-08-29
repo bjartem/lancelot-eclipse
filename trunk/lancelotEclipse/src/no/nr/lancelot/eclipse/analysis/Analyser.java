@@ -24,7 +24,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jdt.core.IClassFile;
 
-public final class Analyzer implements IAnalyzer {
+public final class Analyser implements IAnalyser {
     @Override
     public List<IClassAnalysisReport> run(
         final List<IClassFile> filesForAnalysis, 

@@ -1,30 +1,13 @@
 package no.nr.lancelot.eclipse.actions;
 
-import static org.junit.Assert.*;
-
-import java.util.concurrent.CountDownLatch;
-
+import static org.junit.Assert.fail;
 import no.nr.lancelot.eclipse.nature.LancelotNature;
 import no.nr.lancelot.eclipse.test.TestProject;
 
-import org.eclipse.core.resources.IWorkspaceRunnable;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.progress.UIJob;
 import org.junit.Before;
 import org.junit.Test;
-import org.jmock.lib.legacy.ClassImposteriser;
 
 
 public class ToggleNatureActionTest {

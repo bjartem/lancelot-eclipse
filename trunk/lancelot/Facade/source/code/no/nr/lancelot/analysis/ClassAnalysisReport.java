@@ -17,30 +17,28 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import no.nr.einar.pb.model.JavaClass;
 
 public final class ClassAnalysisReport implements IClassAnalysisReport {
-    private final String packageName;
-    private final String className;
+	private final JavaClass javaClass;
     private final List<IMethodBugReport> methodBugReports;
     private final Object operationKey;
-
+    
     ClassAnalysisReport(
         final JavaClass javaClass, 
         final List<IMethodBugReport> bugReports,
         final Object operationKey
     ) {
-        this.packageName = javaClass.getNamespace();
-        this.className = javaClass.getShortName();
+    	this.javaClass = javaClass;
         this.methodBugReports = bugReports;
         this.operationKey = operationKey;
     }
     
     @Override
     public String getPackageName() {
-        return packageName;
+        return javaClass.getNamespace();
     }
 
     @Override
     public String getClassName() {
-        return className;
+        return javaClass.getShortName();
     }
     
     @Override
@@ -58,10 +56,20 @@ public final class ClassAnalysisReport implements IClassAnalysisReport {
     public List<IMethodBugReport> getMethodBugReports() {
         return methodBugReports;
     }
+    
+    @Override
+    public int getMethodCount() {
+    	return javaClass.getMethods().length;
+    }
+    
+    @Override
+    public int getBuggyMethodCount() {
+    	return methodBugReports.size();
+    }
 
     @Override
     public String toString() {
         return String.format("[ClassAnalysisReport. Package: %s. Class: %s. Bug count: %d]", 
-                             packageName, className, methodBugReports.size()); 
+                             getPackageName(), getClassName(), getBuggyMethodCount()); 
     }
 }

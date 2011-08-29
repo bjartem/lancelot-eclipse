@@ -27,10 +27,8 @@ import java.util.regex.Pattern;
 import no.nr.einar.naming.rulebook.IRulebook;
 import no.nr.einar.naming.rulebook.MethodIdea;
 import no.nr.einar.naming.rulebook.MethodPhrase;
-import no.nr.einar.naming.tagging.CachingTagger;
 import no.nr.einar.naming.tagging.JavaTagger;
 import no.nr.einar.naming.tagging.PosTagger;
-import no.nr.einar.pb.model.JavaMethod;
 
 public final class SemanticsMap {
     protected static final Pattern TAG_PATTERN = Pattern.compile("^\\[(\\w+)\\]$");

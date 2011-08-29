@@ -43,6 +43,7 @@ public final class Rulebook implements IRulebook {
     	this.root = root;
     }
     
+    static int N = 0;
     @Override
 	public Set<Rule> findViolations(final MethodIdea methodIdea) {
         if (methodIdea == null) {
@@ -51,6 +52,9 @@ public final class Rulebook implements IRulebook {
 
         final Phrase bestMatchingPhrase = find(methodIdea);
         final Set<Rule> rules = bestMatchingPhrase.getRules();
+        if (!rules.isEmpty())
+        	N++;
+        System.out.println("N " + N);
         final Set<Rule> violations = new HashSet<Rule>();
         final long semantics = methodIdea.getSemantics();
         
@@ -61,6 +65,10 @@ public final class Rulebook implements IRulebook {
         }
         
         return violations;
+    }
+    
+    public Phrase findMatchingPhrase(final MethodIdea methodIdea) {
+    	return find(methodIdea);
     }
     
     protected Phrase find(final MethodIdea methodIdea) {
