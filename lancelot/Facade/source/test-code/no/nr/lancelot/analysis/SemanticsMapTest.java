@@ -10,14 +10,9 @@
  ******************************************************************************/
 package no.nr.lancelot.analysis;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,12 +23,7 @@ import no.nr.einar.naming.rulebook.MethodPhrase;
 import no.nr.einar.naming.rulebook.Phrase;
 import no.nr.einar.naming.rulebook.PhraseBuilder;
 import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Rulebook.RulebookInitException;
 import no.nr.einar.naming.rulebook.Type;
-import no.nr.einar.naming.tagging.PhraseTagger;
-import no.nr.einar.naming.tagging.LingoReader.LingoInitException;
-import no.nr.lancelot.analysis.SemanticsMap.AttributeFlagFinder;
-import no.nr.lancelot.analysis.SemanticsMap.SemanticsMapInitException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

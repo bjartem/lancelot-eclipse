@@ -13,8 +13,8 @@ package no.nr.lancelot.eclipse.builder;
 import java.util.Map;
 
 import no.nr.lancelot.eclipse.LancelotPlugin;
-import no.nr.lancelot.eclipse.analysis.Analyzer;
-import no.nr.lancelot.eclipse.analysis.IAnalyzer;
+import no.nr.lancelot.eclipse.analysis.Analyser;
+import no.nr.lancelot.eclipse.analysis.IAnalyser;
 import no.nr.lancelot.eclipse.controller.LancelotController;
 import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.gathering.GatheringHelper;
@@ -50,7 +50,7 @@ public final class LancelotBuilder extends IncrementalProjectBuilder {
 
         try {
             final IGatherer gatherer = createGatherer();
-            final IAnalyzer analyser = new Analyzer();
+            final IAnalyser analyser = new Analyser();
             final ILancelotView annotator = new BugAnnotationLancelotView();
             new LancelotController(gatherer, analyser, annotator, monitor).run();
         } catch (Exception e) {

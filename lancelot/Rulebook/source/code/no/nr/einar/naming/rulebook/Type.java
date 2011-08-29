@@ -15,12 +15,15 @@ public enum Type {
 	ANY;
 	
 	public static Type fromString(final String s) {
-		if (s == null)
+		if (s == null) {
 			return ANY;
+		}
 		
-		for (final Type type : values())
-			if (type.name().equalsIgnoreCase(s) && type != ANY)
+		for (final Type type : values()) {
+			if (type.name().equalsIgnoreCase(s) && type != ANY) {
 				return type;
+			}
+		}
 		
 		throw new RuntimeException("Did not recognize type '" + s + "'");
 	}
@@ -39,16 +42,16 @@ public enum Type {
 				put("java.lang.String", STRING);
 		
 				put("boolean", BOOLEAN);
-				put("byte", PRIMITIVE);
-				put("char", PRIMITIVE);
-				put("short", PRIMITIVE);
-				put("int", INT);
-				put("long", INT); // FIXME!! Is this correct?
+				put("byte",    PRIMITIVE);
+				put("char",    PRIMITIVE);
+				put("short",   PRIMITIVE);
+				put("int",     INT);
+				put("long",    PRIMITIVE); // FIXME!! Is this correct?
 				
-				put("float", PRIMITIVE);
-				put("double", PRIMITIVE);
+				put("float",   PRIMITIVE);
+				put("double",  PRIMITIVE);
 		
-				put("void", VOID);
+				put("void",    VOID);
 			}}
 		);
 };

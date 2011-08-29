@@ -24,7 +24,7 @@ public final class Phrase {
 	private final List<Phrase> refinements;
     private final Set<Rule> rules;
     
-    // Should only be used directly for testing.
+    // Must only be invoked directly under testing.
     protected Phrase(
     	final List<IPhrasePart> phraseParts, 
     	final Type returnType,
@@ -135,7 +135,7 @@ public final class Phrase {
 	/* This method is meant to identify that we have reached the right
 	 * phrase when we are testing. 
 	 */
-	protected String constructSignature() {
+	public String constructSignature() {
 		final StringBuilder sb = new StringBuilder();
 
 		sb.append(returnType + "$");
@@ -144,7 +144,6 @@ public final class Phrase {
     	}
     	sb.append(paramRequirement);
     	
-    	return sb.toString();
-		
+    	return sb.toString();		
 	}
 }

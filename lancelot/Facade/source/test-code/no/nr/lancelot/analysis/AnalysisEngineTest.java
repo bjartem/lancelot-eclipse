@@ -16,6 +16,7 @@ public class AnalysisEngineTest {
 	public void testA() throws Exception {
 		check(
 			new Object(){
+				@edu.umd.cs.findbugs.annotations.SuppressWarnings
 				boolean methodUnderInspection() {
 					int j = 2;
 					for (int i = 0; i < 10; ++i)
@@ -31,13 +32,14 @@ public class AnalysisEngineTest {
 			}
 		);
 	}
-	
+
+	@edu.umd.cs.findbugs.annotations.SuppressWarnings
 	public class TestBClass {
 		int methodUnderInspection(int f) throws Exception {
 			int n = 55;
 			n *= System.identityHashCode(new TestBClass());
 
-			if (3 == 3)
+			if (3 < 4)
 				throw new Exception();
 			
 			if (f > 2)

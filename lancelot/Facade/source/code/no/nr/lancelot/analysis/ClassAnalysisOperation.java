@@ -23,6 +23,7 @@ import no.nr.einar.naming.rulebook.IRulebook;
 import no.nr.einar.naming.rulebook.MethodIdea;
 import no.nr.einar.naming.rulebook.MethodPhrase;
 import no.nr.einar.naming.rulebook.Rule;
+import no.nr.einar.naming.rulebook.Rulebook;
 import no.nr.einar.naming.rulebook.Type;
 import no.nr.einar.naming.tagging.CachingTagger;
 import no.nr.einar.naming.tagging.PosTagger;
@@ -64,6 +65,7 @@ public final class ClassAnalysisOperation {
         return className;
     }
     
+    int N = 0;
     public IClassAnalysisReport run() throws IOException {       
         final ClassStreamAnalyzer csa = new ClassStreamAnalyzer();
         final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
@@ -73,6 +75,12 @@ public final class ClassAnalysisOperation {
         for (final JavaMethod method : javaClass) {
             final IMethodBugReport bugReportOrNull = checkForBugs(method);    
             if (bugReportOrNull != null) {
+            	System.out.printf(
+            		"Violation %d for %s. Matching phrase: %s\n", 
+            		++N,
+            		method,
+            		((Rulebook) rulebook).findMatchingPhrase(deriveIdea(method, tagger))
+            	);
                 bugReports.add(bugReportOrNull);
             }
         }
@@ -80,16 +88,17 @@ public final class ClassAnalysisOperation {
         return new ClassAnalysisReport(javaClass, bugReports, key);
     }
     
-    public IMethodBugReport checkForBugs(final JavaMethod javaMethod) {
-        final MethodIdea idea = deriveIdea(javaMethod, tagger);
+    public IMethodBugReport checkForBugs(final JavaMethod method) {
+        final MethodIdea idea = deriveIdea(method, tagger);
         final Set<Rule> violations = rulebook.findViolations(idea);
         if (violations.isEmpty())
         	return null;
         
-        return new MethodBugReport(javaMethod, idea, violations);
+        return new MethodBugReport(method, idea, violations);
     }
     
-    protected static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
+    // FIXME. MOVE AWAY TO SEPARATE CLASS.
+    public static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
         final MethodPhrase phrase = derivePhrase(javaMethod, tagger);
         final long semantics = deriveSemantics(javaMethod);
         final Type returnType = deriveReturnType(javaMethod);

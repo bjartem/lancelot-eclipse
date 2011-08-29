@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 
 public final class JavaMethod implements IJavaMethod {
 	
@@ -26,12 +28,13 @@ public final class JavaMethod implements IJavaMethod {
 	private long attributeMask;
 
 	public JavaMethod(final String methodName,
-			final String returnType,
-			final String[] paramTypes,
-			final long attributeMask, 
-			final TypeDictionary typeDict,
-			final int noInstructions,
-			final boolean isStatic) {
+		final String returnType,
+		final String[] paramTypes,
+		final long attributeMask, 
+		final TypeDictionary typeDict,
+		final int noInstructions,
+		final boolean isStatic
+	) {
 		if (methodName == null) {
 			throw new IllegalArgumentException("The method name cannot be null!");
 		}
@@ -222,6 +225,24 @@ public final class JavaMethod implements IJavaMethod {
 	public int getInstructionCount() {
 		return this.noInstructions;
 	}
-	
-	
+
+	@SuppressWarnings("SBSC_USE_STRINGBUFFER_CONCATENATION")
+	@Override
+	public String toString() {
+		String paramTypesStr = "";
+		for (String p : paramTypes)
+			paramTypesStr += p + ", ";
+		if (!paramTypesStr.isEmpty())
+			paramTypesStr = paramTypesStr.substring(0, paramTypesStr.length()-2);
+		
+		return String.format(
+			"[%s %s(%s) TYPEDICT %d %s %d]",
+			returnType,
+			name,
+			paramTypesStr,
+			noInstructions,
+			isStatic,
+			attributeMask
+		);
+	}
 }

@@ -15,7 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public final class MethodPhrase implements Iterable<NamePart> {
-    
     private final List<NamePart> parts;
 
     public MethodPhrase(final List<String> fragments, final List<String> tags) {
@@ -60,5 +59,4 @@ public final class MethodPhrase implements Iterable<NamePart> {
     	
     	return this.parts.equals(((MethodPhrase) other).parts);
     }
-
 }

@@ -21,11 +21,9 @@ import no.nr.einar.naming.rulebook.Rulebook.RulebookInitException;
 import no.nr.einar.naming.tagging.LingoReader;
 import no.nr.einar.naming.tagging.LingoReader.LingoInitException;
 import no.nr.einar.naming.tagging.Tag;
-import no.nr.einar.pb.model.Attribute;
 import no.nr.lancelot.analysis.SemanticsMap.SemanticsMapInitException;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
-import static no.nr.lancelot.analysis.SemanticsMap.AttributeFlagFinder;
 
 public final class LancelotRegistry {
     private static LancelotRegistry INSTANCE = null;

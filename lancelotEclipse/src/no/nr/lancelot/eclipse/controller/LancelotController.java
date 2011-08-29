@@ -15,7 +15,7 @@ import java.util.List;
 
 import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
-import no.nr.lancelot.eclipse.analysis.IAnalyzer;
+import no.nr.lancelot.eclipse.analysis.IAnalyser;
 import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
 
@@ -39,7 +39,7 @@ public final class LancelotController {
                                                 + VIEW_WORK_UNITS;
 
     private final IGatherer gatherer;
-    private final IAnalyzer analyzer;
+    private final IAnalyser analyzer;
     private final ILancelotView view;
     private final IProgressMonitor mainMonitor;
     
@@ -48,7 +48,7 @@ public final class LancelotController {
 
     public LancelotController(
         final IGatherer gatherer,
-        final IAnalyzer analyzer,
+        final IAnalyser analyzer,
         final ILancelotView view,
         final IProgressMonitor mainMonitor
     ) {
@@ -97,10 +97,27 @@ public final class LancelotController {
     private void logCompletion(final long spentTimeMs) {
         LancelotPlugin.logInfo(
             getClass(), 
-            "Lancelot analysis completed in " + spentTimeMs + " ms."
+            "Lancelot analysis ran in " + spentTimeMs + " ms." + makeCoverageReport()
         );
     }
     
+    private String makeCoverageReport() {
+        int totalMethodCount = 0, 
+            buggyMethodCount = 0;
+        
+        for (IClassAnalysisReport report : analysisReports) {
+            totalMethodCount += report.getMethodCount();
+            buggyMethodCount += report.getBuggyMethodCount();
+        }
+
+        return String.format(
+            "[Total method count: %d, buggy method count: %d, bug percent: %f]",
+            totalMethodCount,
+            buggyMethodCount,
+            100 * buggyMethodCount / (double) totalMethodCount
+        );
+    }
+
     private void gather() throws CoreException {
         mainMonitor.subTask("Gathering files for analysis...");
         
@@ -116,8 +133,15 @@ public final class LancelotController {
         if (filesForAnalysis == null)
             throw new AssertionError("Files have not been gathered yet!");
         
-        final IProgressMonitor analysisMonitor = new SubProgressMonitor(mainMonitor, ANALYSIS_WORK_UNITS);
-        final List<IClassAnalysisReport> analysisReports = analyzer.run(filesForAnalysis, analysisMonitor);
+        final IProgressMonitor analysisMonitor = new SubProgressMonitor(
+            mainMonitor, 
+            ANALYSIS_WORK_UNITS
+        );
+
+        final List<IClassAnalysisReport> analysisReports = analyzer.run(
+            filesForAnalysis, 
+            analysisMonitor
+        );
         if (analysisReports == null)
             throw new RuntimeException("Analyzer returned null. This should never happen.");
         
