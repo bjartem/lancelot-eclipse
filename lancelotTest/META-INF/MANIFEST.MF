@@ -4,7 +4,7 @@ Bundle-Name: LancelotTest
 Bundle-SymbolicName: no.nr.lancelot.test;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Norwegian Computing Center
-Fragment-Host: no.nr.lancelot;bundle-version="0.1.0"
+Fragment-Host: no.nr.lancelot;bundle-version="0.1.0.qualifier"
 Require-Bundle: org.junit;bundle-version="4.8.1",
  org.eclipse.core.filesystem;bundle-version="1.3.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -35,3 +35,4 @@ Bundle-ClassPath: .,
  lib/org.hamcrest.library.source_1.1.0.v20090501071000.jar,
  lib/org.hamcrest.text_1.1.0.v20090501071000.jar,
  lib/org.hamcrest.text.source_1.1.0.v20090501071000.jar
+Export-Package: no.nr.lancelot.analysis
