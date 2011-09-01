@@ -16,4 +16,5 @@ Bundle-ClassPath: .,
  lib/jsr305.jar,
  lib/pb-analysis.jar
 Export-Package: no.nr.einar.naming.rulebook,
- no.nr.einar.pb.model
+ no.nr.einar.pb.model,
+ no.nr.lancelot.analysis

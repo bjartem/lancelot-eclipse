@@ -11,7 +11,6 @@
 package no.nr.einar.naming.rulebook;
 
 public final class NamePart {
-    
     private final String text;
     private final String tag;
 
@@ -26,6 +25,11 @@ public final class NamePart {
     
     public String getTag() {
         return tag;
+    }
+
+    @Override
+    public int hashCode() {
+    	return text.hashCode();
     }
     
     @Override
