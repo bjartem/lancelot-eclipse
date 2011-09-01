@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LancelotTest
-Bundle-SymbolicName: no.nr.lancelot.eclipseTest;singleton:=true
+Bundle-SymbolicName: no.nr.lancelot.test;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Norwegian Computing Center
 Fragment-Host: no.nr.lancelot;bundle-version="0.1.0"
