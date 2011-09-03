@@ -6,10 +6,10 @@ import static org.junit.Assert.fail;
 import java.util.Collections;
 import java.util.List;
 
-import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.analysis.IAnalyser;
 import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
+import no.nr.lancelot.frontend.IClassAnalysisReport;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -46,8 +46,8 @@ public final class LancelotControllerTest {
 		try {
 			scene.controller.run();
 			fail("No exception throwed!");
-		// The actual test!
 		} catch (RuntimeException e) {
+			// The actual test!
 			assertTrue(e.getMessage().toLowerCase().contains("gatherer")); 
 			assertTrue(e.getMessage().toLowerCase().contains("null"));
 		}

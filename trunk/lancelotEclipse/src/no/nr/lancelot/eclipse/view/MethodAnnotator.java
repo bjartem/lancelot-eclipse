@@ -15,8 +15,8 @@ import static org.eclipse.core.resources.IMarker.SEVERITY_WARNING;
 
 import java.util.List;
 
-import no.nr.einar.naming.rulebook.Severity;
-import no.nr.lancelot.analysis.IMethodBugReport;
+import no.nr.lancelot.frontend.IMethodBugReport;
+import no.nr.lancelot.rulebook.Severity;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -27,7 +27,6 @@ import org.eclipse.jdt.core.JavaModelException;
 
 final class MethodAnnotator {
     private final IMethodBugReport bugReport;
-    private final IType sourceType;
     private final IResource sourceResource;
     private final IMethod method;
     private final int charStart;
@@ -43,14 +42,16 @@ final class MethodAnnotator {
             throw new IllegalArgumentException();
         
         this.bugReport = bugReport;
-        this.sourceType = sourceType;
         this.sourceResource = sourceType.getResource();
         this.method = method;
         
         final ISourceRange nameRange = method.getNameRange();
         this.charStart = nameRange.getOffset();
         this.charEnd = charStart + nameRange.getLength();
-        this.location = "Line " + findLineNumber() + ".";
+        this.location = "Line " + findLineNumber(
+            sourceType.getCompilationUnit().getSource().toCharArray(), 
+            charStart
+        ) + ".";
     }
 
     public void annotate() throws CoreException {
@@ -88,11 +89,13 @@ final class MethodAnnotator {
         return sb.toString();
     }
 
-    private int findLineNumber() throws JavaModelException {
-        final char[] source = sourceType.getCompilationUnit().getSource().toCharArray();
+    // TODO! MOVE to utility class.
+    public static int findLineNumber(final char[] source, final int pos) throws JavaModelException {
+        if (source == null)
+            throw new IllegalArgumentException();
         
         int lineNum = 1;
-        for (int p = 0; p <= charStart; ++p)
+        for (int p = 0; p <= pos; ++p)
             // Ignore CRs. It's enough to look for LF for all sensible systems of today ;-)
             if (source[p] == '\n')
                 ++lineNum;

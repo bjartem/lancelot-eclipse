@@ -10,17 +10,6 @@
  ******************************************************************************/
 package no.nr.einar.naming.rulebook;
 
-import static org.junit.Assert.assertEquals;
-
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import no.nr.lancelot.analysis.LancelotTestUtils;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 // FIXME
 public final class RulebookTest {
 	/*

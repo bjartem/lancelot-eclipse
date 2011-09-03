@@ -11,8 +11,8 @@ package no.nr.lancelot.eclipse.view;
 import java.util.LinkedList;
 import java.util.List;
 
-import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
+import no.nr.lancelot.frontend.IClassAnalysisReport;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -38,20 +38,15 @@ public class BugAnnotationLancelotView implements ILancelotView {
             if (monitor.isCanceled())
                 return;
             
-            long t0 = System.currentTimeMillis();
             monitor.subTask("Clearing old markers...");
             for (final ClassAnnotator annotator : annotators)
                 annotator.removeExistingMarkers();
             monitor.worked(1);
-            System.out.printf("a=%d\n", System.currentTimeMillis()-t0);
             
-
-            long t1 = System.currentTimeMillis();
             monitor.subTask("Adding new markers...");
             for (final ClassAnnotator annotator : annotators) 
                 annotator.markBugs();
             monitor.worked(1);
-            System.out.printf("b=%d\n", System.currentTimeMillis()-t1);
             
             logSuccessfulCompletion();
         } finally {
@@ -77,7 +72,7 @@ public class BugAnnotationLancelotView implements ILancelotView {
             try {   
                 final IClassFile classFile = (IClassFile) report.getOperationKey();
                 final IJavaProject javaProject = classFile.getJavaProject();
-                annotators.add(new ClassAnnotator(javaProject, report));
+                annotators.add(new ClassAnnotator(javaProject, classFile, report));
             } catch (Exception e) {
                 LancelotPlugin.logException(e, "Raised when preparing to process " + report);
                 return annotators;

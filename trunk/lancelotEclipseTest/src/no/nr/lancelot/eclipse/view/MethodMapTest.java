@@ -12,7 +12,7 @@ package no.nr.lancelot.eclipse.view;
 
 import static org.junit.Assert.assertEquals;
 import no.nr.lancelot.eclipse.test.TestProject;
-import no.nr.lancelot.eclipse.view.MethodMap.MatchType;
+import no.nr.lancelot.eclipse.view.OldMethodMap.MatchType;
 
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
@@ -44,14 +44,14 @@ public class MethodMapTest {
     
     @Test(expected = IllegalArgumentException.class)
     public void testExceptionForNullArgumentToConstructor() throws JavaModelException {
-        new MethodMap(null);
+        new OldMethodMap(null);
     }
 
     @Test
     public void testFindMethod() throws JavaModelException {
         assertEquals(
             alphaMethods[1],
-            new MethodMap(alphaType).findMethod(
+            new OldMethodMap(alphaType).findMethod(
                 "second",
                 new String[]{ "java.lang.Object", "java.util.Set" },
                 "java.util.List"
@@ -60,7 +60,7 @@ public class MethodMapTest {
         
         assertEquals(
             alphaMethods[2],
-            new MethodMap(alphaType).findMethod(
+            new OldMethodMap(alphaType).findMethod(
                 "second",
                 new String[]{ "java.util.Set", "java.lang.Object" },
                 "java.util.List"
@@ -69,7 +69,7 @@ public class MethodMapTest {
         
         assertEquals(
             alphaMethods[3],
-            new MethodMap(alphaType).findMethod(
+            new OldMethodMap(alphaType).findMethod(
                 "third",
                 new String[]{
                     "int",
@@ -82,7 +82,7 @@ public class MethodMapTest {
         
         assertEquals(
             alphaMethods[4],
-            new MethodMap(alphaType).findMethod(
+            new OldMethodMap(alphaType).findMethod(
                 "third",
                 new String[]{
                     "int",
@@ -98,12 +98,12 @@ public class MethodMapTest {
     public void testMatchTypeBasic() throws JavaModelException {
         assertEquals(
             MatchType.DEFINITE_MATCH, 
-            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "int[][]")
+            OldMethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "int[][]")
         );
         
         assertEquals(
             MatchType.DEFINITE_MATCH, 
-            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[1], "double")
+            OldMethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[1], "double")
         );
     }
     
@@ -111,17 +111,17 @@ public class MethodMapTest {
     public void testMatchType1() throws JavaModelException {
         assertEquals(
             MatchType.MISMATCH, 
-            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "float[]")
+            OldMethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "float[]")
         );
         
         assertEquals(
             MatchType.MISMATCH, 
-            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "T")
+            OldMethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "T")
         );
         
         assertEquals(
             MatchType.MISMATCH, 
-            MethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "String")
+            OldMethodMap.match(alphaMethods[0], alphaMethods[0].getParameterTypes()[0], "String")
         );
     }
     
@@ -129,7 +129,7 @@ public class MethodMapTest {
     public void testMatchNonBasicType() throws JavaModelException {
         assertEquals(
             MatchType.DEFINITE_MATCH, 
-            MethodMap.match(
+            OldMethodMap.match(
                 alphaMethods[0], 
                 alphaMethods[0].getParameterTypes()[2], 
                 "java.util.List"
@@ -138,7 +138,7 @@ public class MethodMapTest {
         
         assertEquals(
             MatchType.MISMATCH, 
-            MethodMap.match(
+            OldMethodMap.match(
                 alphaMethods[0], 
                 alphaMethods[0].getParameterTypes()[2], 
                 "java.lang.String"
@@ -147,7 +147,7 @@ public class MethodMapTest {
         
         assertEquals(
             MatchType.POSSIBLE_MATCH, 
-            MethodMap.match(
+            OldMethodMap.match(
                 alphaMethods[0], 
                 alphaMethods[0].getParameterTypes()[3], 
                 "java.lang.Object"
@@ -157,21 +157,21 @@ public class MethodMapTest {
 
     @Test
     public void testConcatSplittedName() {
-        assertEquals("Name", MethodMap.concatSplittedName(new String[]{ "", "Name" }));
+        assertEquals("Name", OldMethodMap.concatSplittedName(new String[]{ "", "Name" }));
         assertEquals(
             "a.bb.ccc.Name.Core", 
-            MethodMap.concatSplittedName(new String[]{ "a.bb.ccc", "Name.Core" })
+            OldMethodMap.concatSplittedName(new String[]{ "a.bb.ccc", "Name.Core" })
         );
     }
 
     @Test
     public void testExtractRawType() {
-        assertEquals("Map", MethodMap.extractRawType("[[[QMap<QString;*>;"));
+        assertEquals("Map", OldMethodMap.extractRawType("[[[QMap<QString;*>;"));
     }
 
     @Test
     public void testAppendArrays() {
-        assertEquals("int[][]", MethodMap.appendArrays("int", 2));
-        assertEquals("java.lang.String", MethodMap.appendArrays("java.lang.String", 0));
+        assertEquals("int[][]", OldMethodMap.appendArrays("int", 2));
+        assertEquals("java.lang.String", OldMethodMap.appendArrays("java.lang.String", 0));
     }
 }

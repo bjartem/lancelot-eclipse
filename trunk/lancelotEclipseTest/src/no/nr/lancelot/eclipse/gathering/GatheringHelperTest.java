@@ -44,7 +44,7 @@ public class GatheringHelperTest {
         
         testProject.fullBuild();
         
-        for (final IType ft : faultyTypes)
+        for (final IType ft : faultyTypes) 
             assertTrue(GatheringHelper.hasJavaBuildErrors(ft.getResource()));
     }
     

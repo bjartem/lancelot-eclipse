@@ -54,10 +54,10 @@ public final class GatheringHelper {
     public static boolean hasJavaBuildErrors(final IResource resource) throws CoreException {
         if (resource == null)
             throw new IllegalArgumentException();
-        
+
         final IMarker[] problemMarkers = resource.findMarkers(
             IJavaModelMarker.JAVA_MODEL_PROBLEM_MARKER, 
-            false, 
+            true, 
             IResource.DEPTH_INFINITE
         );
         

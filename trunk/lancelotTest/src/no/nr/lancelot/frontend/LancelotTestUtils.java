@@ -8,7 +8,7 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -18,10 +18,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import no.nr.einar.naming.rulebook.Rulebook.RulebookInitException;
-import no.nr.einar.naming.tagging.LingoReader.LingoInitException;
-import no.nr.lancelot.analysis.LancelotRegistry;
-import no.nr.lancelot.analysis.SemanticsMap.SemanticsMapInitException;
+import no.nr.lancelot.frontend.LancelotRegistry;
+import no.nr.lancelot.frontend.SemanticsMap.SemanticsMapInitException;
+import no.nr.lancelot.rulebook.Rulebook.RulebookInitException;
+import no.nr.lancelot.tagging.LingoReader.LingoInitException;
 
 public class LancelotTestUtils {
 	public static final String CLASS_LOCATION, 

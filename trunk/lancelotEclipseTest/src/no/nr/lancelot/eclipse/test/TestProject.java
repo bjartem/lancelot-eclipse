@@ -25,7 +25,6 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceDescription;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -52,7 +51,8 @@ public final class TestProject {
     }
     
     //@ FIXME TODO! Locate programmatically if possible, or make note.
-    private static final IPath RT_JAR_PATH = new Path("/usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar");
+    private static final IPath RT_JAR_PATH = 
+    		new Path("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib/rt.jar");
     
     private final IProject project;
     private final IJavaProject javaProject;
