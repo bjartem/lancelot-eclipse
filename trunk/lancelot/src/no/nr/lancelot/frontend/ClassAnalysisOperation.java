@@ -8,7 +8,7 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,20 +22,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import no.nr.einar.naming.rulebook.IRulebook;
-import no.nr.einar.naming.rulebook.MethodIdea;
-import no.nr.einar.naming.rulebook.MethodPhrase;
-import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Rulebook;
-import no.nr.einar.naming.rulebook.Type;
-import no.nr.einar.naming.tagging.CachingTagger;
-import no.nr.einar.naming.tagging.PosTagger;
-import no.nr.einar.pb.analysis.code.asm.ClassStreamAnalyzer;
-import no.nr.einar.pb.analysis.name.collapser.Fragment;
-import no.nr.einar.pb.analysis.name.collapser.FragmentCollapser;
-import no.nr.einar.pb.analysis.name.splitter.NameSplitter;
-import no.nr.einar.pb.model.JavaClass;
-import no.nr.einar.pb.model.JavaMethod;
+import no.nr.lancelot.analysis.code.asm.ClassStreamAnalyzer;
+import no.nr.lancelot.analysis.name.collapser.Fragment;
+import no.nr.lancelot.analysis.name.collapser.FragmentCollapser;
+import no.nr.lancelot.analysis.name.splitter.NameSplitter;
+import no.nr.lancelot.model.JavaClass;
+import no.nr.lancelot.model.JavaMethod;
+import no.nr.lancelot.rulebook.IRulebook;
+import no.nr.lancelot.rulebook.MethodIdea;
+import no.nr.lancelot.rulebook.MethodPhrase;
+import no.nr.lancelot.rulebook.Rule;
+import no.nr.lancelot.tagging.CachingTagger;
+import no.nr.lancelot.tagging.PosTagger;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class ClassAnalysisOperation {

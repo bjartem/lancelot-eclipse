@@ -8,18 +8,12 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.tagging;
 
 import java.util.List;
 
-import edu.umd.cs.findbugs.annotations.Nullable;
+public interface FragmentTagger {
+    
+    List<Tag> tag(String fragment);
 
-public interface IClassAnalysisReport {
-    String getPackageName();
-    String getClassName();
-    @Nullable Object getOperationKey();
-    boolean hasBugs();
-    List<IMethodBugReport> getMethodBugReports();
-	int getMethodCount();
-	int getBuggyMethodCount();
 }

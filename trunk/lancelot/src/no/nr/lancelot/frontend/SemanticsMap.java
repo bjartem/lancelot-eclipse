@@ -8,7 +8,7 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,14 +24,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import no.nr.einar.naming.rulebook.IRulebook;
-import no.nr.einar.naming.rulebook.MethodIdea;
-import no.nr.einar.naming.rulebook.MethodPhrase;
-import no.nr.einar.naming.tagging.JavaTagger;
-import no.nr.einar.naming.tagging.PosTagger;
+import no.nr.lancelot.rulebook.IRulebook;
+import no.nr.lancelot.rulebook.MethodIdea;
+import no.nr.lancelot.rulebook.MethodPhrase;
+import no.nr.lancelot.tagging.JavaTagger;
+import no.nr.lancelot.tagging.PosTagger;
 
 public final class SemanticsMap {
-    protected static final Pattern TAG_PATTERN = Pattern.compile("^\\[(\\w+)\\]$");
+    protected static final Pattern TAG_PATTERN = Pattern.compile("^\\[/?(\\w+)\\]$");
     
     public interface AttributeFlagFinder {
         int getAttributeCount();
@@ -94,7 +94,6 @@ public final class SemanticsMap {
     	final List<String> res = new LinkedList<String>();
     	
     	for (final String suggestion : suggestions) {
-    		System.out.println("sugg: " + suggestion);
     		final MethodIdea newIdea = new MethodIdea(
     			createPhrase(suggestion),
     			originalMethodIdea.getSemantics(),
@@ -132,6 +131,7 @@ public final class SemanticsMap {
 			}
 			
 			assert ! part.contains("[");
+			assert ! part.contains("/");
 			
 			fragments.add(part);
 			tags.add(tagger.tag(Arrays.asList(new String[]{ part })).get(0));

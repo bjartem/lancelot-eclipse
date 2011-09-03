@@ -8,18 +8,22 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.rulebook;
 
-import java.util.List;
+public enum Severity {
+    
+    NOTIFY(0x1),
+    INAPPROPRIATE(0x2),
+    FORBIDDEN(0x4);
 
-import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Severity;
-import no.nr.einar.pb.model.JavaMethod;
+    private final int flag;
 
-public interface IMethodBugReport {
-    JavaMethod getMethod();
-    List<Rule> getViolations();
-    List<String> getAlternativeNameSuggestions();
-    String getTextualDescription();
-    Severity getMaximumSeverity();
+    private Severity(final int flag) {
+        this.flag = flag;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
 }
