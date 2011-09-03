@@ -15,16 +15,13 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
-import no.nr.einar.naming.tagging.JavaTagger;
-import no.nr.einar.naming.tagging.PosTagger;
-import no.nr.lancelot.analysis.LancelotRegistry;
-import no.nr.lancelot.analysis.LancelotTestUtils;
+import no.nr.lancelot.frontend.LancelotTestUtils;
+import no.nr.lancelot.tagging.JavaTagger;
+import no.nr.lancelot.tagging.PosTagger;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import edu.mit.jwi.morph.WordnetStemmer;
 
 public final class JavaTaggerTest {
     

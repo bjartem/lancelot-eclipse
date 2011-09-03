@@ -3,7 +3,7 @@
    <description name="Lancelot Update Site" url="http://lancelot.nr.no">
       This is the update site for the Lancelot static analyser plugin for Eclipse.
    </description>
-   <feature url="features/no.nr.lancelot.eclipse.feature_0.1.0.201107241446.jar" id="no.nr.lancelot.eclipse.feature" version="0.1.0.201107241446">
+   <feature url="features/no.nr.lancelot.eclipse.feature_0.1.0.201109030000.jar" id="no.nr.lancelot.eclipse.feature" version="0.1.0.201109030000">
       <category name="no.nr.lancelot.eclipse_SNAPSHOT"/>
    </feature>
    <category-def name="no.nr.lancelot.eclipse_SNAPSHOT" label="Lancelot Development Snapshot"/>

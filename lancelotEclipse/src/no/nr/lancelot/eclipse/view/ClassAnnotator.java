@@ -10,16 +10,17 @@
  ******************************************************************************/
 package no.nr.lancelot.eclipse.view;
 
-import no.nr.einar.pb.model.JavaMethod;
-import no.nr.lancelot.analysis.IClassAnalysisReport;
-import no.nr.lancelot.analysis.IMethodBugReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.view.SourceTypeFinder.TypeNotFoundException;
+import no.nr.lancelot.frontend.IClassAnalysisReport;
+import no.nr.lancelot.frontend.IMethodBugReport;
+import no.nr.lancelot.model.JavaMethod;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IAnnotatable;
 import org.eclipse.jdt.core.IAnnotation;
+import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
@@ -35,15 +36,16 @@ final class ClassAnnotator {
     
     public ClassAnnotator(
         final IJavaProject javaProject, 
+        final IClassFile classFile, 
         final IClassAnalysisReport analysisReport
     ) throws TypeNotFoundException, JavaModelException {
-        if (javaProject == null || analysisReport == null)
+        if (javaProject == null || classFile == null || analysisReport == null)
             throw new IllegalArgumentException();
         
         this.javaProject = javaProject;
         this.analysisReport = analysisReport;
         this.sourceType = findSourceType();
-        this.methodMap = new MethodMap(sourceType);
+        this.methodMap = new MethodMap(sourceType, classFile);
     }
     
     private IType findSourceType() throws TypeNotFoundException {
@@ -63,12 +65,8 @@ final class ClassAnnotator {
     }
     
     public void markBugs() throws CoreException {
-        final long t0 = System.currentTimeMillis();
         for (final IMethodBugReport mnb : analysisReport.getMethodBugReports())
             markBug(mnb);
-        final long tspent = System.currentTimeMillis() - t0;
-        if (tspent > 200)
-            System.out.printf("%dms for %s!!\n", tspent, analysisReport);
     }
 
     private void markBug(final IMethodBugReport bugReport) throws CoreException {
@@ -89,11 +87,7 @@ final class ClassAnnotator {
     private IMethod findEclipseMethod(final IMethodBugReport bugReport) 
     throws JavaModelException {
         final JavaMethod lancelotMethod = bugReport.getMethod();
-        return methodMap.findMethod(
-            lancelotMethod.getMethodName(), 
-            lancelotMethod.getParameterTypes(), 
-            lancelotMethod.getReturnType()
-        );
+        return methodMap.findMethod(lancelotMethod);
     }
     
     protected boolean shouldIgnore(final IJavaElement javaElement) throws JavaModelException {

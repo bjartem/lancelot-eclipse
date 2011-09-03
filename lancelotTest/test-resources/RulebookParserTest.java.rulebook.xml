@@ -11,6 +11,10 @@
             <Rule attribute="Parameter_Type_In_Name" if="True" severity="NOTIFY"/>
           </Rules>
         </Phrase>
+        <Phrase applications="1" methods="1" text="void accept-[verb]-[adjective]-*())">
+          <Rules>
+          </Rules>
+        </Phrase>
       </Refinements>
     </Phrase>  
   </Phrases>

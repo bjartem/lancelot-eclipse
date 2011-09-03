@@ -33,12 +33,10 @@ public final class LancelotBuilder extends IncrementalProjectBuilder {
     public static final String BUILDER_ID = LancelotPlugin.PLUGIN_ID + ".builder";
     
     @Override
-    protected void clean(final IProgressMonitor monitor) {    
+    protected void clean(final IProgressMonitor monitor) {   
         // TODO! Should remove all markers.
     }
 
-    // TODO! When refactoring this. We should catch all exceptions (including runtime exceptions)
-    //       and handle them gracefully. Maybe some report to the user, etc?
     @Override
     @SuppressWarnings("rawtypes") 
     protected IProject[] build(final int kind, final Map args, final IProgressMonitor monitor) 
@@ -62,7 +60,7 @@ public final class LancelotBuilder extends IncrementalProjectBuilder {
     
     private IGatherer createGatherer() {
         @Nullable 
-        final IResourceDelta possibleDelta = getDelta(getProject());
-        return new BuilderGatherer(getProject(), possibleDelta);
+        final IResourceDelta deltaOrNull = getDelta(getProject());
+        return new BuilderGatherer(getProject(), deltaOrNull);
     }
 }

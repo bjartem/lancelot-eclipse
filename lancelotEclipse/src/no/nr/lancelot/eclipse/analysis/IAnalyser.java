@@ -3,7 +3,7 @@ package no.nr.lancelot.eclipse.analysis;
 import java.io.IOException;
 import java.util.List;
 
-import no.nr.lancelot.analysis.IClassAnalysisReport;
+import no.nr.lancelot.frontend.IClassAnalysisReport;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;

@@ -15,9 +15,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import no.nr.lancelot.analysis.ClassAnalysisOperation;
-import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
+import no.nr.lancelot.frontend.ClassAnalysisOperation;
+import no.nr.lancelot.frontend.IClassAnalysisReport;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;

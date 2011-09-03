@@ -13,11 +13,11 @@ package no.nr.lancelot.eclipse.controller;
 import java.io.IOException;
 import java.util.List;
 
-import no.nr.lancelot.analysis.IClassAnalysisReport;
 import no.nr.lancelot.eclipse.LancelotPlugin;
 import no.nr.lancelot.eclipse.analysis.IAnalyser;
 import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
+import no.nr.lancelot.frontend.IClassAnalysisReport;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;

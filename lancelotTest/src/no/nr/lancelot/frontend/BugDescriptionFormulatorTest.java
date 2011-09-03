@@ -8,14 +8,15 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import no.nr.einar.pb.model.Attribute;
+import no.nr.lancelot.frontend.BugDescriptionFormulator;
+import no.nr.lancelot.model.Attribute;
 
 import org.junit.Test;
 

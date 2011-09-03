@@ -8,25 +8,8 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
-import no.nr.einar.naming.rulebook.MethodIdea;
-import no.nr.einar.naming.rulebook.MethodPhrase;
-import no.nr.einar.naming.rulebook.Phrase;
-import no.nr.einar.naming.rulebook.PhraseBuilder;
-import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Type;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 // FIXME
 public class SemanticsMapTest {

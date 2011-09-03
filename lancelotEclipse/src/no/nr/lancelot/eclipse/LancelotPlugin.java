@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import no.nr.lancelot.analysis.LancelotRegistry;
+import no.nr.lancelot.frontend.LancelotRegistry;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -35,8 +35,7 @@ import org.osgi.framework.BundleContext;
  * common functionality. 
  * 
  * It is not the correct place to  begin reading the plugin. 
- * Have a look at the classes in package actions or the main 
- * LancelotController instead.
+ * See the classes in package "actions" or controller/LancelotController instead.
  */
 public class LancelotPlugin extends AbstractUIPlugin {
     public static final String PLUGIN_ID = "no.nr.lancelot.eclipse";
