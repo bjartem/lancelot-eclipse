@@ -7,6 +7,6 @@ import no.nr.lancelot.model.JavaJar;
 
 public interface IJarFileAnalyzer {
 
-	JavaJar analyze(final JarFile jarFile) throws IOException;
+    JavaJar analyze(final JarFile jarFile) throws IOException;
 
 }

@@ -20,6 +20,6 @@ public interface IClassAnalysisReport {
     @Nullable Object getOperationKey();
     boolean hasBugs();
     List<IMethodBugReport> getMethodBugReports();
-	int getMethodCount();
-	int getBuggyMethodCount();
+    int getMethodCount();
+    int getBuggyMethodCount();
 }

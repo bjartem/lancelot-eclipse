@@ -6,8 +6,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
 public final class MessageDialogHelper {
-	private MessageDialogHelper() {}
-	
+    private MessageDialogHelper() {}
+    
     public static void openInformation(final String title, final String message) {
         MessageDialog.openInformation(getWorkbenchShellOrNull(), title, message);
     }

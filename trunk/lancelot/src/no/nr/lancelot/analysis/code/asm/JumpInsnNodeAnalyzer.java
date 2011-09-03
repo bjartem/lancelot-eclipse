@@ -8,18 +8,18 @@ import org.objectweb.asm.tree.analysis.Frame;
 
 public final class JumpInsnNodeAnalyzer implements InstructionNodeAnalyzer {
 
-	private final JumpInsnNode node;
+    private final JumpInsnNode node;
 
-	public JumpInsnNodeAnalyzer(final JumpInsnNode node) {
-		this.node = node;
-	}
+    public JumpInsnNodeAnalyzer(final JumpInsnNode node) {
+        this.node = node;
+    }
 
-	public void check(final Frame frame, final MethodAnalysisData data) {
-		data.setAttribute(Attribute.HAS_BRANCHES);
-		final Label label = node.label.getLabel();
-		if (data.hasLabel(label)) {
-			data.setAttribute(Attribute.CONTAINS_LOOP);
-		}
-	}
+    public void check(final Frame frame, final MethodAnalysisData data) {
+        data.setAttribute(Attribute.HAS_BRANCHES);
+        final Label label = node.label.getLabel();
+        if (data.hasLabel(label)) {
+            data.setAttribute(Attribute.CONTAINS_LOOP);
+        }
+    }
 
 }

@@ -31,21 +31,21 @@ public final class BugDescriptionFormulator {
         Collections.unmodifiableMap(
             new EnumMap<Attribute, String>(Attribute.class){{
                 put(Attribute.RETURNS_VOID,           "return void");
-            	put(Attribute.RETURNS_INT,     		  "return int");
-            	put(Attribute.RETURNS_BOOLEAN,        "return boolean");
-            	put(Attribute.RETURNS_STRING, 	      "return String");
-            	put(Attribute.RETURNS_REFERENCE, 	  "return references");
-            	put(Attribute.NO_PARAMETERS,          "have no parameters");
-            	put(Attribute.RETURN_TYPE_IN_NAME,    "RETURN_TYPE_IN_NAME");
-            	put(Attribute.PARAMETER_TYPE_IN_NAME, "PARAMETER_TYPE_IN_NAME");
+                put(Attribute.RETURNS_INT,            "return int");
+                put(Attribute.RETURNS_BOOLEAN,        "return boolean");
+                put(Attribute.RETURNS_STRING,         "return String");
+                put(Attribute.RETURNS_REFERENCE,      "return references");
+                put(Attribute.NO_PARAMETERS,          "have no parameters");
+                put(Attribute.RETURN_TYPE_IN_NAME,    "RETURN_TYPE_IN_NAME");
+                put(Attribute.PARAMETER_TYPE_IN_NAME, "PARAMETER_TYPE_IN_NAME");
 
-            	put(Attribute.FIELD_WRITER,           "write to fields");
-            	put(Attribute.FIELD_READER,           "read field values");
-            	put(Attribute.PARAMETER_TO_FIELD,     "PARAMETER TO FIELD");
-            	put(Attribute.RETURNS_FIELD_VALUE,    "RETURNS FIELD VALUE");
-            	put(Attribute.TYPE_MANIPULATOR,       "perform runtime type manipulation");
-            	put(Attribute.RETURNS_CREATED_OBJECT, "RETURNS CREATED OBJECTE");
-            	
+                put(Attribute.FIELD_WRITER,           "write to fields");
+                put(Attribute.FIELD_READER,           "read field values");
+                put(Attribute.PARAMETER_TO_FIELD,     "PARAMETER TO FIELD");
+                put(Attribute.RETURNS_FIELD_VALUE,    "RETURNS FIELD VALUE");
+                put(Attribute.TYPE_MANIPULATOR,       "perform runtime type manipulation");
+                put(Attribute.RETURNS_CREATED_OBJECT, "RETURNS CREATED OBJECTE");
+                
                 put(Attribute.CONTAINS_LOOP,    "loop");
                 put(Attribute.HAS_BRANCHES,     "branch");
                 put(Attribute.MULTIPLE_RETURNS, "have multiple return points");
@@ -53,18 +53,18 @@ public final class BugDescriptionFormulator {
                 put(Attribute.CREATES_REGULAR_OBJECTS,   "CREATES_REGULAR_OBJECTS");
                 put(Attribute.CREATES_STRING_OBJECTS,    "CREATES_STRING_OBJECTS");
                 put(Attribute.CREATES_CUSTOM_OBJECTS,    "CREATES_CUSTOM_OBJECTS");
-            	put(Attribute.CREATES_OWN_CLASS_OBJECTS, "CREATES_OWN_CLASS_OBJECTS");
+                put(Attribute.CREATES_OWN_CLASS_OBJECTS, "CREATES_OWN_CLASS_OBJECTS");
 
-            	put(Attribute.THROWS_EXCEPTIONS,          "throw exceptions");
-            	put(Attribute.CATCHES_EXCEPTIONS,         "catches exceptions");
-            	put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "exposes checked exceptions");
-            	
-            	put(Attribute.RECURSIVE_CALL,           "use recursive calls");
-            	put(Attribute.SAME_NAME_CALL,           "call methods of the same name");
-            	put(Attribute.SAME_VERB_CALL,           "SAME_VERB_CALL");
-            	put(Attribute.METHOD_CALL_ON_FIELD,     "METHOD_CALL_ON_FIELD");
-            	put(Attribute.METHOD_CALL_ON_PARAMETER, "METHOD_CALL_ON_PARAMETER");
-            	put(Attribute.PARAMETER_TO_FIELD_CALL,  "PARAMETER_TO_FIELD_CALL");
+                put(Attribute.THROWS_EXCEPTIONS,          "throw exceptions");
+                put(Attribute.CATCHES_EXCEPTIONS,         "catches exceptions");
+                put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "exposes checked exceptions");
+                
+                put(Attribute.RECURSIVE_CALL,           "use recursive calls");
+                put(Attribute.SAME_NAME_CALL,           "call methods of the same name");
+                put(Attribute.SAME_VERB_CALL,           "SAME_VERB_CALL");
+                put(Attribute.METHOD_CALL_ON_FIELD,     "METHOD_CALL_ON_FIELD");
+                put(Attribute.METHOD_CALL_ON_PARAMETER, "METHOD_CALL_ON_PARAMETER");
+                put(Attribute.PARAMETER_TO_FIELD_CALL,  "PARAMETER_TO_FIELD_CALL");
             }}
         );
 

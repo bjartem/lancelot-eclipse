@@ -28,7 +28,7 @@ public final class Rulebook implements IRulebook {
     }
 
     private final Map<String, Phrase> phrases;
-	private final Phrase root = new Phrase("*", Collections.<Rule>emptySet());
+    private final Phrase root = new Phrase("*", Collections.<Rule>emptySet());
 
     public Rulebook(final URL ruleBookUrl) throws RulebookInitException {
         if (ruleBookUrl == null) {
@@ -48,18 +48,18 @@ public final class Rulebook implements IRulebook {
 
     // For testing.
     protected Rulebook(final Map<String, Phrase> phrases) {
-    	this.phrases = new HashMap<String, Phrase>(phrases);
+        this.phrases = new HashMap<String, Phrase>(phrases);
     }
 
-	private void addRoot() {
-		phrases.put("*", root);
-	}
+    private void addRoot() {
+        phrases.put("*", root);
+    }
     
     private void addPhrases(final List<Phrase> phrases_) {
-    	for (Phrase p : phrases_) {
-    		phrases.put(p.getPhraseText(), p);
-    	}
-	}
+        for (Phrase p : phrases_) {
+            phrases.put(p.getPhraseText(), p);
+        }
+    }
     
     @Override
     public Set<Rule> findViolations(final MethodIdea methodIdea) {
@@ -89,7 +89,7 @@ public final class Rulebook implements IRulebook {
         
         final Iterator<NamePart> namePartIter = methodIdea.getPhrase().iterator();
         for (int i = 0; i < partCount; ++i) {
-        	final NamePart namePart = namePartIter.next(); 
+            final NamePart namePart = namePartIter.next(); 
             final String textPart = namePart.getText();
             final String tagPart = namePart.getTag();
 
@@ -146,7 +146,7 @@ public final class Rulebook implements IRulebook {
         }
         
         if (phraseText == null)
-        	return root;
+            return root;
         
         final String param_part;
         if (methodIdea.getParamType().equals("")) { 

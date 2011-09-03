@@ -24,16 +24,16 @@ public final class TagPart implements IPhrasePart {
     
     @Override
     public int hashCode() {
-    	return tag.hashCode();
+        return tag.hashCode();
     }
     
     @Override
     public boolean equals(final Object other) {
-    	if (other == null || !(other.getClass() == TagPart.class)) {
-    		return false;
-    	}
-    	
-    	return this.tag.equals(((TagPart) other).tag);
+        if (other == null || !(other.getClass() == TagPart.class)) {
+            return false;
+        }
+        
+        return this.tag.equals(((TagPart) other).tag);
     }
     
     @Override

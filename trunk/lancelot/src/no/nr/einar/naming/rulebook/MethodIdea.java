@@ -15,18 +15,18 @@ public final class MethodIdea {
     private final long semantics;
 
     private final String returnType;
-	private final String paramType;
+    private final String paramType;
 
     public MethodIdea(
-    	final MethodPhrase phrase, 
-    	final long semantics,
-    	final String returnType, 
-    	final String paramTypeOrNull 
+        final MethodPhrase phrase, 
+        final long semantics,
+        final String returnType, 
+        final String paramTypeOrNull 
     ) {
-    	if (phrase == null) {
-    		throw new IllegalArgumentException();
-    	}
-    	
+        if (phrase == null) {
+            throw new IllegalArgumentException();
+        }
+        
         this.phrase = phrase;
         this.semantics = semantics;
     
@@ -43,18 +43,18 @@ public final class MethodIdea {
     }
     
     public String getReturnType() {
-		return returnType;
-	}
+        return returnType;
+    }
 
-	public String getParamType() {
-		return paramType;
-	}
+    public String getParamType() {
+        return paramType;
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
         return String.format(
-        	"MethodIdea[phrase:%s returnType:%s paramType:%s semantics:%d]",
-        	phrase, returnType, paramType, semantics
+            "MethodIdea[phrase:%s returnType:%s paramType:%s semantics:%d]",
+            phrase, returnType, paramType, semantics
         ); 
     }
 }

@@ -38,7 +38,7 @@ public final class CachingTagger implements PosTagger {
         if (isSeenBefore) {
             return tagResult;
         }
-		
+        
         tagResult = tagger.tag(fragments);
         memo.put(name, tagResult);
         return tagResult;

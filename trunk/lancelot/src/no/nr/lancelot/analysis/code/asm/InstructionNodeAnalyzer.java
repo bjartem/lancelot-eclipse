@@ -5,6 +5,6 @@ import org.objectweb.asm.tree.analysis.Frame;
 
 public interface InstructionNodeAnalyzer {
 
-	void check(final Frame frame, final MethodAnalysisData data);
+    void check(final Frame frame, final MethodAnalysisData data);
 
 }

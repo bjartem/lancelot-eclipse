@@ -17,7 +17,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import no.nr.lancelot.model.JavaClass;
 
 public final class ClassAnalysisReport implements IClassAnalysisReport {
-	private final JavaClass javaClass;
+    private final JavaClass javaClass;
     private final List<IMethodBugReport> methodBugReports;
     private final Object operationKey;
     
@@ -26,7 +26,7 @@ public final class ClassAnalysisReport implements IClassAnalysisReport {
         final List<IMethodBugReport> bugReports,
         final Object operationKey
     ) {
-    	this.javaClass = javaClass;
+        this.javaClass = javaClass;
         this.methodBugReports = bugReports;
         this.operationKey = operationKey;
     }
@@ -59,12 +59,12 @@ public final class ClassAnalysisReport implements IClassAnalysisReport {
     
     @Override
     public int getMethodCount() {
-    	return javaClass.getMethods().length;
+        return javaClass.getMethods().length;
     }
     
     @Override
     public int getBuggyMethodCount() {
-    	return methodBugReports.size();
+        return methodBugReports.size();
     }
 
     @Override

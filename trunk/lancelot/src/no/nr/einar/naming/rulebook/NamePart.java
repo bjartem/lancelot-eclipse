@@ -29,17 +29,17 @@ public final class NamePart {
 
     @Override
     public int hashCode() {
-    	return text.hashCode();
+        return text.hashCode();
     }
     
     @Override
     public boolean equals(final Object other) {
-    	if (!(other instanceof NamePart)) {
-    		return false;
-    	}
-    	
-    	final NamePart otherNamePart = (NamePart) other;
-    	return this.text.equals(otherNamePart.text) && this.tag.equals(otherNamePart.tag);
+        if (!(other instanceof NamePart)) {
+            return false;
+        }
+        
+        final NamePart otherNamePart = (NamePart) other;
+        return this.text.equals(otherNamePart.text) && this.tag.equals(otherNamePart.tag);
     }
 
 }

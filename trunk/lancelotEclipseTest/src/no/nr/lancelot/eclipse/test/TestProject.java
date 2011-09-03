@@ -52,7 +52,7 @@ public final class TestProject {
     
     //@ FIXME TODO! Locate programmatically if possible, or make note.
     private static final IPath RT_JAR_PATH = 
-    		new Path("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib/rt.jar");
+            new Path("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib/rt.jar");
     
     private final IProject project;
     private final IJavaProject javaProject;
