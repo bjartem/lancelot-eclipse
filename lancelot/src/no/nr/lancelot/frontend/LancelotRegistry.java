@@ -8,20 +8,20 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import java.io.File;
 import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
-import no.nr.einar.naming.rulebook.IRulebook;
-import no.nr.einar.naming.rulebook.Rulebook;
-import no.nr.einar.naming.rulebook.Rulebook.RulebookInitException;
-import no.nr.einar.naming.tagging.LingoReader;
-import no.nr.einar.naming.tagging.LingoReader.LingoInitException;
-import no.nr.einar.naming.tagging.Tag;
-import no.nr.lancelot.analysis.SemanticsMap.SemanticsMapInitException;
+import no.nr.lancelot.frontend.SemanticsMap.SemanticsMapInitException;
+import no.nr.lancelot.rulebook.IRulebook;
+import no.nr.lancelot.rulebook.Rulebook;
+import no.nr.lancelot.rulebook.Rulebook.RulebookInitException;
+import no.nr.lancelot.tagging.LingoReader;
+import no.nr.lancelot.tagging.Tag;
+import no.nr.lancelot.tagging.LingoReader.LingoInitException;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 

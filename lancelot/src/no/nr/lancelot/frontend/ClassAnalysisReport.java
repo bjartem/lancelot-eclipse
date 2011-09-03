@@ -8,13 +8,13 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import java.util.List;
 
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import no.nr.einar.pb.model.JavaClass;
+import no.nr.lancelot.model.JavaClass;
 
 public final class ClassAnalysisReport implements IClassAnalysisReport {
 	private final JavaClass javaClass;

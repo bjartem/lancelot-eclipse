@@ -8,11 +8,11 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
-import static no.nr.einar.naming.rulebook.Severity.INAPPROPRIATE;
-import static no.nr.einar.naming.rulebook.Severity.NOTIFY;
-import static no.nr.einar.naming.rulebook.Severity.FORBIDDEN;
+import static no.nr.lancelot.rulebook.Severity.FORBIDDEN;
+import static no.nr.lancelot.rulebook.Severity.INAPPROPRIATE;
+import static no.nr.lancelot.rulebook.Severity.NOTIFY;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,9 +21,9 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Severity;
-import no.nr.einar.pb.model.Attribute;
+import no.nr.lancelot.model.Attribute;
+import no.nr.lancelot.rulebook.Rule;
+import no.nr.lancelot.rulebook.Severity;
 
 @SuppressWarnings("serial")
 public final class BugDescriptionFormulator {

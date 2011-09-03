@@ -8,17 +8,17 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.analysis;
+package no.nr.lancelot.frontend;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import no.nr.einar.naming.rulebook.MethodIdea;
-import no.nr.einar.naming.rulebook.Rule;
-import no.nr.einar.naming.rulebook.Severity;
-import no.nr.einar.pb.model.JavaMethod;
+import no.nr.lancelot.model.JavaMethod;
+import no.nr.lancelot.rulebook.MethodIdea;
+import no.nr.lancelot.rulebook.Rule;
+import no.nr.lancelot.rulebook.Severity;
 
 public final class MethodBugReport implements IMethodBugReport {
     private final JavaMethod method;
