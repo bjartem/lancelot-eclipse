@@ -28,15 +28,15 @@ public final class MethodBugReport implements IMethodBugReport {
 
     
     public MethodBugReport(
-    	final JavaMethod method, 
-    	final MethodIdea methodIdea, 
-    	final Collection<Rule> violations
+        final JavaMethod method, 
+        final MethodIdea methodIdea, 
+        final Collection<Rule> violations
     ) {
         if (method == null) {
             throw new IllegalArgumentException("method cannot be null!");
         }
         if (methodIdea == null) {
-        	throw new IllegalArgumentException("methodIdea cannot be null!");
+            throw new IllegalArgumentException("methodIdea cannot be null!");
         }
         if (violations == null) {
             throw new IllegalArgumentException("violations cannot be null!");
@@ -52,15 +52,15 @@ public final class MethodBugReport implements IMethodBugReport {
         this.textualDescription = computeTextualDescription(method, violations);
     }
 
-	private String computeTextualDescription(
-		final JavaMethod method,
-		final Collection<Rule> violations
-	) {
-		return new BugDescriptionFormulator(
+    private String computeTextualDescription(
+        final JavaMethod method,
+        final Collection<Rule> violations
+    ) {
+        return new BugDescriptionFormulator(
             method.getMethodName(), 
             violations
-	    ).getDescription();
-	}
+        ).getDescription();
+    }
 
     @Override
     public JavaMethod getMethod() {

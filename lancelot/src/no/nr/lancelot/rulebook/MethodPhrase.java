@@ -43,7 +43,7 @@ public final class MethodPhrase implements Iterable<NamePart> {
     }
     
     public NamePart get(final int i) {
-    	return parts.get(i);
+        return parts.get(i);
     }
 
     public Iterator<NamePart> iterator() {
@@ -51,20 +51,20 @@ public final class MethodPhrase implements Iterable<NamePart> {
     }
     
     public int length() {
-    	return parts.size();
+        return parts.size();
     }
     
     @Override
     public int hashCode() {
-    	return parts.hashCode();
+        return parts.hashCode();
     }
     
     @Override
     public boolean equals(final Object other) {
-    	if (!(other instanceof MethodPhrase)) {
-    		return false;
-    	}
-    	
-    	return this.parts.equals(((MethodPhrase) other).parts);
+        if (!(other instanceof MethodPhrase)) {
+            return false;
+        }
+        
+        return this.parts.equals(((MethodPhrase) other).parts);
     }
 }

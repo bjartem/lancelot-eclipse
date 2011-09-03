@@ -24,16 +24,16 @@ public final class ConcretePart implements IPhrasePart {
     
     @Override
     public int hashCode() {
-    	return text.hashCode();
+        return text.hashCode();
     }
     
     @Override
     public boolean equals(final Object other) {
-    	if (other == null || !(other.getClass() == ConcretePart.class)) {
-    		return false;
-    	}
-    	
-    	return this.text.equals(((ConcretePart) other).text);
+        if (other == null || !(other.getClass() == ConcretePart.class)) {
+            return false;
+        }
+        
+        return this.text.equals(((ConcretePart) other).text);
     }
     
     @Override

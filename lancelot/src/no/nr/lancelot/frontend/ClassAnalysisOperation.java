@@ -86,7 +86,7 @@ public final class ClassAnalysisOperation {
         final MethodIdea idea = deriveIdea(method, tagger);
         final Set<Rule> violations = rulebook.findViolations(idea);
         if (violations.isEmpty())
-        	return null;
+            return null;
         
         return new MethodBugReport(method, idea, violations);
     }
@@ -97,14 +97,14 @@ public final class ClassAnalysisOperation {
         final long semantics = deriveSemantics(javaMethod);
         final String returnType = deriveReturnType(javaMethod);
         final String paramTypeOrNull = deriveParamType(javaMethod);   
-		return new MethodIdea(phrase, semantics, returnType, paramTypeOrNull);
+        return new MethodIdea(phrase, semantics, returnType, paramTypeOrNull);
     }
 
-	protected static MethodPhrase derivePhrase(
-		final JavaMethod javaMethod, 
-		final PosTagger tagger
-	) {
-		final String name = javaMethod.getMethodName();
+    protected static MethodPhrase derivePhrase(
+        final JavaMethod javaMethod, 
+        final PosTagger tagger
+    ) {
+        final String name = javaMethod.getMethodName();
         
         final NameSplitter splitter = new NameSplitter();
         final List<String> parts = splitter.split(name);
@@ -114,65 +114,65 @@ public final class ClassAnalysisOperation {
         for (final Fragment fragment : collapsedFragments) {
             fragments.add(fragment.getText());
             if (fragment.isTypeName()) 
-            	javaMethod.flagAsTypeName(fragment.getText());
+                javaMethod.flagAsTypeName(fragment.getText());
         }
         
         final List<String> tags = tagger.tag(fragments);
         return new MethodPhrase(fragments, fixAdditionalTypeTags(collapsedFragments, tags));
-	}
+    }
 
-	private static long deriveSemantics(final JavaMethod javaMethod) {
-		return javaMethod.getSemantics();
-	}
-	
-	protected static String deriveReturnType(final JavaMethod javaMethod) {
-		final String returnType = javaMethod.getReturnType();
-		return fromFullyQualifiedName(returnType);
-	}
-	
-	@Nullable
-	protected static String deriveParamType(final JavaMethod javaMethod) {
-		final boolean hasParameters = javaMethod.getParameterTypes().length != 0;
-		if (!hasParameters)
-			return "";
-		
-		final String firstParameterTypeName = javaMethod.getParameterTypes()[0];
-		return fromFullyQualifiedName(firstParameterTypeName);
-	}
-	
-	public static String fromFullyQualifiedName(final String fqn) {
-		final String reverseMappingOrNull = FULLY_QUALIFIED_REVERSE_MAP.get(fqn);
-		return reverseMappingOrNull != null ? reverseMappingOrNull : "reference";
- 	}
-	
-	@SuppressWarnings("serial")
-	private static final Map<String, String> FULLY_QUALIFIED_REVERSE_MAP =
-		Collections.unmodifiableMap(
-			new HashMap<String, String>(){{
-				put("java.lang.Object", "Object");
-				put("java.lang.String", "String");
-		
-				put("boolean", "boolean");
-				put("byte",    "primitive");
-				put("char",    "primitive");
-				put("short",   "primitive");
-				put("int",     "int");
-				put("long",    "primitive"); 
-				
-				put("float",   "primitive");
-				put("double",  "primitive");
-		
-				put("void",    "void");
-			}}
-		);
-	
+    private static long deriveSemantics(final JavaMethod javaMethod) {
+        return javaMethod.getSemantics();
+    }
+    
+    protected static String deriveReturnType(final JavaMethod javaMethod) {
+        final String returnType = javaMethod.getReturnType();
+        return fromFullyQualifiedName(returnType);
+    }
+    
+    @Nullable
+    protected static String deriveParamType(final JavaMethod javaMethod) {
+        final boolean hasParameters = javaMethod.getParameterTypes().length != 0;
+        if (!hasParameters)
+            return "";
+        
+        final String firstParameterTypeName = javaMethod.getParameterTypes()[0];
+        return fromFullyQualifiedName(firstParameterTypeName);
+    }
+    
+    public static String fromFullyQualifiedName(final String fqn) {
+        final String reverseMappingOrNull = FULLY_QUALIFIED_REVERSE_MAP.get(fqn);
+        return reverseMappingOrNull != null ? reverseMappingOrNull : "reference";
+    }
+    
+    @SuppressWarnings("serial")
+    private static final Map<String, String> FULLY_QUALIFIED_REVERSE_MAP =
+        Collections.unmodifiableMap(
+            new HashMap<String, String>(){{
+                put("java.lang.Object", "Object");
+                put("java.lang.String", "String");
+        
+                put("boolean", "boolean");
+                put("byte",    "primitive");
+                put("char",    "primitive");
+                put("short",   "primitive");
+                put("int",     "int");
+                put("long",    "primitive"); 
+                
+                put("float",   "primitive");
+                put("double",  "primitive");
+        
+                put("void",    "void");
+            }}
+        );
+    
     protected static List<String> fixAdditionalTypeTags(
-    	final List<Fragment> fragments, 
-    	final List<String> tags
+        final List<Fragment> fragments, 
+        final List<String> tags
     ) {
-    	final List<String> result = new ArrayList<String>();
+        final List<String> result = new ArrayList<String>();
 
-    	final Iterator<Fragment> fragmentItor = fragments.iterator();
+        final Iterator<Fragment> fragmentItor = fragments.iterator();
         final Iterator<String> tagsItor = tags.iterator();
         
         while (fragmentItor.hasNext() && tagsItor.hasNext()) {

@@ -6,8 +6,8 @@ import org.objectweb.asm.tree.analysis.Frame;
 
 public final class SwitchInsnNodeAnalyzer implements InstructionNodeAnalyzer {
 
-	public void check(final Frame frame, final MethodAnalysisData data) {
-		data.setAttribute(Attribute.HAS_BRANCHES);
-	}
+    public void check(final Frame frame, final MethodAnalysisData data) {
+        data.setAttribute(Attribute.HAS_BRANCHES);
+    }
 
 }

@@ -40,8 +40,8 @@ public final class Rule {
         }
         final Rule w = (Rule) o;
         return getAttribute().equals(w.getAttribute()) 
-        	&& getSeverity().equals(w.getSeverity())
-        	&& ifSet() == w.ifSet();
+            && getSeverity().equals(w.getSeverity())
+            && ifSet() == w.ifSet();
     }
     
     public Attribute getAttribute() {

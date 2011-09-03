@@ -68,79 +68,79 @@ public final class SemanticsMap {
     }
     
     public List<String> findSuggestionsFor(final MethodIdea methodIdea) {
-    	if (methodIdea == null) {
-    		throw new IllegalArgumentException();
-    	}
-    	
-    	final long semantics = methodIdea.getSemantics();
-    	
+        if (methodIdea == null) {
+            throw new IllegalArgumentException();
+        }
+        
+        final long semantics = methodIdea.getSemantics();
+        
         final boolean knowsProfile = profileToSuggestionMap.containsKey(semantics);
         if (knowsProfile) {
             return filterViableSuggestions(
-            	profileToSuggestionMap.get(semantics), 
-            	methodIdea,
-            	LancelotRegistry.getInstance().getRulebook()
+                profileToSuggestionMap.get(semantics), 
+                methodIdea,
+                LancelotRegistry.getInstance().getRulebook()
             );
         }
 
-    	return Collections.emptyList();
+        return Collections.emptyList();
     }
 
     protected static List<String> filterViableSuggestions(
-    	final List<String> suggestions, 
-    	final MethodIdea originalMethodIdea,
-    	final IRulebook rulebook
+        final List<String> suggestions, 
+        final MethodIdea originalMethodIdea,
+        final IRulebook rulebook
     ) {
-    	final List<String> res = new LinkedList<String>();
-    	
-    	for (final String suggestion : suggestions) {
-    		final MethodIdea newIdea = new MethodIdea(
-    			createPhrase(suggestion),
-    			originalMethodIdea.getSemantics(),
-    			originalMethodIdea.getReturnType(),
-    			originalMethodIdea.getParamType()
-    		);
-    		
-    		final boolean isViable = rulebook.findViolations(newIdea).isEmpty();
-			if (isViable) {
-    			res.add(suggestion);
-			}
-    	}
-    	
-		return res;
-	}
+        final List<String> res = new LinkedList<String>();
+        
+        for (final String suggestion : suggestions) {
+            final MethodIdea newIdea = new MethodIdea(
+                createPhrase(suggestion),
+                originalMethodIdea.getSemantics(),
+                originalMethodIdea.getReturnType(),
+                originalMethodIdea.getParamType()
+            );
+            
+            final boolean isViable = rulebook.findViolations(newIdea).isEmpty();
+            if (isViable) {
+                res.add(suggestion);
+            }
+        }
+        
+        return res;
+    }
     
-	protected static MethodPhrase createPhrase(final String suggestion) {
-		final PosTagger tagger = new JavaTagger();
-		
-		final List<String> fragments = new LinkedList<String>(),
-				           tags = new LinkedList<String>();
-		
-		for (final String part : suggestion.split("-")) {
-			if (part.equals("*")) {
-				fragments.add("foo");
-				tags.add("noun"); // Could be anything.
-				continue;
-			} 
-			
-			final Matcher m = TAG_PATTERN.matcher(part);
-			if (m.matches()) {
-				fragments.add("foo");
-				tags.add(m.group(1));
-				continue;
-			}
-			
-			assert ! part.contains("[");
-			assert ! part.contains("/");
-			
-			fragments.add(part);
-			tags.add(tagger.tag(Arrays.asList(new String[]{ part })).get(0));
-		}
-		
-		return new MethodPhrase(fragments, tags);
-	}
+    protected static MethodPhrase createPhrase(final String suggestion) {
+        final PosTagger tagger = new JavaTagger();
+        
+        final List<String> fragments = new LinkedList<String>(),
+                           tags = new LinkedList<String>();
+        
+        for (final String part : suggestion.split("-")) {
+            if (part.equals("*")) {
+                fragments.add("foo");
+                tags.add("noun"); // Could be anything.
+                continue;
+            } 
+            
+            final Matcher m = TAG_PATTERN.matcher(part);
+            if (m.matches()) {
+                fragments.add("foo");
+                tags.add(m.group(1));
+                continue;
+            }
+            
+            assert ! part.contains("[");
+            assert ! part.contains("/");
+            
+            fragments.add(part);
+            tags.add(tagger.tag(Arrays.asList(new String[]{ part })).get(0));
+        }
+        
+        return new MethodPhrase(fragments, tags);
+    }
 
-	private static Map<Long, List<String>> parseSuggestions(
+    private static Map<Long, List<String>> parseSuggestions(
         final BufferedReader reader
     ) throws IOException, SemanticsMapInitException {
         final Map<Long, List<String>> res = new HashMap<Long, List<String>>();

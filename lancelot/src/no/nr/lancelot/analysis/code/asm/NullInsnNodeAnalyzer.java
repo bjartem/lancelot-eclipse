@@ -5,7 +5,7 @@ import org.objectweb.asm.tree.analysis.Frame;
 
 public final class NullInsnNodeAnalyzer implements InstructionNodeAnalyzer {
 
-	public void check(final Frame frame, final MethodAnalysisData data) {
-	}
+    public void check(final Frame frame, final MethodAnalysisData data) {
+    }
 
 }

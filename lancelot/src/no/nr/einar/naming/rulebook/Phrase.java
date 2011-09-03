@@ -14,38 +14,38 @@ import java.util.Collections;
 import java.util.Set;
 
 public final class Phrase {  
-	private final String phraseText;
-	private final Set<Rule> rules;
+    private final String phraseText;
+    private final Set<Rule> rules;
     
     public Phrase(final String phraseText, final Set<Rule> rules) {
-    	this.phraseText= phraseText;
-		this.rules = Collections.unmodifiableSet(rules);
+        this.phraseText= phraseText;
+        this.rules = Collections.unmodifiableSet(rules);
     }
     
     public String getPhraseText() {
-    	return phraseText;
+        return phraseText;
     }
     
     public Set<Rule> getRules() {
-    	return rules;
+        return rules;
     }
     
-	@Override
-	public int hashCode() {
-		return phraseText.hashCode();		
-	}
-	
-	// FIXME
-	@Override
-	public boolean equals(final Object other) {
-		if (!(other instanceof Phrase))
-			return false;
-		final Phrase otherPhrase = (Phrase) other;
-		return this.phraseText.equals(otherPhrase.phraseText);
-	}
+    @Override
+    public int hashCode() {
+        return phraseText.hashCode();       
+    }
     
-	@Override
+    // FIXME
+    @Override
+    public boolean equals(final Object other) {
+        if (!(other instanceof Phrase))
+            return false;
+        final Phrase otherPhrase = (Phrase) other;
+        return this.phraseText.equals(otherPhrase.phraseText);
+    }
+    
+    @Override
     public String toString() {
-		return phraseText; 
+        return phraseText; 
     }
 }

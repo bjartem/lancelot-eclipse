@@ -20,10 +20,10 @@ import java.util.regex.Pattern;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class PhraseBuilder {  
-	private PhraseBuilder() {}
-	
+    private PhraseBuilder() {}
+    
     protected static final List<IPhrasePart> derivePhraseParts(final String name) {
-    	final List<IPhrasePart> phraseParts = new ArrayList<IPhrasePart>();
+        final List<IPhrasePart> phraseParts = new ArrayList<IPhrasePart>();
         final String[] parts = name.split("-");
         
         for (final String part: parts) {
@@ -42,37 +42,37 @@ public final class PhraseBuilder {
         }
         
         return phraseParts;
-	}
-	
-	private static final class PhrasePatternMatch {
-    	private static final Pattern phrasePattern = makePhrasePattern();
-    	
-    	public final String nameString;
-    	public final @Nullable String returnTypeStringOrNull,
-    	                              paramTypeStringOrNull;
-    	
-    	PhrasePatternMatch(final String phrase) {
-    		final Matcher phraseMatcher = phrasePattern.matcher(phrase);
-    		ensureMatch(phrase, phraseMatcher);
-    		
-    		this.nameString = phraseMatcher.group(3);
-    		this.returnTypeStringOrNull = phraseMatcher.group(2);
-    		this.paramTypeStringOrNull = phraseMatcher.group(5);
-    	}
-    	
-    	private void ensureMatch(final String phrase, final Matcher phraseMatcher) {
-    		if (!phraseMatcher.matches()) {
-        		throw new RuntimeException("Unmatched phrase '" + phrase + "'!");
-        	}
-    	}
+    }
+    
+    private static final class PhrasePatternMatch {
+        private static final Pattern phrasePattern = makePhrasePattern();
+        
+        public final String nameString;
+        public final @Nullable String returnTypeStringOrNull,
+                                      paramTypeStringOrNull;
+        
+        PhrasePatternMatch(final String phrase) {
+            final Matcher phraseMatcher = phrasePattern.matcher(phrase);
+            ensureMatch(phrase, phraseMatcher);
+            
+            this.nameString = phraseMatcher.group(3);
+            this.returnTypeStringOrNull = phraseMatcher.group(2);
+            this.paramTypeStringOrNull = phraseMatcher.group(5);
+        }
+        
+        private void ensureMatch(final String phrase, final Matcher phraseMatcher) {
+            if (!phraseMatcher.matches()) {
+                throw new RuntimeException("Unmatched phrase '" + phrase + "'!");
+            }
+        }
 
-    	private static Pattern makePhrasePattern() {
-    		final String RE_OPTIONAL_RETURN_TYPE = "((\\S+) )?",
-    				     RE_NAME = "([^\\(]+)",
-    				     RE_OPTIONAL_PARAM_TYPE = "(\\(([^\\)\\.]*?)(\\.\\.\\.)?\\))?";
-    		return Pattern.compile(
-    			"^" + RE_OPTIONAL_RETURN_TYPE + RE_NAME + RE_OPTIONAL_PARAM_TYPE + "$"
-    		);
-    	}
+        private static Pattern makePhrasePattern() {
+            final String RE_OPTIONAL_RETURN_TYPE = "((\\S+) )?",
+                         RE_NAME = "([^\\(]+)",
+                         RE_OPTIONAL_PARAM_TYPE = "(\\(([^\\)\\.]*?)(\\.\\.\\.)?\\))?";
+            return Pattern.compile(
+                "^" + RE_OPTIONAL_RETURN_TYPE + RE_NAME + RE_OPTIONAL_PARAM_TYPE + "$"
+            );
+        }
     }
 }

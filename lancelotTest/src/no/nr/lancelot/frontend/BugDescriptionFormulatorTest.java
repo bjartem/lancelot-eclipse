@@ -76,10 +76,10 @@ public class BugDescriptionFormulatorTest {
     
     @Test 
     public void knowsAllAttributes() {
-    	for (final Attribute attribute : Attribute.values())
-    		assertTrue(
-    			"BugDescriptionFormulator must know attribute " + attribute, 
-    			BugDescriptionFormulator.ATTRIBUTE_DESCRIPTIONS.containsKey(attribute)
-    		);
+        for (final Attribute attribute : Attribute.values())
+            assertTrue(
+                "BugDescriptionFormulator must know attribute " + attribute, 
+                BugDescriptionFormulator.ATTRIBUTE_DESCRIPTIONS.containsKey(attribute)
+            );
     }
 }
