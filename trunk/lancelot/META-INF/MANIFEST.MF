@@ -12,9 +12,7 @@ Bundle-ClassPath: .,
  lib/asm-analysis-3.0.jar,
  lib/asm-tree-3.0.jar,
  lib/edu.mit.jwi_2.1.4_jdk.jar,
- lib/annotations.jar,
- lib/jsr305.jar,
- lib/pb-analysis.jar
-Export-Package: no.nr.einar.naming.rulebook,
- no.nr.einar.pb.model,
- no.nr.lancelot.analysis
+ lib/annotations.jar
+Export-Package: no.nr.lancelot.frontend,
+ no.nr.lancelot.model,
+ no.nr.lancelot.rulebook
