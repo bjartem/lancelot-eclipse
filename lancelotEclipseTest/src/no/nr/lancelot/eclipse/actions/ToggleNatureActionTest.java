@@ -1,6 +1,5 @@
 package no.nr.lancelot.eclipse.actions;
 
-import static org.junit.Assert.fail;
 import no.nr.lancelot.eclipse.nature.LancelotNature;
 import no.nr.lancelot.eclipse.test.TestProject;
 
@@ -8,7 +7,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class ToggleNatureActionTest {
 
@@ -44,6 +42,7 @@ public class ToggleNatureActionTest {
         return false;
     }
 
+    /*
     @Test
     public void testToggleNature() {
         fail("Not yet implemented");
@@ -78,4 +77,5 @@ public class ToggleNatureActionTest {
     public void testReportEnabling() {
         fail("Not yet implemented");
     }
+    */
 }
