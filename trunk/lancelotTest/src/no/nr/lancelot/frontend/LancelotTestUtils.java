@@ -26,7 +26,8 @@ import no.nr.lancelot.tagging.LingoReader.LingoInitException;
 public class LancelotTestUtils {
     public static final String CLASS_LOCATION, 
                                CLASS_DIRECTORY_PATH, 
-                               LANCELOT_INSTALL_PATH, 
+                               LANCELOT_TEST_INSTALL_PATH, 
+                               LANCELOT_INSTALL_PATH,
                                RESOURCES_URL_PREFIX,
                                TEST_RESOURCES_URL_PREFIX;
 
@@ -40,10 +41,11 @@ public class LancelotTestUtils {
             LancelotTestUtils.class.getSimpleName() + ".class"
         ).getFile();
         CLASS_DIRECTORY_PATH = new File(CLASS_LOCATION).getParent();
-        LANCELOT_INSTALL_PATH = CLASS_DIRECTORY_PATH.replaceAll("bin/.*", "");
+        LANCELOT_TEST_INSTALL_PATH = CLASS_DIRECTORY_PATH.replaceAll("bin/.*", "");
+        LANCELOT_INSTALL_PATH = LANCELOT_TEST_INSTALL_PATH + "../lancelot/";
         
         RESOURCES_URL_PREFIX = "file://" + LANCELOT_INSTALL_PATH + "resources/";
-        TEST_RESOURCES_URL_PREFIX = "file://" + LANCELOT_INSTALL_PATH + "test-resources/";
+        TEST_RESOURCES_URL_PREFIX = "file://" + LANCELOT_TEST_INSTALL_PATH + "test-resources/";
         
         RULEBOOK_URL = createUrl(RESOURCES_URL_PREFIX + "rules.xml");
         WORDNET_URL = createUrl(RESOURCES_URL_PREFIX + "wordnet-3-dict/");
