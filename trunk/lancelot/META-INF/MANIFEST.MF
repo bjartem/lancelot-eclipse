@@ -13,6 +13,10 @@ Bundle-ClassPath: .,
  lib/asm-tree-3.0.jar,
  lib/edu.mit.jwi_2.1.4_jdk.jar,
  lib/annotations.jar
-Export-Package: no.nr.lancelot.frontend,
+Export-Package: no.nr.lancelot.frontend;
+  uses:="no.nr.lancelot.tagging,
+   no.nr.lancelot.rulebook,
+   edu.mit.jwi,
+   no.nr.lancelot.model",
  no.nr.lancelot.model,
- no.nr.lancelot.rulebook
+ no.nr.lancelot.rulebook;uses:="no.nr.lancelot.model"
