@@ -8,23 +8,12 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.eclipse.testdata.suppressing_annotation_test_proj;
+package no.nr.lancelot.eclipse.testdata.suppressing_annotation_test_proj.non_suppressed_package;
 
-public class Car {
-    private int n;
-    
-    public void setAge() {
+public class A {
+    public boolean setContains() {
         int n = 12;
         if (n < 14)
             ++n;
-    }
-    
-    @SuppressWarnings("NamingBug")
-    public void getHope() {
-        int n = 12;
-        if (n < 14)
-            ++n;
-        for (int k = 0; k != (1 << 12); k *= 2)
-            --n;
     }
 }
