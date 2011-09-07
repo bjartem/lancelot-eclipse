@@ -89,13 +89,7 @@ final class AnonymousTypeFinder {
         
         if (anonClasses.size() <= anonIndex) 
             return null;
-        
-//        System.out.printf(" Found %d anon classes in %s!\n", anonClasses.size(), parentType.getElementName());
-//        for (int i = 0; i < anonClasses.size(); ++i)
-//            System.out.printf("  %d = %s   %s\n", i, anonClasses.get(i).getFullyQualifiedName(),
-//                            anonClasses.get(i).getParent());
-        
-        
+             
         sortAnonymous(anonClasses, parentType);
         return anonClasses.get(anonIndex);
     }
