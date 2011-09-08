@@ -11,7 +11,6 @@
 package no.nr.lancelot.rulebook;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,7 +27,6 @@ public final class Rulebook implements IRulebook {
     }
 
     private final Map<String, Phrase> phrases;
-    private final Phrase root = new Phrase("*", Collections.<Rule>emptySet());
 
     public Rulebook(final URL ruleBookUrl) throws RulebookInitException {
         if (ruleBookUrl == null) {
@@ -52,7 +50,7 @@ public final class Rulebook implements IRulebook {
     }
 
     private void addRoot() {
-        phrases.put("*", root);
+        phrases.put(IRulebook.ROOT.getPhraseText(), IRulebook.ROOT);
     }
     
     private void addPhrases(final List<Phrase> phrases_) {
@@ -62,7 +60,7 @@ public final class Rulebook implements IRulebook {
     }
     
     @Override
-    public Set<Rule> findViolations(final MethodIdea methodIdea) {
+    public IRulebookLookupResult lookup(final MethodIdea methodIdea) {
         if (methodIdea == null) {
             throw new IllegalArgumentException();
         }
@@ -78,7 +76,7 @@ public final class Rulebook implements IRulebook {
             }
         }
         
-        return violations;
+        return new RulebookLookupResult(bestMatchingPhrase, rules, violations);
     }
     
     public Phrase find(final MethodIdea methodIdea) {
@@ -146,7 +144,7 @@ public final class Rulebook implements IRulebook {
         }
         
         if (phraseText == null)
-            return root;
+            return IRulebook.ROOT;
         
         final String param_part;
         if (methodIdea.getParamType().equals("")) { 

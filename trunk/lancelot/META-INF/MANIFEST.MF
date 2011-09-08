@@ -4,7 +4,6 @@ Bundle-Name: Lancelot
 Bundle-SymbolicName: no.nr.lancelot;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Norwegian Computing Center
-Require-Bundle: org.junit;bundle-version="4.8.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
  lib/xom-1.1.jar,

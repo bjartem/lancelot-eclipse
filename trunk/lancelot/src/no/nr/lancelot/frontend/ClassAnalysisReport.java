@@ -12,23 +12,25 @@ package no.nr.lancelot.frontend;
 
 import java.util.List;
 
+import no.nr.lancelot.model.JavaClass;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
-import no.nr.lancelot.model.JavaClass;
-
-public final class ClassAnalysisReport implements IClassAnalysisReport {
+public final class ClassAnalysisReport implements IClassAnalysisReport {    
     private final JavaClass javaClass;
     private final List<IMethodBugReport> methodBugReports;
     private final Object operationKey;
+    private final BugStatisticsData statisticsData;
     
     ClassAnalysisReport(
         final JavaClass javaClass, 
         final List<IMethodBugReport> bugReports,
-        final Object operationKey
+        final Object operationKey,
+        final BugStatisticsData statisticsData
     ) {
         this.javaClass = javaClass;
         this.methodBugReports = bugReports;
         this.operationKey = operationKey;
+        this.statisticsData = statisticsData;
     }
     
     @Override
@@ -58,18 +60,13 @@ public final class ClassAnalysisReport implements IClassAnalysisReport {
     }
     
     @Override
-    public int getMethodCount() {
-        return javaClass.getMethods().length;
-    }
-    
-    @Override
-    public int getBuggyMethodCount() {
-        return methodBugReports.size();
+    public BugStatisticsData getStatisticsData() {
+        return statisticsData;
     }
 
     @Override
     public String toString() {
-        return String.format("[ClassAnalysisReport. Package: %s. Class: %s. Bug count: %d]", 
-                             getPackageName(), getClassName(), getBuggyMethodCount()); 
+        return String.format("[ClassAnalysisReport. Package: %s. Class: %s]", 
+                             getPackageName(), getClassName()); 
     }
 }
