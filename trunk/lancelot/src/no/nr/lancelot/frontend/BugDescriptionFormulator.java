@@ -41,7 +41,7 @@ public final class BugDescriptionFormulator {
 
                 put(Attribute.FIELD_WRITER,           "write to fields");
                 put(Attribute.FIELD_READER,           "read field values");
-                put(Attribute.PARAMETER_TO_FIELD,     "stores parameters to fields");
+                put(Attribute.PARAMETER_TO_FIELD,     "store parameters to fields");
                 put(Attribute.RETURNS_FIELD_VALUE,    "return field values");
                 put(Attribute.TYPE_MANIPULATOR,       "perform runtime type manipulation");
                 put(Attribute.RETURNS_CREATED_OBJECT, "return created objects");
@@ -61,10 +61,10 @@ public final class BugDescriptionFormulator {
                 
                 put(Attribute.RECURSIVE_CALL,           "use recursive calls");
                 put(Attribute.SAME_NAME_CALL,           "call methods of the same name");
-                put(Attribute.SAME_VERB_CALL,           "call methods starting with the same verb");
+                put(Attribute.SAME_VERB_CALL,           "call methods named with a similar verbs");
                 put(Attribute.METHOD_CALL_ON_FIELD,     "call methods on fields");
                 put(Attribute.METHOD_CALL_ON_PARAMETER, "call methods on parameters");
-                put(Attribute.PARAMETER_TO_FIELD_CALL,  "PARAMETER_TO_FIELD_CALL");
+                put(Attribute.PARAMETER_TO_FIELD_CALL,  "use parameters in method calls on fields");
             }}
         );
 

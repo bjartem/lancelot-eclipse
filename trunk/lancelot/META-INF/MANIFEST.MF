@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Lancelot
 Bundle-SymbolicName: no.nr.lancelot;singleton:=true
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 0.2.0.qualifier
 Bundle-Vendor: Norwegian Computing Center
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .,
@@ -11,11 +11,65 @@ Bundle-ClassPath: .,
  lib/asm-analysis-3.0.jar,
  lib/asm-tree-3.0.jar,
  lib/edu.mit.jwi_2.1.4_jdk.jar,
- lib/annotations.jar
-Export-Package: no.nr.lancelot.frontend;
+ lib/annotations.jar,
+ lib/jsr305.jar
+Export-Package: edu.mit.jwi;uses:="edu.mit.jwi.data,edu.mit.jwi.item,edu.mit.jwi.data.parse",
+ edu.mit.jwi.data;uses:="edu.mit.jwi.item,edu.mit.jwi.data.parse,edu.mit.jwi.data.compare",
+ edu.mit.jwi.data.compare,
+ edu.mit.jwi.data.parse;uses:="edu.mit.jwi.item",
+ edu.mit.jwi.item;uses:="edu.mit.jwi.data",
+ edu.mit.jwi.morph;uses:="edu.mit.jwi.item,edu.mit.jwi",
+ edu.umd.cs.findbugs.annotations,
+ net.jcip.annotations,
+ no.nr.lancelot.analysis;uses:="no.nr.lancelot.model",
+ no.nr.lancelot.analysis.code.asm;
+  uses:="org.objectweb.asm,
+   no.nr.lancelot.model,
+   org.objectweb.asm.tree,
+   org.objectweb.asm.tree.analysis",
+ no.nr.lancelot.analysis.code.dataflow;uses:="org.objectweb.asm,org.objectweb.asm.tree,org.objectweb.asm.tree.analysis",
+ no.nr.lancelot.analysis.code.descriptor;uses:="no.nr.lancelot.analysis.code.asm",
+ no.nr.lancelot.analysis.name.collapser;uses:="no.nr.lancelot.model",
+ no.nr.lancelot.analysis.name.splitter,
+ no.nr.lancelot.frontend;
   uses:="no.nr.lancelot.tagging,
    no.nr.lancelot.rulebook,
    edu.mit.jwi,
    no.nr.lancelot.model",
  no.nr.lancelot.model,
- no.nr.lancelot.rulebook;uses:="no.nr.lancelot.model"
+ no.nr.lancelot.rulebook;uses:="no.nr.lancelot.model",
+ no.nr.lancelot.tagging,
+ nu.xom;
+  uses:="com.sun.org.apache.xerces.internal.parsers,
+   org.xml.sax.ext,
+   org.apache.xerces.parsers,
+   org.jaxen,
+   org.xml.sax",
+ nu.xom.canonical;uses:="nu.xom",
+ nu.xom.converters;
+  uses:="org.xml.sax.ext,
+   nu.xom,
+   org.w3c.dom,
+   org.xml.sax",
+ nu.xom.tests;uses:="junit.framework,nu.xom",
+ nu.xom.xinclude;uses:="nu.xom",
+ nu.xom.xslt;
+  uses:="org.xml.sax.ext,
+   nu.xom,
+   javax.xml.transform.sax,
+   org.xml.sax",
+ org.jaxen;uses:="org.jaxen.saxpath,org.jaxen.expr",
+ org.jaxen.expr;uses:="org.jaxen,org.jaxen.expr.iter",
+ org.jaxen.expr.iter;uses:="org.jaxen",
+ org.jaxen.function;uses:="org.jaxen",
+ org.jaxen.function.ext;uses:="org.jaxen",
+ org.jaxen.function.xslt;uses:="org.jaxen",
+ org.jaxen.saxpath,
+ org.jaxen.saxpath.base;uses:="org.jaxen.saxpath",
+ org.jaxen.saxpath.helpers;uses:="org.jaxen.saxpath",
+ org.jaxen.util;uses:="org.jaxen",
+ org.objectweb.asm,
+ org.objectweb.asm.signature,
+ org.objectweb.asm.tree;uses:="org.objectweb.asm",
+ org.objectweb.asm.tree.analysis;uses:="org.objectweb.asm,org.objectweb.asm.tree",
+ org.w3c.dom
