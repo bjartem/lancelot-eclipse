@@ -16,6 +16,8 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileInfo;
@@ -24,6 +26,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -116,8 +120,8 @@ public final class TestProject {
         return javaProject;
     }
     
-    public IPackageFragment createPackage(String name) throws CoreException {
-        return rootPackage.createPackageFragment(name, false, null);
+    public IPackageFragment createPackage(final String name) throws CoreException {
+        return rootPackage.createPackageFragment(name, true, new NullProgressMonitor());
     }
     
     public IType createType(
@@ -127,16 +131,22 @@ public final class TestProject {
     ) throws JavaModelException {
         final String fullSource = "package " + pack.getElementName() + ";\n" + source;
         final ICompilationUnit compilationUnit = pack.createCompilationUnit(
-                                                     compilationUnitName, 
-                                                     fullSource, 
-                                                     true, 
-                                                     new NullProgressMonitor()
-                                                 );
+            compilationUnitName, 
+            fullSource, 
+            true, 
+            new NullProgressMonitor()
+        );
         return compilationUnit.findPrimaryType();
     }    
     
     public void fullBuild() throws CoreException {
         project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+    }
+    
+    public void checkFullBuild() throws CoreException {
+        fullBuild();
+        if (!javaProject.hasBuildState()) 
+            throw new RuntimeException();
     }
     
     public void delete() throws CoreException {
@@ -151,6 +161,25 @@ public final class TestProject {
         return file;
     }
     
+    public List<IClassFile> getAllClassFiles() throws CoreException {
+        final List<IClassFile> res = new LinkedList<IClassFile>();
+        outputFolder.accept(new IResourceVisitor() {
+            @Override
+            public boolean visit(final IResource resource) throws CoreException {
+                if (!(resource instanceof IFile)) 
+                    return true;
+                
+                IFile fileResource = (IFile) resource;
+                if (!fileResource.getName().endsWith(".class"))
+                    return false;
+                
+                res.add(JavaCore.createClassFileFrom(fileResource));
+                return false;
+            }
+        });
+        return res;
+    }
+    
     public IClassFile findClassFile(final String relativePath) {
         return JavaCore.createClassFileFrom(findOutputFile(relativePath));
     }
@@ -158,8 +187,8 @@ public final class TestProject {
     public IFile findSourceFile(final String relativePath) {
         final IFile file = sourceFolder.getFile(relativePath);
         if (!file.exists())
-            throw new RuntimeException("findSourceFile failed. File does not exist. relativePath: " 
-                                       + relativePath + ".");
+            throw new RuntimeException("findSourceFile failed. File does not exist. relativePath: '" 
+                                       + relativePath + "'.");
         return file;
     }
     
@@ -181,13 +210,16 @@ public final class TestProject {
         final URL sourceUrl = FileLocator.find(bundle, path, null);
 
         final IFileStore rootStore = EFS.getStore(FileLocator.resolve(sourceUrl).toURI());
-        new RecursiveSourceFileAdder(testProject).addAll(rootStore, "no.nr.lancelot.eclipse.testdata");
+        new RecursiveSourceFileAdder(testProject).addAll(
+            rootStore, 
+            "no.nr.lancelot.eclipse.testdata"
+        );
         
         return testProject;
     }
     
-    private static class RecursiveSourceFileAdder {
-        private TestProject testProject;
+    private static final class RecursiveSourceFileAdder {
+        private final TestProject testProject;
 
         RecursiveSourceFileAdder(final TestProject testProject) {
             this.testProject = testProject;
@@ -200,7 +232,12 @@ public final class TestProject {
             
             if (name.endsWith(".java")) {
                 final IPackageFragment packageFragment = testProject.createPackage(packageName);
-                testProject.createType(packageFragment, name, readSource(store));
+                packageFragment.createCompilationUnit(
+                    name, 
+                    readSource(store), 
+                    true, 
+                    new NullProgressMonitor()
+                );
             } else if (info.isDirectory()) {
                 final String subPackageName = packageName + "." + name;
                 for (final IFileStore childStore : store.childStores(EFS.NONE, null)) 

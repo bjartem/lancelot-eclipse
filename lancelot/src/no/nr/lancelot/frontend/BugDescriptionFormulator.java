@@ -36,34 +36,34 @@ public final class BugDescriptionFormulator {
                 put(Attribute.RETURNS_STRING,         "return String");
                 put(Attribute.RETURNS_REFERENCE,      "return references");
                 put(Attribute.NO_PARAMETERS,          "have no parameters");
-                put(Attribute.RETURN_TYPE_IN_NAME,    "RETURN_TYPE_IN_NAME");
-                put(Attribute.PARAMETER_TYPE_IN_NAME, "PARAMETER_TYPE_IN_NAME");
+                put(Attribute.RETURN_TYPE_IN_NAME,    "have return types in their names");
+                put(Attribute.PARAMETER_TYPE_IN_NAME, "have parameter types in their names");
 
                 put(Attribute.FIELD_WRITER,           "write to fields");
                 put(Attribute.FIELD_READER,           "read field values");
-                put(Attribute.PARAMETER_TO_FIELD,     "PARAMETER TO FIELD");
-                put(Attribute.RETURNS_FIELD_VALUE,    "RETURNS FIELD VALUE");
+                put(Attribute.PARAMETER_TO_FIELD,     "stores parameters to fields");
+                put(Attribute.RETURNS_FIELD_VALUE,    "return field values");
                 put(Attribute.TYPE_MANIPULATOR,       "perform runtime type manipulation");
-                put(Attribute.RETURNS_CREATED_OBJECT, "RETURNS CREATED OBJECTE");
+                put(Attribute.RETURNS_CREATED_OBJECT, "return created objects");
                 
-                put(Attribute.CONTAINS_LOOP,    "loop");
-                put(Attribute.HAS_BRANCHES,     "branch");
-                put(Attribute.MULTIPLE_RETURNS, "have multiple return points");
+                put(Attribute.CONTAINS_LOOP,             "loop");
+                put(Attribute.HAS_BRANCHES,              "branch");
+                put(Attribute.MULTIPLE_RETURNS,          "have multiple return points");
 
-                put(Attribute.CREATES_REGULAR_OBJECTS,   "CREATES_REGULAR_OBJECTS");
-                put(Attribute.CREATES_STRING_OBJECTS,    "CREATES_STRING_OBJECTS");
-                put(Attribute.CREATES_CUSTOM_OBJECTS,    "CREATES_CUSTOM_OBJECTS");
-                put(Attribute.CREATES_OWN_CLASS_OBJECTS, "CREATES_OWN_CLASS_OBJECTS");
+                put(Attribute.CREATES_REGULAR_OBJECTS,   "create regular objects");
+                put(Attribute.CREATES_STRING_OBJECTS,    "create string objects");
+                put(Attribute.CREATES_CUSTOM_OBJECTS,    "create custom objects");
+                put(Attribute.CREATES_OWN_CLASS_OBJECTS, "create instances of their own class");
 
                 put(Attribute.THROWS_EXCEPTIONS,          "throw exceptions");
-                put(Attribute.CATCHES_EXCEPTIONS,         "catches exceptions");
-                put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "exposes checked exceptions");
+                put(Attribute.CATCHES_EXCEPTIONS,         "catch exceptions");
+                put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "expose checked exceptions");
                 
                 put(Attribute.RECURSIVE_CALL,           "use recursive calls");
                 put(Attribute.SAME_NAME_CALL,           "call methods of the same name");
-                put(Attribute.SAME_VERB_CALL,           "SAME_VERB_CALL");
-                put(Attribute.METHOD_CALL_ON_FIELD,     "METHOD_CALL_ON_FIELD");
-                put(Attribute.METHOD_CALL_ON_PARAMETER, "METHOD_CALL_ON_PARAMETER");
+                put(Attribute.SAME_VERB_CALL,           "call methods starting with the same verb");
+                put(Attribute.METHOD_CALL_ON_FIELD,     "call methods on fields");
+                put(Attribute.METHOD_CALL_ON_PARAMETER, "call methods on parameters");
                 put(Attribute.PARAMETER_TO_FIELD_CALL,  "PARAMETER_TO_FIELD_CALL");
             }}
         );

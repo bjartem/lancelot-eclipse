@@ -29,6 +29,7 @@ import no.nr.lancelot.analysis.name.splitter.NameSplitter;
 import no.nr.lancelot.model.JavaClass;
 import no.nr.lancelot.model.JavaMethod;
 import no.nr.lancelot.rulebook.IRulebook;
+import static no.nr.lancelot.rulebook.IRulebook.IRulebookLookupResult;
 import no.nr.lancelot.rulebook.MethodIdea;
 import no.nr.lancelot.rulebook.MethodPhrase;
 import no.nr.lancelot.rulebook.Rule;
@@ -71,27 +72,44 @@ public final class ClassAnalysisOperation {
         final JavaClass javaClass = csa.analyze(new ByteArrayInputStream(byteCode));
         
         final List<IMethodBugReport> bugReports = new LinkedList<IMethodBugReport>();
-
+        
+        int numMethodsTotal = 0,
+            numMethodsCovered = 0,
+            numMethodsBuggy = 0;
+        
         for (final JavaMethod method : javaClass) {
-            final IMethodBugReport bugReportOrNull = checkForBugs(method);    
-            if (bugReportOrNull != null) {
-                bugReports.add(bugReportOrNull);
+            numMethodsTotal++;
+            
+            final MethodIdea idea = deriveIdea(method, tagger);
+            final IRulebookLookupResult rulebookLookupResult = rulebook.lookup(idea);
+            if (!rulebookLookupResult.isCovered()) {
+                continue;
             }
+            
+            numMethodsCovered++;
+            if (!rulebookLookupResult.isBuggy()) {
+                continue;
+            }
+            
+            numMethodsBuggy++;
+            final Set<Rule> violations = rulebookLookupResult.getViolations();
+            final IMethodBugReport bugReport = new MethodBugReport(method, idea, violations);    
+            bugReports.add(bugReport);
         }
         
-        return new ClassAnalysisReport(javaClass, bugReports, key);
+        return new ClassAnalysisReport(
+            javaClass, 
+            bugReports, 
+            key, 
+            new IClassAnalysisReport.BugStatisticsData(
+                numMethodsTotal, 
+                numMethodsCovered, 
+                numMethodsBuggy
+            )
+        );
     }
     
-    public IMethodBugReport checkForBugs(final JavaMethod method) {
-        final MethodIdea idea = deriveIdea(method, tagger);
-        final Set<Rule> violations = rulebook.findViolations(idea);
-        if (violations.isEmpty())
-            return null;
-        
-        return new MethodBugReport(method, idea, violations);
-    }
-    
-    // FIXME. MOVE AWAY TO SEPARATE CLASS.
+    // TODO MOVE AWAY TO SEPARATE CLASS.
     public static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
         final MethodPhrase phrase = derivePhrase(javaMethod, tagger);
         final long semantics = deriveSemantics(javaMethod);

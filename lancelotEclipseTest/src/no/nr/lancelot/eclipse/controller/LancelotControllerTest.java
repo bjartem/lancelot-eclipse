@@ -31,7 +31,8 @@ public final class LancelotControllerTest {
         final IGatherer gatherer = context.mock(IGatherer.class);
         final IAnalyser analyzer = context.mock(IAnalyser.class);
         final ILancelotView view = context.mock(ILancelotView.class);
-        final LancelotController controller = new LancelotController(gatherer, analyzer, view, new NullProgressMonitor());
+        final LancelotController controller = new LancelotController(
+                                              gatherer, analyzer, view, new NullProgressMonitor());
     }
     
     @Test

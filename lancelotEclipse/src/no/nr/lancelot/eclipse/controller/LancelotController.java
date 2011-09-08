@@ -18,6 +18,7 @@ import no.nr.lancelot.eclipse.analysis.IAnalyser;
 import no.nr.lancelot.eclipse.gathering.IGatherer;
 import no.nr.lancelot.eclipse.view.ILancelotView;
 import no.nr.lancelot.frontend.IClassAnalysisReport;
+import no.nr.lancelot.frontend.IClassAnalysisReport.BugStatisticsData;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -103,18 +104,24 @@ public final class LancelotController {
     
     private String makeCoverageReport() {
         int totalMethodCount = 0, 
-            buggyMethodCount = 0;
+            totalCoveredMethodCount = 0,
+            totalBuggyMethodCount = 0;
         
         for (IClassAnalysisReport report : analysisReports) {
-            totalMethodCount += report.getMethodCount();
-            buggyMethodCount += report.getBuggyMethodCount();
+            final BugStatisticsData statisticsData = report.getStatisticsData();
+            totalMethodCount += statisticsData.numMethodsTotal;
+            totalCoveredMethodCount += statisticsData.numMethodsCovered;
+            totalBuggyMethodCount += statisticsData.numMethodsBuggy;
         }
 
         return String.format(
-            "[Total method count: %d, buggy method count: %d, bug percent: %f]",
+            "[Total method count: %d, covered method count: %d, buggy method count: %d, "
+                                                + "coverage percent: %f  bug percent: %f]",
             totalMethodCount,
-            buggyMethodCount,
-            100 * buggyMethodCount / (double) totalMethodCount
+            totalCoveredMethodCount,
+            totalBuggyMethodCount,
+            100 * totalCoveredMethodCount / (double) Math.max(1.0, totalMethodCount),
+            100 * totalBuggyMethodCount / (double) Math.max(1.0, totalCoveredMethodCount)
         );
     }
 

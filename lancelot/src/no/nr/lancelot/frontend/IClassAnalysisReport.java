@@ -15,11 +15,27 @@ import java.util.List;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
 public interface IClassAnalysisReport {
+    class BugStatisticsData {
+        public final int numMethodsTotal,
+                         numMethodsCovered,
+                         numMethodsBuggy;
+
+        BugStatisticsData(
+            final int numMethodsTotal, 
+            final int numMethodsCovered, 
+            final int numMethodsBuggy
+        ) {
+            this.numMethodsTotal = numMethodsTotal;
+            this.numMethodsCovered = numMethodsCovered;
+            this.numMethodsBuggy = numMethodsBuggy;
+            
+        }
+    }
+    
     String getPackageName();
     String getClassName();
     @Nullable Object getOperationKey();
     boolean hasBugs();
     List<IMethodBugReport> getMethodBugReports();
-    int getMethodCount();
-    int getBuggyMethodCount();
+    BugStatisticsData getStatisticsData();
 }
