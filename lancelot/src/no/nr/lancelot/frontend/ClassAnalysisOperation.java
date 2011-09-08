@@ -109,7 +109,6 @@ public final class ClassAnalysisOperation {
         );
     }
     
-    // TODO MOVE AWAY TO SEPARATE CLASS.
     public static MethodIdea deriveIdea(final JavaMethod javaMethod, final PosTagger tagger) {
         final MethodPhrase phrase = derivePhrase(javaMethod, tagger);
         final long semantics = deriveSemantics(javaMethod);

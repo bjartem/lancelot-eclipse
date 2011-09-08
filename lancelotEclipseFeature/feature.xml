@@ -2,22 +2,25 @@
 <feature
       id="no.nr.lancelot.eclipse.feature"
       label="Lancelot"
-      version="0.1.0.qualifier"
+      version="0.2.0.qualifier"
       provider-name="Norwegian Comping Center"
       plugin="no.nr.lancelot.eclipse">
 
    <description url="http://code.google.com/p/lancelot-eclipse/">
-      Lancelot is a static analysis tool for finding badly named methods
-in Java code.
+      Lancelot is an Eclipse plugin that identifies naming bugs: methods
+that significantly differ from the vast majority of methods with 
+similar names in a large body of well-known Java software. When 
+possible, Lancelot also suggests better-fitting names for such 
+ill-named methods.
    </description>
 
    <copyright>
-(c) 2011 Norwegian Computing Center.
+      (c) 2011 Norwegian Computing Center.
 All rights reserved.
    </copyright>
 
    <license>
-The Lancelot Eclipse Feature consists of the Lancelot Eclipse Plugin
+      The Lancelot Eclipse Feature consists of the Lancelot Eclipse Plugin
 and the Lancelot Eclipse Engine.
 
 Lancelot Eclipse Feature is Copyright (c) 2011 Norwegian Computing Center. 
@@ -58,7 +61,7 @@ Licensed under the following terms:
        contributors may be used to endorse or promote products derived from
        this software without specific prior written permission.
 
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;
     AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
     ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
@@ -88,7 +91,7 @@ This software and database is being provided to you, the LICENSEE, by
     documentation, including modifications that you make for internal
     use or for distribution.
 
-    THIS SOFTWARE AND DATABASE IS PROVIDED "AS IS" AND PRINCETON
+    THIS SOFTWARE AND DATABASE IS PROVIDED &quot;AS IS&quot; AND PRINCETON
     UNIVERSITY MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR
     IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, PRINCETON
     UNIVERSITY MAKES NO REPRESENTATIONS OR WARRANTIES OF MERCHANT-
@@ -144,7 +147,7 @@ This is the full text of the MIT JWI NC License:
     http://creativecommons.org/licenses/by-nc/3.0/legalcode
 
     THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE
-    COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY
+    COMMONS PUBLIC LICENSE (&quot;CCPL&quot; OR &quot;LICENSE&quot;). THE WORK IS PROTECTED BY
     COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS
     AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
 
@@ -155,7 +158,7 @@ This is the full text of the MIT JWI NC License:
 
     1. Definitions
 
-    a. "Adaptation" means a work based upon the Work, or upon the Work and other
+    a. &quot;Adaptation&quot; means a work based upon the Work, or upon the Work and other
     pre-existing works, such as a translation, adaptation, derivative work,
     arrangement of music or other alterations of a literary or artistic work, or
     phonogram or performance and includes cinematographic adaptations or any
@@ -164,10 +167,10 @@ This is the full text of the MIT JWI NC License:
     constitutes a Collection will not be considered an Adaptation for the purpose
     of this License. For the avoidance of doubt, where the Work is a musical
     work, performance or phonogram, the synchronization of the Work in
-    timed-relation with a moving image ("synching") will be considered an
+    timed-relation with a moving image (&quot;synching&quot;) will be considered an
     Adaptation for the purpose of this License.
 
-    b. "Collection" means a collection of literary or artistic works, such as
+    b. &quot;Collection&quot; means a collection of literary or artistic works, such as
     encyclopedias and anthologies, or performances, phonograms or broadcasts, or
     other works or subject matter other than works listed in Section 1(f) below,
     which, by reason of the selection and arrangement of their contents,
@@ -178,14 +181,14 @@ This is the full text of the MIT JWI NC License:
     not be considered an Adaptation (as defined above) for the purposes of this
     License.
 
-    c. "Distribute" means to make available to the public the original and copies
+    c. &quot;Distribute&quot; means to make available to the public the original and copies
     of the Work or Adaptation, as appropriate, through sale or other transfer of
     ownership.
 
-    d. "Licensor" means the individual, individuals, entity or entities that
+    d. &quot;Licensor&quot; means the individual, individuals, entity or entities that
     offer(s) the Work under the terms of this License.
 
-    e. "Original Author" means, in the case of a literary or artistic work, the
+    e. &quot;Original Author&quot; means, in the case of a literary or artistic work, the
     individual, individuals, entity or entities who created the Work or if no
     individual or entity can be identified, the publisher; and in addition (i) in
     the case of a performance the actors, singers, musicians, dancers, and other
@@ -195,7 +198,7 @@ This is the full text of the MIT JWI NC License:
     fixes the sounds of a performance or other sounds; and, (iii) in the case of
     broadcasts, the organization that transmits the broadcast.
 
-    f. "Work" means the literary and/or artistic work offered under the terms of
+    f. &quot;Work&quot; means the literary and/or artistic work offered under the terms of
     this License including without limitation any production in the literary,
     scientific and artistic domain, whatever may be the mode or form of its
     expression including digital form, such as a book, pamphlet and other
@@ -212,12 +215,12 @@ This is the full text of the MIT JWI NC License:
     copyrightable work; or a work performed by a variety or circus performer to
     the extent it is not otherwise considered a literary or artistic work.
 
-    g. "You" means an individual or entity exercising rights under this License
+    g. &quot;You&quot; means an individual or entity exercising rights under this License
     who has not previously violated the terms of this License with respect to the
     Work, or who has received express permission from the Licensor to exercise
     rights under this License despite a previous violation.
 
-    h. "Publicly Perform" means to perform public recitations of the Work and to
+    h. &quot;Publicly Perform&quot; means to perform public recitations of the Work and to
     communicate to the public those public recitations, by any means or process,
     including by wire or wireless means or public digital performances; to make
     available to the public Works in such a way that members of the public may
@@ -227,7 +230,7 @@ This is the full text of the MIT JWI NC License:
     public digital performance; to broadcast and rebroadcast the Work by any
     means including signs, sounds or images.
 
-    i. "Reproduce" means to make copies of the Work by any means including
+    i. &quot;Reproduce&quot; means to make copies of the Work by any means including
     without limitation by sound or visual recordings and the right of fixation
     and reproducing fixations of the Work, including storage of a protected
     performance or phonogram in digital form or other electronic medium.
@@ -252,9 +255,9 @@ This is the full text of the MIT JWI NC License:
     b. to create and Reproduce Adaptations provided that any such Adaptation,
     including any translation in any medium, takes reasonable steps to clearly
     label, demarcate or otherwise identify that changes were made to the original
-    Work. For example, a translation could be marked "The original work was
-    translated from English to Spanish," or a modification could indicate "The
-    original work has been modified.";
+    Work. For example, a translation could be marked &quot;The original work was
+    translated from English to Spanish,&quot; or a modification could indicate &quot;The
+    original work has been modified.&quot;;
 
     c. to Distribute and Publicly Perform the Work including as incorporated in
     Collections;
@@ -308,16 +311,16 @@ This is the full text of the MIT JWI NC License:
     to the medium or means You are utilizing: (i) the name of the Original Author
     (or pseudonym, if applicable) if supplied, and/or if the Original Author
     and/or Licensor designate another party or parties (e.g., a sponsor
-    institute, publishing entity, journal) for attribution ("Attribution
-    Parties") in Licensor's copyright notice, terms of service or by other
+    institute, publishing entity, journal) for attribution (&quot;Attribution
+    Parties&quot;) in Licensor&apos;s copyright notice, terms of service or by other
     reasonable means, the name of such party or parties; (ii) the title of the
     Work if supplied; (iii) to the extent reasonably practicable, the URI, if
     any, that Licensor specifies to be associated with the Work, unless such URI
     does not refer to the copyright notice or licensing information for the Work;
     and, (iv) consistent with Section 3(b), in the case of an Adaptation, a
-    credit identifying the use of the Work in the Adaptation (e.g., "French
-    translation of the Work by Original Author," or "Screenplay based on original
-    Work by Original Author"). The credit required by this Section 4(c) may be
+    credit identifying the use of the Work in the Adaptation (e.g., &quot;French
+    translation of the Work by Original Author,&quot; or &quot;Screenplay based on original
+    Work by Original Author&quot;). The credit required by this Section 4(c) may be
     implemented in any reasonable manner; provided, however, that in the case of
     a Adaptation or Collection, at a minimum such credit will appear, if a credit
     for all contributing authors of the Adaptation or Collection appears, then as
@@ -360,11 +363,11 @@ This is the full text of the MIT JWI NC License:
     Publicly Perform the Work either by itself or as part of any Adaptations or
     Collections, You must not distort, mutilate, modify or take other derogatory
     action in relation to the Work which would be prejudicial to the Original
-    Author's honor or reputation. Licensor agrees that in those jurisdictions
+    Author&apos;s honor or reputation. Licensor agrees that in those jurisdictions
     (e.g. Japan), in which any exercise of the right granted in Section 3(b) of
     this License (the right to make Adaptations) would be deemed to be a
     distortion, mutilation, modification or other derogatory action prejudicial
-    to the Original Author's honor and reputation, the Licensor will waive or not
+    to the Original Author&apos;s honor and reputation, the Licensor will waive or not
     assert, as appropriate, this Section, to the fullest extent permitted by the
     applicable national law, to enable You to reasonably exercise Your right
     under Section 3(b) of this License (right to make Adaptations) but not
@@ -446,7 +449,18 @@ This is the full text of the MIT JWI NC License:
     additional rights not granted under this License, such additional rights are
     deemed to be included in the License; this License is not intended to
     restrict the license of any rights under applicable law.
-    </license>
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.6.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.6.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.jdt.core.manipulation" version="1.3.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.text" version="3.5.0" match="greaterOrEqual"/>
+   </requires>
 
    <plugin
          id="no.nr.lancelot.eclipse"
