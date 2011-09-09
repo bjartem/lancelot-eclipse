@@ -3,7 +3,7 @@
       id="no.nr.lancelot.eclipse.feature"
       label="Lancelot"
       version="0.2.0.qualifier"
-      provider-name="Norwegian Comping Center"
+      provider-name="Norwegian Computing Center"
       plugin="no.nr.lancelot.eclipse">
 
    <description url="http://code.google.com/p/lancelot-eclipse/">
