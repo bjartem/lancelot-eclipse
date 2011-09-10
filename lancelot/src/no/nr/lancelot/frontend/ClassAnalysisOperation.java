@@ -130,8 +130,9 @@ public final class ClassAnalysisOperation {
         
         for (final Fragment fragment : collapsedFragments) {
             fragments.add(fragment.getText());
-            if (fragment.isTypeName()) 
+            if (fragment.isTypeName()) {
                 javaMethod.flagAsTypeName(fragment.getText());
+            }
         }
         
         final List<String> tags = tagger.tag(fragments);
@@ -150,8 +151,9 @@ public final class ClassAnalysisOperation {
     @Nullable
     protected static String deriveParamType(final JavaMethod javaMethod) {
         final boolean hasParameters = javaMethod.getParameterTypes().length != 0;
-        if (!hasParameters)
+        if (!hasParameters) {
             return "";
+        }
         
         final String firstParameterTypeName = javaMethod.getParameterTypes()[0];
         return fromFullyQualifiedName(firstParameterTypeName);

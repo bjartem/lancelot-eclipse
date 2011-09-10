@@ -49,10 +49,10 @@ public final class MethodBugReport implements IMethodBugReport {
         this.method = method;
         this.methodIdea = methodIdea;
         this.violations = Collections.unmodifiableList(new LinkedList<Rule>(violations));
-        this.textualDescription = computeTextualDescription(method, violations);
+        this.textualDescription = createTextualDescription(method, violations);
     }
 
-    private String computeTextualDescription(
+    private String createTextualDescription(
         final JavaMethod method,
         final Collection<Rule> violations
     ) {
@@ -83,8 +83,8 @@ public final class MethodBugReport implements IMethodBugReport {
         return textualDescription;
     }
     
-    /* Note that we use |violations| >= 1, to reason that
-     * the result is guaranteed to be at least NOTIFY.
+    /* Because |violations| >= 1, the result 
+     * is guaranteed to be at least NOTIFY.
      */
     @Override
     public Severity getMaximumSeverity() {

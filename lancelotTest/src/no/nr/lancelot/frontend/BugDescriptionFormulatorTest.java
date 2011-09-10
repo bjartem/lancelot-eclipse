@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import no.nr.lancelot.frontend.BugDescriptionFormulator;
 import no.nr.lancelot.model.Attribute;
@@ -27,9 +28,8 @@ public class BugDescriptionFormulatorTest {
         assertEquals("AA", BugDescriptionFormulator.concat("AA"));
         assertEquals("AABBCC", BugDescriptionFormulator.concat("AA", "BB", "CC"));
     }
-
+    
     @Test
-    @SuppressWarnings("serial")
     public void testConjugate() {
         assertEquals(
             "",
@@ -43,31 +43,25 @@ public class BugDescriptionFormulatorTest {
         assertEquals(
             "A",
             BugDescriptionFormulator.conjugate(
-                new ArrayList<String>(){{
-                    add("A");
-                }},
+                toArrayList("A"),
                 "sep",
                 "conj"
            )
         );
 
         assertEquals(
-            "AsepconjB",
+            "AlPHAsEpcONjBeTA",
             BugDescriptionFormulator.conjugate(
-                new ArrayList<String>(){{
-                    add("A"); add("B");
-                }},
-                "sep",
-                "conj"
+                toArrayList("AlPHA", "BeTA"),
+                "sEp",
+                "cONj"
            )
         );
         
         assertEquals(
-            "AsepBsepCsepconjD",
+            "AsepBBsepCCCsepconjDDDD",
             BugDescriptionFormulator.conjugate(
-                new ArrayList<String>(){{
-                    add("A"); add("B"); add("C"); add("D");
-                }},
+                toArrayList("A", "BB", "CCC", "DDDD"),
                 "sep",
                 "conj"
            )
@@ -81,5 +75,9 @@ public class BugDescriptionFormulatorTest {
                 "BugDescriptionFormulator must know attribute " + attribute, 
                 BugDescriptionFormulator.ATTRIBUTE_DESCRIPTIONS.containsKey(attribute)
             );
+    }
+    
+    private static ArrayList<String> toArrayList(final String... strings) {
+    	return new ArrayList<String>(Arrays.asList(strings));
     }
 }
