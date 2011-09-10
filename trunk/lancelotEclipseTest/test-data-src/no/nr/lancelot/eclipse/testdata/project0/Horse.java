@@ -8,12 +8,26 @@
  * Contributors:
  *     Norwegian Computing Center - initial API and implementation
  ******************************************************************************/
-package no.nr.lancelot.eclipse.testdata.suppressing_annotation_test_proj.non_suppressed_package;
+package no.nr.lancelot.eclipse.testdata.suppressing_annotation_test_proj;
 
-public class A {
-    public boolean setContains() {
-        int n = 12;
-        if (n < 14)
-            ++n;
+@SuppressWarnings("NamingBug")
+public class Horse {
+    private int n;
+    
+    public void shouldNotMark_A() {
+        n = 12;
+    }
+    
+    public void shouldNotMark_B() {
+        int k = 12;
+        if (k < 14)
+            ++k;
+    }
+   
+    public int shouldNotMark_C() {
+        int k = 12;
+        if (k < 14)
+            ++k;
+        return k;
     }
 }

@@ -13,18 +13,29 @@ package no.nr.lancelot.eclipse.testdata.suppressing_annotation_test_proj;
 public class Car {
     private int n;
     
-    public void setAge() {
-        int n = 12;
-        if (n < 14)
-            ++n;
+    public void shouldMark_A() {
+        n = 12;
     }
     
     @SuppressWarnings("NamingBug")
-    public void getHope() {
-        int n = 12;
-        if (n < 14)
-            ++n;
-        for (int k = 0; k != (1 << 12); k *= 2)
-            --n;
+    public void shouldNotMark_A() {
+        int k = 12;
+        if (k < 14)
+            ++k;
+    }
+    
+    public void shouldMark_B() {
+        n = 12;
+    }
+    
+    public void shouldMark_C() {
+        n = 12;
+    }
+    
+    @SuppressWarnings("NamingBug")
+    public void shouldNotMark_B() {
+        int k = 12;
+        if (k < 14)
+            ++k;
     }
 }
