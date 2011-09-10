@@ -24,42 +24,73 @@ import no.nr.lancelot.rulebook.Rulebook.RulebookInitException;
 import no.nr.lancelot.tagging.LingoReader.LingoInitException;
 
 public class LancelotTestUtils {
-    public static final String CLASS_LOCATION, 
-                               CLASS_DIRECTORY_PATH, 
-                               LANCELOT_TEST_INSTALL_PATH, 
-                               LANCELOT_INSTALL_PATH,
-                               RESOURCES_URL_PREFIX,
+    public static final String RESOURCES_URI_PREFIX,
                                TEST_RESOURCES_URL_PREFIX;
 
-    public static final URL RULEBOOK_URL,
-                            WORDNET_URL;
-    public static final File LINGO_FILE,
-                             REVERSE_MAP_FILE;
+    private static final URL RULEBOOK_URI,
+                             WORDNET_URL;
+    private static final File LINGO_FILE,
+                              REVERSE_MAP_FILE;
     
     static {
-        CLASS_LOCATION = LancelotTestUtils.class.getResource(
+        final String classLocation = LancelotTestUtils.class.getResource(
             LancelotTestUtils.class.getSimpleName() + ".class"
         ).getFile();
-        CLASS_DIRECTORY_PATH = new File(CLASS_LOCATION).getParent();
-        LANCELOT_TEST_INSTALL_PATH = CLASS_DIRECTORY_PATH.replaceAll("bin/.*", "");
-        LANCELOT_INSTALL_PATH = LANCELOT_TEST_INSTALL_PATH + "../lancelot/";
+        final File classDirectory = new File(classLocation).getParentFile();
         
-        RESOURCES_URL_PREFIX = "file://" + LANCELOT_INSTALL_PATH + "resources/";
-        TEST_RESOURCES_URL_PREFIX = "file://" + LANCELOT_TEST_INSTALL_PATH + "test-resources/";
+        final File LANCELOT_TEST_INSTALL_PATH = findAncestorByName(classDirectory, "lancelotTest");
+        final File LANCELOT_INSTALL_PATH = findFileByName(
+            LANCELOT_TEST_INSTALL_PATH.getParentFile(), 
+            "lancelot"
+        );
         
-        RULEBOOK_URL = createUrl(RESOURCES_URL_PREFIX + "rules.xml");
-        WORDNET_URL = createUrl(RESOURCES_URL_PREFIX + "wordnet-3-dict/");
-        LINGO_FILE = new File(LANCELOT_INSTALL_PATH + "resources/manual_dict.txt");
-        REVERSE_MAP_FILE = new File(LANCELOT_INSTALL_PATH + "resources/reverse_map.txt");
+        RESOURCES_URI_PREFIX = toURIString(
+            findFileByName(
+                LANCELOT_INSTALL_PATH, 
+                "resources"
+            )
+        );
+        TEST_RESOURCES_URL_PREFIX = toURIString(
+        	findFileByName(
+        		LANCELOT_TEST_INSTALL_PATH, 
+        		"test-resources"
+        	)
+        );
+        
+        RULEBOOK_URI = createURI(RESOURCES_URI_PREFIX + "rules.xml");
+        WORDNET_URL = createURI(RESOURCES_URI_PREFIX + "wordnet-3-dict/");
+        
+        final File resourcesDir = findFileByName(LANCELOT_INSTALL_PATH, "resources");
+        LINGO_FILE = findFileByName(resourcesDir, "manual_dict.txt"); 
+        REVERSE_MAP_FILE = findFileByName(resourcesDir, "reverse_map.txt"); 
     }
     
     public static void loadProductionConfiguration() 
-    throws RulebookInitException, LingoInitException, SemanticsMapInitException {
-        if (!LancelotRegistry.isInitialized())
-            LancelotRegistry.initialize(RULEBOOK_URL, WORDNET_URL, LINGO_FILE, REVERSE_MAP_FILE);
+    		throws RulebookInitException, LingoInitException, SemanticsMapInitException {
+    	if (!LancelotRegistry.isInitialized())
+    		LancelotRegistry.initialize(RULEBOOK_URI, WORDNET_URL, LINGO_FILE, REVERSE_MAP_FILE);
     }
+    
+    private static File findFileByName(final File parentFile, final String name) {
+    	for (final File child : parentFile.listFiles()) {
+    		if (child.getName().equals(name)) {
+    			return child;
+    		}
+    	}
+    	throw new RuntimeException("Could not locate file by name: '" + name + "'.");
+    }
+    
+    private static File findAncestorByName(final File file, final String name) {
+    	return file.getName().equals(name) ? 
+    		file : 
+    		findAncestorByName(file.getParentFile(), name);
+    }
+    
+    private static String toURIString(final File file) {
+		return file.toURI().toString();
+	}
 
-    public static URL createUrl(final String spec) {
+    public static URL createURI(final String spec) {
         try {
             return new URL(spec);
         } catch (MalformedURLException e) {
