@@ -11,9 +11,9 @@
 package no.nr.lancelot.eclipse.test;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
@@ -50,13 +50,23 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.osgi.framework.Bundle;
 
 public final class TestProject {
+	public static final String TEST_PROJECTS_PKG_PREFIX = "no.nr.lancelot.eclipse.testdata";
+	
     public interface TestProjectThunk {
         public void run(TestProject testProject) throws Exception;
     }
     
-    //@ FIXME TODO! Locate programmatically if possible, or make note.
-    private static final IPath RT_JAR_PATH = 
-            new Path("/usr/lib/jvm/java-6-sun-1.6.0.26/jre/lib/rt.jar");
+    private static final IPath RT_JAR_PATH;
+    
+    static {
+    	final String sep = File.separator;
+    	RT_JAR_PATH = Path.fromOSString(
+    	    System.getProperty("java.home") + sep + "lib" + sep + "rt.jar"
+        );
+    	if (!RT_JAR_PATH.toFile().exists()) {
+    		throw new RuntimeException("Test error. rt.jar lookup failed.");
+    	}
+    }
     
     private final IProject project;
     private final IJavaProject javaProject;
@@ -82,7 +92,7 @@ public final class TestProject {
     
     private void addJavaNature() throws CoreException {
         final IProjectDescription desc = project.getDescription();
-        desc.setNatureIds(new String[] { JavaCore.NATURE_ID });
+        desc.setNatureIds(new String[]{ JavaCore.NATURE_ID });
         project.setDescription(desc, new NullProgressMonitor());
     }
     
@@ -201,18 +211,19 @@ public final class TestProject {
         }
     }
     
-    public static TestProject createTestProjectFromScenario(final String name) 
-    throws CoreException, IOException, URISyntaxException {
+    public static TestProject createTestProjectFromScenario(final String name) throws Exception {
         final TestProject testProject = new TestProject("Test project for " + name);
         
         final Bundle bundle = Platform.getBundle("no.nr.lancelot.eclipseTest");
         final IPath path = new Path("test-data-src/no/nr/lancelot/eclipse/testdata/" + name); 
         final URL sourceUrl = FileLocator.find(bundle, path, null);
-
+        if (sourceUrl == null) 
+        	throw new Exception("Test error, could not locate test project '" + name + "'.");
+        
         final IFileStore rootStore = EFS.getStore(FileLocator.resolve(sourceUrl).toURI());
         new RecursiveSourceFileAdder(testProject).addAll(
             rootStore, 
-            "no.nr.lancelot.eclipse.testdata"
+            TEST_PROJECTS_PKG_PREFIX
         );
         
         return testProject;

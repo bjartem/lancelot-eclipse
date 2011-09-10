@@ -22,13 +22,13 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.junit.Test;
 
-public class SuppressingAnnotationTest {
-    private static final String TEST_PROJECT_NAME = "suppressing_annotation_test_proj";
+public class SuppressingAnnotationsTest {
+    private static final String TEST_PROJECT_NAME = "suppressing_annotations_test";
     
     private TestProject testProject = null;
     
     @Test
-    public void tesxtx() throws Exception {
+    public void testSuppressingAnnotations() throws Exception {
         testProject = TestProject.createTestProjectFromScenario(TEST_PROJECT_NAME);
         
         testProject.checkFullBuild();
@@ -47,12 +47,18 @@ public class SuppressingAnnotationTest {
         
         for (final Checker checker : checkers)
             checker.checkMarkers();
+        		
+        assertEquals(2, Checker.totalNumMethodsMarked);
+        assertEquals(5, Checker.totalNumMethodsIgnored);
     }
     
     private static final class Checker {
         private final IClassFile classFile;
         private final IType sourceType;
         private final IMethod[] methods;
+        
+        private static int totalNumMethodsMarked = 0,
+        		           totalNumMethodsIgnored = 0;
         
         public Checker(final IClassFile classFile) throws JavaModelException {
             this.classFile = classFile;
@@ -83,8 +89,11 @@ public class SuppressingAnnotationTest {
                 if (methodName.startsWith("shouldMark")) {
                     assertTrue(methodName + " should be marked", hasMarker);
                     numMarked++;
-                } else if (methodName.startsWith("shouldIgnore"))
+                    totalNumMethodsMarked++;
+                } else if (methodName.startsWith("shouldIgnore")) {
                     assertFalse(methodName + " should be ignored", hasMarker);
+                    totalNumMethodsIgnored++;
+                }
             }
             
             assertEquals(numMarked, markers.length);
@@ -92,7 +101,7 @@ public class SuppressingAnnotationTest {
         
         private IType findSourceType(final IClassFile classFile) throws JavaModelException {
             return classFile.getJavaProject().findType(
-                "no.nr.lancelot.eclipse.testdata.suppressing_annotation_test_proj", 
+                TestProject.TEST_PROJECTS_PKG_PREFIX + "." + TEST_PROJECT_NAME, 
                 classFile.getElementName().replace(".class", ""), 
                 new NullProgressMonitor()
             );

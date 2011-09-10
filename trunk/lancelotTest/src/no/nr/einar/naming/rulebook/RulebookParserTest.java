@@ -1,7 +1,7 @@
 package no.nr.einar.naming.rulebook;
 
 import static no.nr.lancelot.frontend.LancelotTestUtils.TEST_RESOURCES_URL_PREFIX;
-import static no.nr.lancelot.frontend.LancelotTestUtils.createUrl;
+import static no.nr.lancelot.frontend.LancelotTestUtils.createURI;
 import static no.nr.lancelot.model.Attribute.PARAMETER_TYPE_IN_NAME;
 import static no.nr.lancelot.model.Attribute.RETURNS_STRING;
 import static no.nr.lancelot.model.Attribute.RETURN_TYPE_IN_NAME;
@@ -22,7 +22,7 @@ import no.nr.lancelot.rulebook.RulebookParser;
 import org.junit.Test;
 
 public class RulebookParserTest {
-    private static final URL RULEBOOK_PARSER_TEST_RULEBOOK_URL = createUrl(
+    private static final URL RULEBOOK_PARSER_TEST_RULEBOOK_URL = createURI(
         TEST_RESOURCES_URL_PREFIX + "RulebookParserTest.java.rulebook.xml"
     );
     
