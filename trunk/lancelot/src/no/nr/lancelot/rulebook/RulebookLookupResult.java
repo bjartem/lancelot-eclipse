@@ -14,7 +14,19 @@ public class RulebookLookupResult implements IRulebookLookupResult {
         final Set<Rule> rules, 
         final Set<Rule> violations
     ) {
-        this.bestMatchingPhrase = bestMatchingPhrase;
+    	if (bestMatchingPhrase == null) {
+    		throw new IllegalArgumentException("bestMatchingPhrase cannot be null!"); 
+    	}
+    	
+    	if (rules == null) {
+    		throw new IllegalArgumentException("rules cannot be null!"); 
+    	}
+    	
+    	if (violations == null) {
+    		throw new IllegalArgumentException("violations cannot be null!"); 
+    	}
+        
+    	this.bestMatchingPhrase = bestMatchingPhrase;
         this.rules = rules;
         this.violations = violations;
     }

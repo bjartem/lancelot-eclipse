@@ -2,19 +2,16 @@ package no.nr.lancelot.tagging;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 // FIXME 
 public class MainTagger {
-    private static List<String> makeList(final String... objs) {
-        return Arrays.asList(objs);
-    }
+    @SuppressWarnings("unchecked")
+	private static List<String> 
     
-    @SuppressWarnings("serial")
-    private static List<String> 
-    
-    PREPOSITIONS = makeList(
+    PREPOSITIONS = makeStringList(
         "aboard", "about", "above", "absent", "across", "after", "against",
         "along", "alongside", "amid", "amidst", "among", "amongst", "around",
         "as", "aslant", "astride", "at", "atop", "barring", "before", "behind",
@@ -28,29 +25,29 @@ public class MainTagger {
         "with", "within", "without"
     ),
 
-    COORDINATING_CONJUNCTIONS = makeList(
+    COORDINATING_CONJUNCTIONS = makeStringList(
         "for", "and", "nor", "but", "or", "yet", "so"
     ),
 
-    SUBORDINATING_CONJUNCTIONS = makeList(
+    SUBORDINATING_CONJUNCTIONS = makeStringList(
         "after", "before", "when", "while", "since", "until",
         "because", "as", "so",
         "although", "though", "whereas",
         "if", "unless"
     ),
 
-    personal_pronouns = makeList(
+    PERSONAL_PRONOUNS = makeStringList(
         "I", "we", "you", "he", "she", "it", "they",
         "me", "us", "him", "her", "them",
         "myself", "ourself", "ourselves", "yourself", "yourselves",
         "himself", "herself", "itself", "themselves"
     ),
 
-    possessive_pronouns = makeList("mine", "ours", "yours", "his", "hers", "theirs"),
+    POSSESIVE_PRONOUNS = makeStringList("mine", "ours", "yours", "his", "hers", "theirs"),
 
-    possessive_determiners = makeList("my", "our", "your", "his", "hers", "theirs"),
+    POSSESIVE_DETERMINERS = makeStringList("my", "our", "your", "his", "hers", "theirs"),
 
-    indefinite_pronouns = makeList(
+    INDEFINITE_PRONOUNS = makeStringList(
         "all", "another", "any", "anybody", "anyone", "anything", "both",
         "each", "either", "enough", "every", "everybody", "everyone", "everything",
         "few", "less", "little", "many", "more", "most", "much",
@@ -58,50 +55,49 @@ public class MainTagger {
         "several", "some", "somebody", "someone", "something"
     ),
 
-    demonstrative_pronouns = makeList("that", "this", "such", "these", "those"),
+    DEMONSTRATIVE_PRONOUNS = makeStringList("that", "this", "such", "these", "those"),
 
-    interrogative_pronouns = makeList("who", "which", "what"),
+    INTERROGATIVE_PRONOUNS = makeStringList("who", "which", "what"),
 
-    PRONOUNS = new ArrayList<String>(){{
-        addAll(personal_pronouns);
-        addAll(possessive_pronouns); 
-        addAll(possessive_determiners); 
-        addAll(indefinite_pronouns);
-        addAll(demonstrative_pronouns);
-        addAll(interrogative_pronouns);
-    }},
+    PRONOUNS = joinStringLists(
+        PERSONAL_PRONOUNS,
+        POSSESIVE_PRONOUNS,
+        POSSESIVE_DETERMINERS, 
+        INDEFINITE_PRONOUNS,
+        DEMONSTRATIVE_PRONOUNS,
+        INTERROGATIVE_PRONOUNS
+    ),
 
-    ARTICLES = makeList("the", "a", "an"),
+    ARTICLES = makeStringList("the", "a", "an"),
 
-    CONJUNCTIONS = new ArrayList<String>(){{
-        addAll(COORDINATING_CONJUNCTIONS);
-        addAll(SUBORDINATING_CONJUNCTIONS);
-    }},
+    CONJUNCTIONS = joinStringLists(
+        COORDINATING_CONJUNCTIONS,
+        SUBORDINATING_CONJUNCTIONS
+    ),
     
-    ALSO_VERB = makeList("backup", "shutdown", "lookup", "gen", "exec", "increment"),
+    ALSO_VERB = makeStringList("backup", "shutdown", "lookup", "gen", "exec", "increment"),
 
-    ALSO_NOUN = makeList("decl"),
+    ALSO_NOUN = makeStringList("decl"),
 
-    KNOWN_NOUNS = makeList(
+    KNOWN_NOUNS = makeStringList(
         "action", "mouse", "key", "value", "state", "size", 
         "index", "item", "message", "bean", "model", "result", "table", "document", 
         "input", "instance", "name", "dimension", "double", "float", "long", 
         "short", "character", "object", "attribute"
     ),
 
-    KNOWN_VERBS = makeList(
+    KNOWN_VERBS = makeStringList(
         "is", "has", "equals", "exists", "contains", "matches", 
         "needs", "save", "was", "supports", "are"
     ),
 
-    NOUN_OR_ADJECTIVE = makeList("original", "default"),
+    NOUN_OR_ADJECTIVE = makeStringList("original", "default"),
 
-    KNOWN_ADJECTIVE = makeList(
+    KNOWN_ADJECTIVE = makeStringList(
         "next", "best", "first", "second", "third", 
         "last", "initial", "editable", "empty"
     );
                 
-
     private final ChainTagger remainingTaggerChain = new LingoTagger(new MorphyTagger(null));
     private final WordNet wordNet = new WordNet();
       
@@ -113,34 +109,7 @@ public class MainTagger {
         return $;
     }
     
-    private static boolean isNumber(final String word) {
-        for (char c : word.toCharArray())
-            if (!Character.isDigit(c))
-                return false;
-        return true;        
-    }
-    
-    private static boolean isUppercase(final String word) {
-        for (char c : word.toCharArray())
-            if (!Character.isUpperCase(c))
-                return false;
-        return true;
-    }
-
-    private static boolean isFooable(final String word) {
-        if (word.length() < 6)
-            return false;
-        
-        if (word.endsWith("able")) {
-            if (word.endsWith("table"))
-                return word.endsWith("ttable");
-            return true;
-        }
-        
-        return false;
-    };
-                
-    private List<Tag> tag(String word) {
+    private List<Tag> tag(final String word) {
         final List<Tag> possibilities = new LinkedList<Tag>();
         
         if (isNumber(word)) {
@@ -174,42 +143,100 @@ public class MainTagger {
             return possibilities;
         }
         
-        if (ALSO_NOUN.contains(word))
+        if (ALSO_NOUN.contains(word)) {
             possibilities.add(Tag.Noun);
+        }
             
-        if (ALSO_VERB.contains(word))
+        if (ALSO_VERB.contains(word)) {
             possibilities.add(Tag.Verb);
+        }
         
-        if (PREPOSITIONS.contains(word))
+        if (PREPOSITIONS.contains(word)) {
             possibilities.add(Tag.Preposition);
+        }
         
-        if (PRONOUNS.contains(word))
+        if (PRONOUNS.contains(word)) {
             possibilities.add(Tag.Pronoun);
+        }
         
-        if (CONJUNCTIONS.contains(word))
+        if (CONJUNCTIONS.contains(word)) {
             possibilities.add(Tag.Conjunction);
+        }
         
-        if (ARTICLES.contains(word))
+        if (ARTICLES.contains(word)) {
             possibilities.add(Tag.Article);
+        }
         
-        if (wordNet.isNoun(word))
+        if (wordNet.isNoun(word)) {
             possibilities.add(Tag.Noun);
+        }
         
-        if (wordNet.isVerb(word))
+        if (wordNet.isVerb(word)) {
             possibilities.add(Tag.Verb);
+        }
         
-        if (wordNet.isAdjective(word))
+        if (wordNet.isAdjective(word)) {
             possibilities.add(Tag.Adjective);
+        }
         
-        if (wordNet.isAdverb(word))
+        if (wordNet.isAdverb(word)) {
             possibilities.add(Tag.Adverb);
+        }
 
-        if (possibilities.isEmpty() && isFooable(word))
+        if (possibilities.isEmpty() && isFooable(word)) {
             possibilities.add(Tag.Adjective);
+        }
         
-        if (possibilities.isEmpty())
+        if (possibilities.isEmpty()) {
             return remainingTaggerChain.tag(word);
+        }
 
         return possibilities;
+    }
+    
+    protected static boolean isNumber(final String word) {
+        for (char c : word.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;        
+    }
+    
+    protected static boolean isUppercase(final String word) {
+        for (char c : word.toCharArray()) {
+            if (!Character.isUpperCase(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected static boolean isFooable(final String word) {
+        if (word.length() < 6) {
+            return false;
+        }
+        
+        if (word.endsWith("able")) {
+            if (word.endsWith("table")) {
+                return word.endsWith("ttable");
+            }
+            return true;
+        }
+        
+        return false;
+    };
+                
+    
+    protected static List<String> makeStringList(final String... objs) {
+        return Arrays.asList(objs);
+    }
+
+    protected static List<String> joinStringLists(final List<String>... lists) {
+    	final List<String> res = new ArrayList<String>(1024);
+    	for (final List<String> list : lists) {
+    		res.addAll(list);
+    	}
+    	return res;
     }
 }

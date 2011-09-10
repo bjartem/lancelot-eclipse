@@ -30,41 +30,41 @@ public final class BugDescriptionFormulator {
     protected final static Map<Attribute, String> ATTRIBUTE_DESCRIPTIONS = 
         Collections.unmodifiableMap(
             new EnumMap<Attribute, String>(Attribute.class){{
-                put(Attribute.RETURNS_VOID,           "return void");
-                put(Attribute.RETURNS_INT,            "return int");
-                put(Attribute.RETURNS_BOOLEAN,        "return boolean");
-                put(Attribute.RETURNS_STRING,         "return String");
-                put(Attribute.RETURNS_REFERENCE,      "return references");
-                put(Attribute.NO_PARAMETERS,          "have no parameters");
-                put(Attribute.RETURN_TYPE_IN_NAME,    "have return types in their names");
-                put(Attribute.PARAMETER_TYPE_IN_NAME, "have parameter types in their names");
+    put(Attribute.RETURNS_VOID,               "return void");
+    put(Attribute.RETURNS_INT,                "return int");
+    put(Attribute.RETURNS_BOOLEAN,            "return boolean");
+    put(Attribute.RETURNS_STRING,             "return String");
+    put(Attribute.RETURNS_REFERENCE,          "return references");
+    put(Attribute.NO_PARAMETERS,              "have no parameters");
+    put(Attribute.RETURN_TYPE_IN_NAME,        "have return types in their names");
+    put(Attribute.PARAMETER_TYPE_IN_NAME,     "have parameter type names as part of their names");
 
-                put(Attribute.FIELD_WRITER,           "write to fields");
-                put(Attribute.FIELD_READER,           "read field values");
-                put(Attribute.PARAMETER_TO_FIELD,     "store parameters to fields");
-                put(Attribute.RETURNS_FIELD_VALUE,    "return field values");
-                put(Attribute.TYPE_MANIPULATOR,       "perform runtime type manipulation");
-                put(Attribute.RETURNS_CREATED_OBJECT, "return created objects");
-                
-                put(Attribute.CONTAINS_LOOP,             "loop");
-                put(Attribute.HAS_BRANCHES,              "branch");
-                put(Attribute.MULTIPLE_RETURNS,          "have multiple return points");
+    put(Attribute.FIELD_WRITER,               "write to fields");
+    put(Attribute.FIELD_READER,               "read field values");
+    put(Attribute.PARAMETER_TO_FIELD,         "store parameters in fields");
+    put(Attribute.RETURNS_FIELD_VALUE,        "return field values");
+    put(Attribute.TYPE_MANIPULATOR,           "perform runtime type manipulation");
+    put(Attribute.RETURNS_CREATED_OBJECT,     "return created objects");
+    
+    put(Attribute.CONTAINS_LOOP,              "loop");
+    put(Attribute.HAS_BRANCHES,               "branch");
+    put(Attribute.MULTIPLE_RETURNS,           "have multiple return points");
 
-                put(Attribute.CREATES_REGULAR_OBJECTS,   "create regular objects");
-                put(Attribute.CREATES_STRING_OBJECTS,    "create string objects");
-                put(Attribute.CREATES_CUSTOM_OBJECTS,    "create custom objects");
-                put(Attribute.CREATES_OWN_CLASS_OBJECTS, "create instances of their own class");
+    put(Attribute.CREATES_REGULAR_OBJECTS,    "create regular objects");
+    put(Attribute.CREATES_STRING_OBJECTS,     "create string objects");
+    put(Attribute.CREATES_CUSTOM_OBJECTS,     "create custom objects");
+    put(Attribute.CREATES_OWN_CLASS_OBJECTS,  "create instances of their own class");
 
-                put(Attribute.THROWS_EXCEPTIONS,          "throw exceptions");
-                put(Attribute.CATCHES_EXCEPTIONS,         "catch exceptions");
-                put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "expose checked exceptions");
-                
-                put(Attribute.RECURSIVE_CALL,           "use recursive calls");
-                put(Attribute.SAME_NAME_CALL,           "call methods of the same name");
-                put(Attribute.SAME_VERB_CALL,           "call methods named with a similar verbs");
-                put(Attribute.METHOD_CALL_ON_FIELD,     "call methods on fields");
-                put(Attribute.METHOD_CALL_ON_PARAMETER, "call methods on parameters");
-                put(Attribute.PARAMETER_TO_FIELD_CALL,  "use parameters in method calls on fields");
+    put(Attribute.THROWS_EXCEPTIONS,          "throw exceptions");
+    put(Attribute.CATCHES_EXCEPTIONS,         "catch exceptions");
+    put(Attribute.EXPOSES_CHECKED_EXCEPTIONS, "expose checked exceptions");
+    
+    put(Attribute.RECURSIVE_CALL,             "use recursive calls");
+    put(Attribute.SAME_NAME_CALL,             "call methods of the same name");
+    put(Attribute.SAME_VERB_CALL,             "call methods named with a similar verb");
+    put(Attribute.METHOD_CALL_ON_FIELD,       "call methods on fields");
+    put(Attribute.METHOD_CALL_ON_PARAMETER,   "call methods on parameters");
+    put(Attribute.PARAMETER_TO_FIELD_CALL,    "use parameters in method calls on fields");
             }}
         );
 

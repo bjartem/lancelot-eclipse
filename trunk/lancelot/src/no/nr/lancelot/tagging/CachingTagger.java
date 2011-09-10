@@ -18,29 +18,33 @@ public final class CachingTagger implements PosTagger {
     private final Map<String, List<String>> memo = new HashMap<String, List<String>>();
     private final PosTagger tagger = new JavaTagger();
     
-    private static String getName(final List<String> fragments) {
-        final StringBuffer $ = new StringBuffer();
-        for (final String f : fragments) {
-            if ($.length() > 0) {
-                $.append("-");
-            }
-            $.append(f);
-        }
-        return $.toString();
-    }
-
     public List<String> tag(final List<String> fragments) {
-        final String name = getName(fragments);
-        
-        List<String> tagResult = memo.get(name);
-
-        final boolean isSeenBefore = tagResult != null;
-        if (isSeenBefore) {
-            return tagResult;
+    	if (fragments == null) {
+    		throw new IllegalArgumentException("fragments cannot be null!");
+    	}
+    	
+    	final String key = keyFor(fragments);
+    	
+    	List<String> tagResult = memo.get(key);
+    	
+    	final boolean isSeenBefore = tagResult != null;
+    	if (isSeenBefore) {
+    		return tagResult;
+    	}
+    	
+    	tagResult = tagger.tag(fragments);
+    	memo.put(key, tagResult);
+    	return tagResult;
+    }
+    
+    private static String keyFor(final List<String> fragments) {
+        final StringBuffer sb = new StringBuffer();
+        for (final String f : fragments) {
+            if (sb.length() > 0) {
+                sb.append("-");
+            }
+            sb.append(f);
         }
-        
-        tagResult = tagger.tag(fragments);
-        memo.put(name, tagResult);
-        return tagResult;
+        return sb.toString();
     }
 }

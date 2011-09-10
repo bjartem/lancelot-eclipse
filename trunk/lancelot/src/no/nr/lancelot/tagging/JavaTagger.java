@@ -20,14 +20,18 @@ public final class JavaTagger implements PosTagger {
     
     @Override
     public List<String> tag(final List<String> fragments) {
+    	if (fragments == null) {
+    		throw new IllegalArgumentException("fragments cannot be null!");
+    	}
+    	
         final List<List<Tag>> possibleTags = tagger.tag(fragments);
         final List<Tag> tags = select(possibleTags);
         
-        final List<String> $ = new ArrayList<String>();
+        final List<String> res = new ArrayList<String>();
         for (final Tag t : tags) {
-            $.add(t.name().toLowerCase());
+            res.add(t.name().toLowerCase());
         }
-        return $;
+        return res;
     }
 
     private List<Tag> select(final List<List<Tag>> possibleTagsPerFragment) {
@@ -38,41 +42,41 @@ public final class JavaTagger implements PosTagger {
         for (int i = 0, n = possibleTagsPerFragment.size(); i < n; ++i) {
             List<Tag> possibleTags = possibleTagsPerFragmentIter.next();
             
-            boolean hasNoun = false,
-                    hasVerb = false,
-                    hasAdjective = false,
-                    hasAdverb = false,
-                    hasNumber = false,
-                    hasPronoun = false,
-                    hasPreposition = false,
-                    hasConjunction = false,
-                    hasArticle = false;
+            boolean mayBeNoun = false,
+                    mayBeVerb = false,
+                    mayBeAdjective = false,
+                    mayBeAdverb = false,
+                    mayBeNumber = false,
+                    mayBePronoun = false,
+                    mayBePreposition = false,
+                    mayBeConjunction = false,
+                    mayBeArticle = false;
             
             for (final Tag possibleTag : possibleTags) {
                 switch (possibleTag) {
-                case Noun:        hasNoun = true;        break;
-                case Verb:        hasVerb = true;        break;
-                case Adjective:   hasAdjective = true;   break;
-                case Adverb:      hasAdverb = true;      break;
+                case Noun:        mayBeNoun = true;        break;
+                case Verb:        mayBeVerb = true;        break;
+                case Adjective:   mayBeAdjective = true;   break;
+                case Adverb:      mayBeAdverb = true;      break;
                 
-                case Number:      hasNumber = true;      break;
-                case Pronoun:     hasPronoun = true;     break;
-                case Preposition: hasPreposition = true; break;
-                case Conjunction: hasConjunction = true; break;
-                case Article:     hasArticle = true;     break;
+                case Number:      mayBeNumber = true;      break;
+                case Pronoun:     mayBePronoun = true;     break;
+                case Preposition: mayBePreposition = true; break;
+                case Conjunction: mayBeConjunction = true; break;
+                case Article:     mayBeArticle = true;     break;
                 
-                case Unknown: // Fall through;
-                case Special: break; 
+                case Unknown:     // Fall through;
+                case Special:     break; 
                 
-                default: throw new RuntimeException("Unmatched tag: " + possibleTag);
+                default:          throw new RuntimeException("Unmatched tag: " + possibleTag);
                 }
             }
             
-            if      (hasNumber)      { res.add(Tag.Number);      }
-            else if (hasPronoun)     { res.add(Tag.Pronoun);     }
-            else if (hasPreposition) { res.add(Tag.Preposition); }
-            else if (hasConjunction) { res.add(Tag.Conjunction); }
-            else if (hasArticle)     { res.add(Tag.Article);     }
+            if      (mayBeNumber)      { res.add(Tag.Number);      }
+            else if (mayBePronoun)     { res.add(Tag.Pronoun);     }
+            else if (mayBePreposition) { res.add(Tag.Preposition); }
+            else if (mayBeConjunction) { res.add(Tag.Conjunction); }
+            else if (mayBeArticle)     { res.add(Tag.Article);     }
             
             final boolean wasFoundAmongFirst = res.size() == i+1; 
             if (wasFoundAmongFirst) {
@@ -81,15 +85,15 @@ public final class JavaTagger implements PosTagger {
             
             final boolean isFirst = i == 0;
             if (isFirst) {
-                if      (hasVerb)      { res.add(Tag.Verb);      }
-                else if (hasAdjective) { res.add(Tag.Adjective); }
-                else if (hasAdverb)    { res.add(Tag.Adverb);    }
-                else if (hasNoun)      { res.add(Tag.Noun);      }
+                if      (mayBeVerb)      { res.add(Tag.Verb);      }
+                else if (mayBeAdjective) { res.add(Tag.Adjective); }
+                else if (mayBeAdverb)    { res.add(Tag.Adverb);    }
+                else if (mayBeNoun)      { res.add(Tag.Noun);      }
             } else {
-                if      (hasNoun)      { res.add(Tag.Noun);      }
-                else if (hasAdjective) { res.add(Tag.Adjective); }
-                else if (hasAdverb)    { res.add(Tag.Adverb);    }
-                else if (hasVerb)      { res.add(Tag.Verb);      }
+                if      (mayBeNoun)      { res.add(Tag.Noun);      }
+                else if (mayBeAdjective) { res.add(Tag.Adjective); }
+                else if (mayBeAdverb)    { res.add(Tag.Adverb);    }
+                else if (mayBeVerb)      { res.add(Tag.Verb);      }
             }
 
             final boolean stillNotFound = res.size() == i;
