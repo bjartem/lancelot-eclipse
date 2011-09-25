@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import no.nr.lancelot.model.Attribute;
 import no.nr.lancelot.rulebook.Rule;
@@ -68,6 +70,24 @@ public final class BugDescriptionFormulator {
             }}
         );
 
+    protected final static Map<Attribute, String> ATTRIBUTE_REMARKS = 
+            Collections.unmodifiableMap(
+                new EnumMap<Attribute, String>(Attribute.class){{
+				    put(
+				        Attribute.TYPE_MANIPULATOR,           
+				        "Methods using generics are also tagged as runtime type manipulators"
+				    );
+				    put(
+				    	Attribute.CREATES_REGULAR_OBJECTS,    
+				       "A regular object is one that does not inherit from java.lang.Throwable"
+				    );
+				    put(
+				    	Attribute.CREATES_CUSTOM_OBJECTS,     
+				    	"A custom object is one that neither belongs to java.* nor javax.*"
+				    );
+                }}
+            );
+
     protected static final String PERIOD = ". ";
     protected static final String COLON = ", ";
     protected static final String AND = "and ";
@@ -78,7 +98,7 @@ public final class BugDescriptionFormulator {
     protected static final String RARELY = "rarely ";
     protected static final String SELDOM = "seldom ";
     protected static final String NEVER = "never ";
-    
+
     protected final Collection<Rule> violations;
 
     protected final String description;
@@ -92,7 +112,7 @@ public final class BugDescriptionFormulator {
         }
         
         this.violations = violations;
-        this.description = generate();
+        this.description = generateDescription();
     }
     
     public String getDescription() {
@@ -100,7 +120,7 @@ public final class BugDescriptionFormulator {
     }
 
     @SuppressWarnings("unchecked")
-    protected String generate() {
+    protected String generateDescription() {
         return concat(
             "Methods with this name ",
             conjugate(
@@ -114,11 +134,30 @@ public final class BugDescriptionFormulator {
                 ),
                 COLON,
                 AND
-            )
+            ),
+            generateParentheticalExtras()
         );
     }
     
-    private ArrayList<String> append(final List<String>... lists) {
+    private String generateParentheticalExtras() {
+    	final SortedSet<String> remarks = new TreeSet<String>();
+    	
+    	for (final Rule rule : violations) {
+			final boolean attributeHasRemark = ATTRIBUTE_REMARKS.containsKey(rule.getAttribute());
+			if (attributeHasRemark) {
+				remarks.add(ATTRIBUTE_REMARKS.get(rule.getAttribute()));
+			}
+    	}
+    	
+    	if (remarks.isEmpty()) {
+    		return "";
+    	}
+    	
+    	// Well, exploiting conjugate like this is arguably a rather cheap hack ;)
+    	return concat(". (", conjugate(new ArrayList<String>(remarks), "; ", ""), ".)");
+	}
+
+	private ArrayList<String> append(final List<String>... lists) {
         final ArrayList<String> res = new ArrayList<String>();
         for (final List<String> list : lists) {
             res.addAll(list);
@@ -137,7 +176,7 @@ public final class BugDescriptionFormulator {
     protected final ArrayList<String> filter(final Severity severity, final boolean ifSet) {
         final ArrayList<String> res = new ArrayList<String>();
         for (final Rule rule : violations) {
-            final boolean filterMatches =    rule.getSeverity().equals(severity) 
+            final boolean filterMatches =    rule.getSeverity() == severity 
                                           && rule.ifSet() == ifSet;
             if (filterMatches) {
                 res.add(ATTRIBUTE_DESCRIPTIONS.get(rule.getAttribute()));

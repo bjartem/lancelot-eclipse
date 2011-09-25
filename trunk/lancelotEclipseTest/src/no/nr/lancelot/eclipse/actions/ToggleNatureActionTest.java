@@ -23,7 +23,10 @@ public class ToggleNatureActionTest {
             if (hasLancelotNature(testProjectA) || hasLancelotNature(testProjectB)) 
                 throw new Exception("test error");
             
-            final Object[] selectedObjects = { testProjectA.getJavaProject(), testProjectB.getJavaProject() };
+            final Object[] selectedObjects = { 
+            	testProjectA.getJavaProject(), 
+            	testProjectB.getJavaProject() 
+            };
             
             final ToggleNatureAction action = new ToggleNatureAction();
             action.selectionChanged(null, new StructuredSelection(selectedObjects));
