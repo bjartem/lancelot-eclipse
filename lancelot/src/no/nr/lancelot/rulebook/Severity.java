@@ -11,7 +11,6 @@
 package no.nr.lancelot.rulebook;
 
 public enum Severity {
-    
     NOTIFY(0x1),
     INAPPROPRIATE(0x2),
     FORBIDDEN(0x4);
@@ -25,5 +24,4 @@ public enum Severity {
     public int getFlag() {
         return flag;
     }
-
 }
