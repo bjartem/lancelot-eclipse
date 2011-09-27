@@ -4,6 +4,15 @@ To use Lancelot effectively, users should change/ensure two things in Eclipse's 
   * Set the severity level of `Unhandled token in '@SuppressWarnings'`, at *Compile* → *Errors/Warnings* → *Annotations*, to `Ignore`.
   * Enable `Add line number attributes to generated class file`, at *Preferences* → *Java* → *Compiler*.
 
+==Why doesn't Lancelot complain about my tiny, but horribly named method?===
+Lancelot excludes certain kinds of very small and/or very simple methods because of degeneracy. Among those are empty methods, methods that always return the same integer constants, and methods that always throw exceptions. Because of that, methods like
+{{{
+void isFruitful() throws Exception {
+    throw new Exception():
+}
+}}}
+won't be reported as buggy.
+
 ==Why do Lancelot complain about run-time type manipulation, when my code is cast-free?==
 Usually, type erasure of generic types causes this (rather annoying) phenomenon. Lancelot only looks at JVM bytecode, and currently does not differentiate between explicit source-level casts and implicit casts generated during type erasure. For instance, since the call to `List.get` in
 {{{
