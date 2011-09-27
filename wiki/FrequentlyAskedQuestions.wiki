@@ -4,6 +4,13 @@ To use Lancelot effectively, users should change/ensure two things in Eclipse's 
   * Set the severity level of `Unhandled token in '@SuppressWarnings'`, at *Compile* → *Errors/Warnings* → *Annotations*, to `Ignore`.
   * Enable `Add line number attributes to generated class file`, at *Preferences* → *Java* → *Compiler*.
 
+===What are "regular", "string", "custom" and "own type" objects? ==
+  * A *regular object* is an object that does not inherit from the type `java.lang.Throwable`.
+  * A *string object* is an instance of the type `java.lang.String`.
+  * A *custom object* is one that does not belong to either of the namespaces `java.*` and `javax.*`.
+  * The attribute *creates own type objects* indicates that the method creates an instance of the class on which the method is deﬁned.
+For more information on Lancelot's attribute set, please see the article discussing Lancelot's theory ([http://publications.nr.no/hoest_oestvold_ecoop2009.pdf PDF]).
+
 ==Why doesn't Lancelot complain about my tiny, but horribly named method?===
 Lancelot excludes certain kinds of very small and/or very simple methods because of degeneracy. Among those are empty methods, methods that always return the same integer constants, and methods that always throw exceptions. Because of that, methods like
 {{{
