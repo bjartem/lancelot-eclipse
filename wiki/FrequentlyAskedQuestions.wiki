@@ -1,4 +1,6 @@
+#summary Various questions and answers on installation, usage and theory.
 #labels Phase-Support
+
 ==How should I configure Eclipse to best accomodate Lancelot?==
 To use Lancelot effectively, users should change/ensure two things in Eclipse's preferences:
   * Set the severity level of `Unhandled token in '@SuppressWarnings'`, at *Compile* → *Errors/Warnings* → *Annotations*, to `Ignore`.
