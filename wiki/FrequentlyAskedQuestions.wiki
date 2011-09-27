@@ -1,0 +1,19 @@
+#labels Phase-Support
+==How should I configure Eclipse to best accomodate Lancelot?==
+To use Lancelot effectively, users should change/ensure two things in Eclipse's preferences:
+  * Set the severity level of `Unhandled token in '@SuppressWarnings'`, at *Compile* → *Errors/Warnings* → *Annotations*, to `Ignore`.
+  * Enable `Add line number attributes to generated class file`, at *Preferences* → *Java* → *Compiler*.
+
+==Why do Lancelot complain about run-time type manipulation, when my code is cast-free?==
+Usually, type erasure of generic types causes this (rather annoying) phenomenon. Lancelot only looks at JVM bytecode, and currently does not differentiate between explicit source-level casts and implicit casts generated during type erasure. For instance, since the call to `List.get` in
+{{{
+int foo(java.util.List<Integer> bar) {
+    return bar.get(42);
+}
+}}}
+results in the bytecode
+{{{
+3: invokeinterface (2 args) #2=<InterfaceMethod java.util.List.get (int)java.lang.Object>
+8: checkcast #3=<Class java.lang.Integer>
+}}}
+Lancelot interpretes `foo` as a runtime type manipulator. Whether an attribute that triggers only on explicit, user-introduced, would be more interesting for the analysis, is a question open for discussion, but this behavior is the current state of affairs. 
