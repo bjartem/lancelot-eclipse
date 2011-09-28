@@ -1,7 +1,7 @@
 #summary Various questions and answers on installation, usage and theory.
 #labels Phase-Support
 
-==How should I configure Eclipse to best accomodate Lancelot?==
+==How should I configure Eclipse to best work with Lancelot?==
 To use Lancelot effectively, users should change/ensure two things in Eclipse's preferences:
   * Set the severity level of `Unhandled token in '@SuppressWarnings'`, at *Compile* → *Errors/Warnings* → *Annotations*, to `Ignore`.
   * Enable `Add line number attributes to generated class file`, at *Preferences* → *Java* → *Compiler*.
