@@ -44,7 +44,7 @@ public final class JavaTaggerTest {
     
     @Test
     public void t2() {
-        check(new String[] { "is", "default", "scheme" }, new String[] { "verb", "noun", "noun" });
+        check(new String[] { "is", "default", "scheme", "caching" }, new String[] { "verb", "noun", "noun", "adjective" });
     }
     
     @Test

@@ -79,7 +79,7 @@ public class RunLancelotAction extends AbstractLancelotAction {
         MessageDialogHelper.openInformation(
             "Lancelot cannot run",
             "Some of the selected resources has Java compilation errors. " +
-            "The analysis can not run on code that does not compile."
+            "Lancelot cannot run on code that does not compile."
         );
     }
 
