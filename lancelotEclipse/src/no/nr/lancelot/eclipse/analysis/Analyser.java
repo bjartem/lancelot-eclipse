@@ -51,10 +51,16 @@ public final class Analyser implements IAnalyser {
                 
                 monitor.subTask("Analyzing " + operation.getClassName() + "...");
                 
-                final IClassAnalysisReport analysisReport = operation.run();
-                tempAnalysisReports.add(analysisReport);
-                
-                monitor.worked(1);
+                try {
+                    final IClassAnalysisReport analysisReport = operation.run();
+                    tempAnalysisReports.add(analysisReport);
+                    monitor.worked(1);
+                } catch (Exception e) {
+                    LancelotPlugin.logException(
+                        e, 
+                        "Class analysis operation of " + operation.getClassName() + " blew up!"
+                    );
+                }                
             }
             
             logCompletion();
