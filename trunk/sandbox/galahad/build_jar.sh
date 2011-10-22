@@ -6,8 +6,7 @@ DEPENDENCIES=`find $LANCELOT_PROJECT_DIR $GALAHAD_PROJECT_DIR/lib -name "*.jar"`
 CLASSPATH=$CLASSPATH:.:./jython/jython.jar:`echo $DEPENDENCIES | tr ' ' ':'`
 
 echo "Compiling Galahad's java files..."
-javac -cp $CLASSPATH galahadjava/Main.java
-javac -cp $CLASSPATH galahadjava/Tracker.java
+find galahadjava -name "*.java" | xargs javac -cp $CLASSPATH
 
 rm -fr build_workdir
 mkdir build_workdir
