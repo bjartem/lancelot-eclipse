@@ -74,8 +74,6 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
         }
 
         final String[] alternativeNames = findAlternativeNames(marker);
-        if (alternativeNames.length == 0)
-            return NO_RESOLUTIONS;
 
         final IMethod method = findMethod(marker);
         if (method == null)
