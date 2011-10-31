@@ -172,7 +172,8 @@ public final class BugDescriptionFormulator {
         }
         return res;
     }
-
+    
+    @SuppressWarnings("balba")
     protected final ArrayList<String> filter(final Severity severity, final boolean ifSet) {
         final ArrayList<String> res = new ArrayList<String>();
         for (final Rule rule : violations) {

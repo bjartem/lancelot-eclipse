@@ -26,6 +26,8 @@ import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 
 public final class LancelotRegistry {
+	private static final boolean LANCELOT_DEBUG_ENABLED = false;
+	
     private static LancelotRegistry INSTANCE = null;
     
     private final IRulebook rulebook;
@@ -79,6 +81,10 @@ public final class LancelotRegistry {
     private SemanticsMap createSemanticMap(final File semanticMapFile) 
     throws SemanticsMapInitException {
         return new SemanticsMap(semanticMapFile);
+    }
+    
+    public boolean isDebuggingEnabled() {
+    	return LANCELOT_DEBUG_ENABLED;
     }
 
     public IDictionary getWordnetDictionary() {
