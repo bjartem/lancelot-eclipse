@@ -92,8 +92,11 @@ public final class ClassAnalysisOperation {
             }
             
             numMethodsBuggy++;
-            final Set<Rule> violations = rulebookLookupResult.getViolations();
-            final IMethodBugReport bugReport = new MethodBugReport(method, idea, violations);    
+            final IMethodBugReport bugReport = new MethodBugReport(
+            	method, 
+            	idea, 
+            	rulebookLookupResult
+            );    
             bugReports.add(bugReport);
         }
         

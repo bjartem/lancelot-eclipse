@@ -16,21 +16,23 @@ import java.util.LinkedList;
 import java.util.List;
 
 import no.nr.lancelot.model.JavaMethod;
+import no.nr.lancelot.rulebook.IRulebook.IRulebookLookupResult;
 import no.nr.lancelot.rulebook.MethodIdea;
+import no.nr.lancelot.rulebook.Phrase;
 import no.nr.lancelot.rulebook.Rule;
 import no.nr.lancelot.rulebook.Severity;
 
 public final class MethodBugReport implements IMethodBugReport {
     private final JavaMethod method;
     private final MethodIdea methodIdea;
+    private final Phrase bestMatchingPhrase;
     private final List<Rule> violations;
     private final String textualDescription;
-
     
     public MethodBugReport(
         final JavaMethod method, 
         final MethodIdea methodIdea, 
-        final Collection<Rule> violations
+        final IRulebookLookupResult rulebookLookupResult
     ) {
         if (method == null) {
             throw new IllegalArgumentException("method cannot be null!");
@@ -38,31 +40,49 @@ public final class MethodBugReport implements IMethodBugReport {
         if (methodIdea == null) {
             throw new IllegalArgumentException("methodIdea cannot be null!");
         }
-        if (violations == null) {
-            throw new IllegalArgumentException("violations cannot be null!");
+        if (rulebookLookupResult == null) {
+            throw new IllegalArgumentException("rulebookLookupResult cannot be null!");
         }
     
-        if (violations.isEmpty()) {
+        if (rulebookLookupResult.getViolations().isEmpty()) {
             throw new IllegalArgumentException("violations cannot be empty!");
         }
         
         this.method = method;
         this.methodIdea = methodIdea;
-        this.violations = Collections.unmodifiableList(new LinkedList<Rule>(violations));
-        this.textualDescription = createTextualDescription(method, violations);
+        this.bestMatchingPhrase = rulebookLookupResult.getBestMatchingPhrase();
+        this.violations = Collections.unmodifiableList(
+        	new LinkedList<Rule>(rulebookLookupResult.getViolations())
+        );
+        this.textualDescription = createTextualDescription(method, 
+        	rulebookLookupResult.getViolations()
+        );
     }
 
     private String createTextualDescription(
         final JavaMethod method,
         final Collection<Rule> violations
     ) {
-        return new BugDescriptionFormulator(
+        final String mainDescription = new BugDescriptionFormulator(
             method.getMethodName(), 
             violations
         ).getDescription();
+        
+        if (LancelotRegistry.getInstance().isDebuggingEnabled())
+        	return mainDescription + "  " + createDebugString();
+        else
+        	return mainDescription;
     }
 
-    @Override
+    private String createDebugString() {
+		return String.format(
+			"[Best matching phrase: %s, semantics: %d]",
+			bestMatchingPhrase.getPhraseText(),
+			method.getSemantics()
+		);
+	}
+
+	@Override
     public JavaMethod getMethod() {
         return method;
     }

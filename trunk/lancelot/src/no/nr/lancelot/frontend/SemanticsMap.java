@@ -32,7 +32,7 @@ import no.nr.lancelot.tagging.PosTagger;
 
 public final class SemanticsMap {
     protected static final Pattern TAG_PATTERN = Pattern.compile("^\\[/?(\\w+)\\]$");
-    private static final int MAX_SUGGESTION_COUNT = 6;
+    private static final int MAX_SUGGESTION_COUNT = 4;
     
     @SuppressWarnings("serial")
     public static class SemanticsMapInitException extends Exception {
@@ -90,19 +90,8 @@ public final class SemanticsMap {
         final List<String> res = new LinkedList<String>();
         
         for (final String suggestion : suggestions) {
-            final MethodIdea newIdea = new MethodIdea(
-                createPhrase(suggestion),
-                originalMethodIdea.getSemantics(),
-                originalMethodIdea.getReturnType(),
-                originalMethodIdea.getParamType()
-            );
-            
-            final boolean isViable = rulebook.lookup(newIdea).getViolations().isEmpty();
-            if (isViable) {
-                res.add(suggestion);
-            }
-            
-            if (res.size() > MAX_SUGGESTION_COUNT) {
+            res.add(suggestion);
+            if (res.size() >= MAX_SUGGESTION_COUNT) {
                 break;
             }
         }

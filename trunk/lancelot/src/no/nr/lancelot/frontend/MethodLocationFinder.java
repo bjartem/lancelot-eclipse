@@ -38,7 +38,6 @@ public class MethodLocationFinder {
                     final String signature, 
                     final String[] exceptions
                 ) {
-                    System.out.printf("Visiting %s...\n", desc);
                     final String key = makeKey(name, desc);
                     
                     return new MethodVisitor() {
