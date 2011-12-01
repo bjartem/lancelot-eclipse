@@ -24,7 +24,7 @@ void isFruitful() throws Exception {
 won't be reported as buggy, even though we would expect Lancelot to complain
 both about the non-`boolean` return type and the exception.
 
-Such degenerate methods are often to small for Lancelot to say something meaningful about them, so they are instead ignored.
+Such degenerate methods are considered too special for Lancelot to say anything meaningful about them, so they are simply ignored.
 
 ==Why does Lancelot complain about run-time type manipulation, when my code is cast-free?==
 Usually, type erasure of generic types causes this (rather annoying) phenomenon. Lancelot only looks at JVM bytecode, and currently does not differentiate between explicit source-level casts and implicit casts generated during type erasure. For instance, since the call to `List.get` in
