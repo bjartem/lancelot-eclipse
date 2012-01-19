@@ -22,6 +22,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.JavaCore;
+
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class LancelotMarkerUtil {
     private static final LancelotMarkerUtil INSTANCE = new LancelotMarkerUtil();
@@ -49,6 +53,24 @@ public final class LancelotMarkerUtil {
     public IMarker[] getMarkersInWorkspace() throws CoreException {
         final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
         return workspaceRoot.findMarkers(BUG_MARKER_TYPE, false, IResource.DEPTH_INFINITE);
+    }
+    
+    @Nullable
+    public static IMethod findMethod(final IMarker marker) {
+        final String id = marker.getAttribute(METHOD_HANDLE_ID_ATTRIBUTE, null);
+
+        if (id == null) {
+            LancelotPlugin.logError("marker " + marker + " has no method handle id attribute!");
+            return null;
+        }
+
+        final IMethod method = (IMethod) JavaCore.create(id);
+        if (method == null || !method.exists()) {
+            LancelotPlugin.logError("method for handle " + id + "is null or does not exists!");
+            return null;
+        }
+
+        return method;
     }
     
     // Entry point to our little semi-fluent interface :-) 

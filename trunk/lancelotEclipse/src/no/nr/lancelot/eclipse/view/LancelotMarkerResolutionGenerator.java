@@ -75,7 +75,7 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
 
         final String[] alternativeNames = findAlternativeNames(marker);
 
-        final IMethod method = findMethod(marker);
+        final IMethod method = LancelotMarkerUtil.findMethod(marker);
         if (method == null)
             return NO_RESOLUTIONS;
 
@@ -101,24 +101,6 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
             return EMPTY_STRING_ARRAY;
 
         return serializedNames.split(ALTERNATIVE_NAMES_SEPARATOR_RE);
-    }
-
-    @Nullable
-    private IMethod findMethod(final IMarker marker) {
-        final String id = marker.getAttribute(METHOD_HANDLE_ID_ATTRIBUTE, null);
-
-        if (id == null) {
-            LancelotPlugin.logError("marker " + marker + " has no method handle id attribute!");
-            return null;
-        }
-
-        final IMethod method = (IMethod) JavaCore.create(id);
-        if (method == null || !method.exists()) {
-            LancelotPlugin.logError("method for handle " + id + "is null or does not exists!");
-            return null;
-        }
-
-        return method;
     }
 
     private void assertMarkerIsValid(final IMarker marker) throws CoreException {
@@ -154,8 +136,8 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
                 final RenameSupport renameSupport = RenameSupport.create(method, alternativeName,
                         RenameSupport.UPDATE_REFERENCES);
                 final Shell defaultShell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-                final boolean wasRenamingDone = renameSupport.openDialog(defaultShell, false);
-                if (wasRenamingDone)
+                final boolean renamingWasDone = renameSupport.openDialog(defaultShell, false);
+                if (renamingWasDone)
                     marker.delete();
             } catch (CoreException e) {
                 LancelotPlugin.logException(e);
