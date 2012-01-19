@@ -66,7 +66,7 @@
           class="no.nr.lancelot.eclipse.actions.ToggleNatureAction"
           enablesFor="+"
           id="toggleNatureAction"
-          label="Enable/disable automatical analysis"
+          label="Toggle automatic analysis for selected project"
           menubarPath="lancelot/additions"
       />
     </objectContribution>
@@ -103,16 +103,23 @@
         name="Lancelot"></category>
   </extension>
 
-  <!-- Content generator for naming bug view -->
   <extension point="org.eclipse.ui.ide.markerSupport">
+    <!-- Content generator for naming bug view -->
     <markerContentGenerator
         id="no.nr.lancelot.eclipse.view.markerViewContentGenerator"
         name="Naming Bug Marker Content Generator">
       <markerTypeReference id="no.nr.lancelot.eclipse.namingBugMarker" />
-      <markerFieldReference id="org.eclipse.ui.ide.locationField" />
       <markerFieldReference id="org.eclipse.ui.ide.resourceField" />
+      <markerFieldReference id="no.nr.lancelot.eclipse.view.methodNameField" />
+      <markerFieldReference id="org.eclipse.ui.ide.locationField" />
       <markerFieldReference id="org.eclipse.ui.ide.descriptionField" />
     </markerContentGenerator>
+    
+    <!-- Custom field for method name in naming bug view -->
+    <markerField
+	  class="no.nr.lancelot.eclipse.view.MethodNameField"
+	  id="no.nr.lancelot.eclipse.view.methodNameField"
+	  name="Method name">
+    </markerField> 
   </extension>
-
 </plugin>
