@@ -17,7 +17,6 @@ package no.nr.lancelot.eclipse.view;
 
 import static no.nr.lancelot.eclipse.view.LancelotMarkerUtil.ALTERNATIVE_NAMES_ATTRIBUTE;
 import static no.nr.lancelot.eclipse.view.LancelotMarkerUtil.ALTERNATIVE_NAMES_SEPARATOR_RE;
-import static no.nr.lancelot.eclipse.view.LancelotMarkerUtil.METHOD_HANDLE_ID_ATTRIBUTE;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,7 +27,6 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IMethod;
-import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -57,8 +55,6 @@ import org.eclipse.ui.IMarkerResolution;
 import org.eclipse.ui.IMarkerResolution2;
 import org.eclipse.ui.IMarkerResolutionGenerator;
 import org.eclipse.ui.PlatformUI;
-
-import edu.umd.cs.findbugs.annotations.Nullable;
 
 public final class LancelotMarkerResolutionGenerator implements IMarkerResolutionGenerator {
     private static final IMarkerResolution[] NO_RESOLUTIONS = {};
@@ -115,16 +111,35 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
         private final String alternativeName;
         private final IMethod method;
         private final IMarker intendedMarker;
+        private final String label;
 
         public LancelotRenameResolution(final IMethod method, final String alternativeName, final IMarker intendedMarker) {
             this.method = method;
             this.alternativeName = alternativeName;
             this.intendedMarker = intendedMarker;
+            
+            // TODO. This is too ad hoc.
+            final String firstSegment = extractFirstCamelCasedSegment(method.getElementName());
+            if (alternativeName.equals(firstSegment + "-*"))
+                label = String.format("Keep '%s', change suffix", firstSegment);
+            else
+                label = String.format("Rename to '%s'", alternativeName);
         }
 
         @Override
         public String getLabel() {
-            return String.format("Rename '%s' to '%s'", method.getElementName(), alternativeName);
+            return label;
+        }
+        
+        // TODO. Move to utility class.
+        private static String extractFirstCamelCasedSegment(final String s) {
+            int p = 0;
+            for (char c : s.toCharArray()) {
+                if (Character.isUpperCase(c))
+                    break;
+                p++;
+            }   
+            return s.substring(0, p);
         }
 
         @Override
@@ -170,7 +185,7 @@ public final class LancelotMarkerResolutionGenerator implements IMarkerResolutio
         @Override
         public String getLabel() {
             final String methodName = method.getElementName();
-            return "Add @SuppressWarnings 'NamingBug' to " + methodName + "'";
+            return "Add @SuppressWarnings 'NamingBug' to '" + methodName + "'";
         }
 
         @Override
